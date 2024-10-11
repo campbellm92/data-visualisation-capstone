@@ -89,6 +89,10 @@ router.post('/register', function (req, res, next) {
   queryUsers.then(users => {
     if (users.length > 0) {
       console.log("User already exists");
+      res.status(400).json({
+        error: true,
+        message: "User already exists"
+      });
       return;
     }
 
