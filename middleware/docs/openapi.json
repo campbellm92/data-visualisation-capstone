@@ -1,0 +1,284 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Localis Data API",
+        "description": "This is a simple Express API based on the supplied Localis data. It currently supports retrieving all data combine and also data in the 2 original formats - length of stay data and occupancy data",
+        "version": "1.0.0",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "email": "j.hogan@qut.edu.au"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "servers": [
+        {
+            "url": "/"
+        }
+    ],
+    "tags": [
+        {
+            "name": "query",
+            "description": "API queries."
+        },
+        {
+            "name": "update",
+            "description": "API updates of database entities."
+        }
+    ],
+    "paths": {
+        "/api/combined_data": {
+            "get": {
+                "tags": [
+                    "query"
+                ],
+                "summary": "List all data combined",
+                "description": "Full listing of all data combined from the database",
+                "operationId": "listAllData",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Error": {
+                                    "type": "string",
+                                    "enum": [
+                                        "true",
+                                        "false"
+                                    ]
+                                },
+                                "Message": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Success",
+                                        "Failure"
+                                    ]
+                                },
+                                "combined_data": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "sample_date": {
+                                                "type": "date"
+                                            },
+                                            "lga_name": {
+                                                "type": "string"
+                                            },
+                                            "average_historical_occupancy": {
+                                                "type": "number"
+                                            },
+                                            "average_daily_rate": {
+                                                "type": "number"
+                                            },
+                                            "average_length_of_stay": {
+                                                "type": "number"
+                                            },
+                                            "average_booking_window": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/combined_data/{LGAName}": {
+            "get": {
+                "tags": [
+                    "query"
+                ],
+                "summary": "List all data combined filtered by LGA Name",
+                "description": "Listing of combined data filtered by LGA Name from the database",
+                "operationId": "listAllDataByLGA",
+                "parameters": [
+                    {
+                        "name": "LGAName",
+                        "in": "path",
+                        "description": "The LGA Name in question ie. Noosa, Whitsunday, Cairns, Gold Coast",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Error": {
+                                    "type": "string",
+                                    "enum": [
+                                        "true",
+                                        "false"
+                                    ]
+                                },
+                                "Message": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Success",
+                                        "Failure"
+                                    ]
+                                },
+                                "combined_data": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "sample_date": {
+                                                "type": "date"
+                                            },
+                                            "lga_name": {
+                                                "type": "string"
+                                            },
+                                            "average_historical_occupancy": {
+                                                "type": "number"
+                                            },
+                                            "average_daily_rate": {
+                                                "type": "number"
+                                            },
+                                            "average_length_of_stay": {
+                                                "type": "number"
+                                            },
+                                            "average_booking_window": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/length_of_stay": {
+            "get": {
+                "tags": [
+                    "query"
+                ],
+                "summary": "List all length of stay data",
+                "description": "Full listing of length of stay data from the database",
+                "operationId": "listAllLengthOfStay",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Error": {
+                                    "type": "string",
+                                    "enum": [
+                                        "true",
+                                        "false"
+                                    ]
+                                },
+                                "Message": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Success",
+                                        "Failure"
+                                    ]
+                                },
+                                "combined_data": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "sample_date": {
+                                                "type": "date"
+                                            },
+                                            "lga_name": {
+                                                "type": "string"
+                                            },
+                                            "average_length_of_stay": {
+                                                "type": "number"
+                                            },
+                                            "average_booking_window": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/occupancy_daily_rate": {
+            "get": {
+                "tags": [
+                    "query"
+                ],
+                "summary": "List all occupancy data",
+                "description": "Full listing of all occupancy data from the database",
+                "operationId": "listAllOccupancyData",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Error": {
+                                    "type": "string",
+                                    "enum": [
+                                        "true",
+                                        "false"
+                                    ]
+                                },
+                                "Message": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Success",
+                                        "Failure"
+                                    ]
+                                },
+                                "combined_data": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "sample_date": {
+                                                "type": "date"
+                                            },
+                                            "lga_name": {
+                                                "type": "string"
+                                            },
+                                            "average_historical_occupancy": {
+                                                "type": "number"
+                                            },
+                                            "average_daily_rate": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
