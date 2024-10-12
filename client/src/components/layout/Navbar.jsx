@@ -1,4 +1,5 @@
 import { ButtonSmall } from "../ui/Buttons";
+import AuthModal from "../User/AuthModal";
 
 export default function Navbar() {
   return (
@@ -70,8 +71,19 @@ export default function Navbar() {
         </ul>
       </div>
       <div className="navbar-end">
-        <ButtonSmall>Login</ButtonSmall>
+        {/* Button to trigger modal */}
+        <ButtonSmall
+          onClick={() => {
+            console.log("Modal button clicked");
+            document.getElementById("auth_modal").showModal();
+          }}
+        >
+          Login/Register
+        </ButtonSmall>
       </div>
+
+      {/* Render the AuthModal */}
+      <AuthModal />
     </div>
   );
 }
