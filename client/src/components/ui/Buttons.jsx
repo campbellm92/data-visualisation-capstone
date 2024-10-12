@@ -1,6 +1,6 @@
-export function ButtonSmall({ children }) {
+export function ButtonSmall({ children, onClick }) {
   return (
-    <button className="btn btn-sm btn-primary text-primary-content">
+    <button className="btn btn-sm btn-primary text-primary-content" onClick={onClick}>
       {children}
     </button>
   );
@@ -28,8 +28,14 @@ export function ButtonSmallWide({ children }) {
   );
 }
 
-export function ButtonMediumWide({ children }) {
+export function ButtonMediumWide({ children, onClick }) {
   return (
-    <button className="btn btn-md btn-primary btn-wide">{children}</button>
+    <button className="btn btn-md btn-primary btn-wide" onClick={onClick}>{children}</button>
+  );
+}
+
+export function ButtonMediumFullWide({ children, onClick }) {
+  return (
+    <button className="btn btn-md btn-primary btn-wide w-full" onClick={onClick}>{children}</button>
   );
 }

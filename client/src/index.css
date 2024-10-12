@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*Custome Css for modal*/
+.modal-box {
+    height: auto;
+    background-color: white;
+    overflow-y: visible; /* Ensure overflow is visible if needed */
+    border: 0;
+    box-shadow: none;
+    position: relative;
+  }
+  
+
