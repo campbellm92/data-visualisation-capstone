@@ -8,20 +8,6 @@ router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
 
-/*
-router.post('/login', function(req, res, next) {
-  const expires_in = 60 * 60 * 24;
-  const exp = Math.floor(Date.now() / 1000) + expires_in;
-  const token = jwt.sign({ exp }, process.env.JWT_SECRET);
-  res.status(200).json({
-    token,
-    token_type: "Bearer",
-    expires_in
-  });
-});
-*/
-
-
 router.post('/login', function (req, res, next) {
   // 1. Retrieve email and password from req.body
   const email = req.body.email;
@@ -74,12 +60,13 @@ router.post('/register', function (req, res, next) {
   // Retrieve email and password from req.body
   const email = req.body.email;
   const password = req.body.password;
+  const LGAName = req.body.LGAName;
 
   // Verify body
-  if (!email || !password) {
+  if (!email || !password || !LGAName) {
     res.status(400).json({
       error: true,
-      message: "Request body incomplete - email and password needed"
+      message: "Error - request body incomplete - email, password and LGAName needed"
     });
     return;
   }
@@ -87,11 +74,11 @@ router.post('/register', function (req, res, next) {
   // Determine if user already exists in table
   const queryUsers = req.db.from("users").select("*").where("email", "=", email);
   queryUsers.then(users => {
+
     if (users.length > 0) {
-      console.log("User already exists");
       res.status(400).json({
         error: true,
-        message: "User already exists"
+        message: "Error - User already exists"
       });
       return;
     }
@@ -99,10 +86,23 @@ router.post('/register', function (req, res, next) {
     // Insert user into DB
     const saltRounds = 10;
     const hash = bcrypt.hashSync(password, saltRounds);
-    return req.db.from("users").insert({ email, hash });
-  })
+    req.db.from("users").insert({ email, hash, LGAName })
     .then(() => {
       res.status(201).json({ success: true, message: "User created" });
+    })
+      .catch((err) => {
+        res.status(400).json({
+          error: true,
+          message: "Error - " + err.sqlMessage
+        });
+      });
+
+  })
+    .catch((err) => {
+      res.status(400).json({
+        error: true,
+        message: "Error registering user "
+      });
     });
 });
 
