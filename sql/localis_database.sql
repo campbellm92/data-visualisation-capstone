@@ -107,9 +107,11 @@ CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
   `hash` varchar(60) NOT NULL,
+  `LGAName` varchar(45) NOT NULL,
+  `approved` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,6 +120,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'bill222@example.come','$2b$10$VG1ZPvbG5785wNFj0joSsOQArer6c7kkbJsSoQCgUooTp7KHhNUr.','Gold Coast',0),(2,'bill2224322@example.come','$2b$10$.M8LABjjJoYZR4XvgvaJKuXbYcFkztlMPx8REi7oerlkOubVKjDbq','Gold Coast',0),(3,'bill22324322@example.come','$2b$10$N9FcIMj7RnmeMMQEktEVzeat0eiG63inWy1oSFRC7W4H1SLsEgDh.','',0),(4,'bill2232423322@example.come','$2b$10$Su1VRiJ9XYCKukZE5AEkHO59gqpxJpbXk/lg7Fe9PAYaixxmxGGrW','Gold Coast',0),(5,'bill22232423322@example.come','$2b$10$OUnpFVZRSu.1QmFkcDRlOOTFviHnRgxKA9f.jTJR09wOU0Kx0Ytp6','Noosa',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -130,4 +133,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-11 18:09:35
+-- Dump completed on 2024-10-13 16:42:45
