@@ -394,11 +394,17 @@
                                         "type": "string",
                                         "description": "User's password",
                                         "example": "123password"
+                                    },
+                                    "LGAName": {
+                                        "type": "string",
+                                        "description": "Local Government Area of the user",
+                                        "example": "Noosa"
                                     }
                                 },
                                 "required": [
                                     "email",
-                                    "password"
+				    "password",
+                                    "LGAName"
                                 ]
                             }
                         }
