@@ -105,6 +105,28 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Start date filter in the format yyyy-mm-dd",
+                        "required": false,
+                        "explode": true,
+                        "schema": {
+                            "type": "date",
+                            "default": ""
+                        }
+                    },
+                    {
+                        "name": "end",
+                        "in": "query",
+                        "description": "End date filter in the format yyyy-mm-dd",
+                        "required": false,
+                        "explode": true,
+                        "schema": {
+                            "type": "date",
+                            "default": ""
+                        }
                     }
                 ],
                 "produces": [
