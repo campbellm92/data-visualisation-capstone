@@ -2,7 +2,7 @@ import { useState } from "react";
 import InputField from "../InputField";
 import { ButtonMediumFullWide } from "../../ui/Buttons";
 import {
-  useRegisterEmailValidator,
+  useEmailValidator,
   usePasswordValidator,
 } from "../../../hooks/input-sanitizers/useAuthValidators";
 
@@ -13,7 +13,7 @@ function Register({ toggle }) {
     valueChangeHandler: emailChangeHandler,
     markAsTouched: emailMarkAsTouched,
     inputReset: emailInputReset,
-  } = useRegisterEmailValidator();
+  } = useEmailValidator();
 
   const {
     value: passwordValue,
@@ -44,6 +44,12 @@ function Register({ toggle }) {
 
     if (emailHasError || passwordHasError) {
       setError("Invalid email or password. Please try again.");
+      setSuccess(null);
+      return;
+    }
+
+    if (!localArea) {
+      setError("Please select your local government area (LGA).");
       setSuccess(null);
       return;
     }
@@ -90,14 +96,14 @@ function Register({ toggle }) {
         options={localAreaOptions}
       />
 
-      {error && <div className="pt-3 text-error">{error}</div>}
-      {success && <div className="pt-3 text-success">{success}</div>}
-
       <div className="form-control mt-6">
         <ButtonMediumFullWide onClick={handleRegister}>
           Login
         </ButtonMediumFullWide>
       </div>
+
+      {error && <div className="pt-3 text-error">{error}</div>}
+      {success && <div className="pt-3 text-success">{success}</div>}
 
       <p className="mt-4">
         Already have an account?{" "}
