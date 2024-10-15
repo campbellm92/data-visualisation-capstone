@@ -4,7 +4,7 @@ import {
   checkValidPasswordFormat,
 } from "../../utils/validators";
 
-export function useRegisterEmailValidator() {
+export function useEmailValidator() {
   return useInput(checkValidEmailFormat);
 }
 
