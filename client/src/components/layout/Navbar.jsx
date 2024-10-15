@@ -1,12 +1,26 @@
+import { useState, useRef } from "react";
 import { ButtonSmall } from "../ui/Buttons";
 import AuthModal from "../User/AuthModal";
+import useClickOutside from "../../hooks/useClickOutside";
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef();
+
+  useClickOutside(ref, () => {
+    if (isOpen) setIsOpen(false);
+  });
+
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-300">
       <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+        <div className="dropdown" ref={ref}>
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost lg:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -22,39 +36,41 @@ export default function Navbar() {
               />
             </svg>
           </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
-          </ul>
+          {isOpen && (
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            >
+              <li>
+                <a>Item 1</a>
+              </li>
+              <li>
+                <a>Parent</a>
+                <ul className="p-2">
+                  <li>
+                    <a>Submenu 1</a>
+                  </li>
+                  <li>
+                    <a>Submenu 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a>Item 3</a>
+              </li>
+            </ul>
+          )}
         </div>
-        <a className="btn btn-ghost text-xl">Localis</a>
+        <a className="btn btn-ghost text-xl text-primary-content">Localis</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Item 1</a>
+            <a className="text-primary-content">Item 1</a>
           </li>
           <li>
             <details>
-              <summary>Parent</summary>
+              <summary className="text-primary-content">Parent</summary>
               <ul className="p-2">
                 <li>
                   <a>Submenu 1</a>
@@ -66,7 +82,7 @@ export default function Navbar() {
             </details>
           </li>
           <li>
-            <a>Item 3</a>
+            <a className="text-primary-content">Item 3</a>
           </li>
         </ul>
       </div>
@@ -78,7 +94,7 @@ export default function Navbar() {
             document.getElementById("auth_modal").showModal();
           }}
         >
-          Login/Register
+          Login
         </ButtonSmall>
       </div>
 
