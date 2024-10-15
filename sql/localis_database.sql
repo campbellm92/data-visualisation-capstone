@@ -30,7 +30,8 @@ CREATE TABLE `combined_data` (
   `average_length_of_stay` decimal(10,5) NOT NULL,
   `average_booking_window` decimal(10,5) NOT NULL,
   `average_historical_occupancy` decimal(10,5) NOT NULL,
-  `average_daily_rate` decimal(10,5) NOT NULL
+  `average_daily_rate` decimal(10,5) NOT NULL,
+  PRIMARY KEY (`sample_date`,`lga_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
