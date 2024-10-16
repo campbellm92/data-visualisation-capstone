@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import InputField from "../InputField";
 import { ButtonMediumFullWide } from "../../ui/Buttons";
 import {
@@ -30,13 +31,13 @@ function Register({ toggle }) {
   const localAreaOptions = ["Cairns", "Gold Coast", "Noosa", "Whitsunday"];
 
   // Function to handle registration
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     emailMarkAsTouched();
     passwordMarkAsTouched();
 
-    if (!emailValue && !passwordValue && !localArea) {
+    if (!emailValue || !passwordValue || !localArea) {
       setError("All fields are required to continue.");
       setSuccess(null);
       return;
@@ -54,13 +55,30 @@ function Register({ toggle }) {
       return;
     }
 
-    console.log("Registering with:", emailValue, passwordValue, localArea);
+    try {
+      const res = await axios.post("http://localhost:3000/users/register", {
+        email: emailValue,
+        password: passwordValue,
+        LGAName: localArea,
+      });
 
-    emailInputReset();
-    passwordInputReset();
-    setLocalArea("");
-    setError(null);
-    setSuccess("Registration successful!");
+      if (res.data.success) {
+        emailInputReset();
+        passwordInputReset();
+        setLocalArea("");
+        setError(null);
+        setSuccess("Registration successful!");
+      } else {
+        setError(res.data.message || "An error occurred during registration.");
+        setSuccess(null);
+      }
+    } catch (err) {
+      setError(
+        err.response?.data?.message ||
+          "Server error. Could not complete registration."
+      );
+      setSuccess(null);
+    }
   };
 
   return (
@@ -98,7 +116,7 @@ function Register({ toggle }) {
 
       <div className="form-control mt-6">
         <ButtonMediumFullWide onClick={handleRegister}>
-          Login
+          Register
         </ButtonMediumFullWide>
       </div>
 
