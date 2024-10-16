@@ -1,14 +1,14 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
+router.get("/", function (req, res, next) {
+  res.send("respond with a resource");
 });
 
-router.post('/login', function (req, res, next) {
+router.post("/login", function (req, res, next) {
   // 1. Retrieve email and password from req.body
   const email = req.body.email;
   const password = req.body.password;
@@ -17,15 +17,18 @@ router.post('/login', function (req, res, next) {
   if (!email || !password) {
     res.status(400).json({
       error: true,
-      message: "Request body incomplete - email and password needed"
+      message: "Request body incomplete - email and password needed",
     });
     return;
   }
 
   // 2. Determine if user already exists in table
-  const queryUsers = req.db.from("users").select("*").where("email", "=", email);
+  const queryUsers = req.db
+    .from("users")
+    .select("*")
+    .where("email", "=", email);
   queryUsers
-    .then(users => {
+    .then((users) => {
       if (users.length === 0) {
         console.log("User does not exist");
         return;
@@ -35,11 +38,11 @@ router.post('/login', function (req, res, next) {
       const user = users[0];
       return bcrypt.compare(password, user.hash);
     })
-    .then(match => {
+    .then((match) => {
       if (!match) {
         console.log("Passwords do not match");
         res.status(401).json({
-          error: "Invalid login"
+          error: "Invalid login",
         });
         res.end();
         return;
@@ -51,57 +54,63 @@ router.post('/login', function (req, res, next) {
       res.status(200).json({
         token,
         token_type: "Bearer",
-        expires_in
+        expires_in,
       });
     });
 });
 
-router.post('/register', function (req, res, next) {
+router.post("/register", function (req, res, next) {
   // Retrieve email and password from req.body
   const email = req.body.email;
   const password = req.body.password;
   const LGAName = req.body.LGAName;
 
-  // Verify body
-  if (!email || !password || !LGAName) {
-    res.status(400).json({
-      error: true,
-      message: "Error - request body incomplete - email, password and LGAName needed"
-    });
-    return;
-  }
+  // // Verify body
+  // if (!email || !password || !LGAName) {
+  //   res.status(400).json({
+  //     error: true,
+  //     message:
+  //       "Error - request body incomplete - email, password and LGAName needed",
+  //   });
+  //   return;
+  // } // consider removing -- this is being handled on the client side
 
   // Determine if user already exists in table
-  const queryUsers = req.db.from("users").select("*").where("email", "=", email);
-  queryUsers.then(users => {
-
-    if (users.length > 0) {
-      res.status(400).json({
-        error: true,
-        message: "Error - User already exists"
-      });
-      return;
-    }
-
-    // Insert user into DB
-    const saltRounds = 10;
-    const hash = bcrypt.hashSync(password, saltRounds);
-    req.db.from("users").insert({ email, hash, LGAName })
-    .then(() => {
-      res.status(201).json({ success: true, message: "User created" });
-    })
-      .catch((err) => {
+  const queryUsers = req.db
+    .from("users")
+    .select("*")
+    .where("email", "=", email);
+  queryUsers
+    .then((users) => {
+      if (users.length > 0) {
         res.status(400).json({
           error: true,
-          message: "Error - " + err.sqlMessage
+          message:
+            "A user with that email already exists. Please use a different email address.",
         });
-      });
+        return;
+      }
 
-  })
+      // Insert user into DB
+      const saltRounds = 10;
+      const hash = bcrypt.hashSync(password, saltRounds);
+      req.db
+        .from("users")
+        .insert({ email, hash, LGAName })
+        .then(() => {
+          res.status(201).json({ success: true, message: "User created" });
+        })
+        .catch((err) => {
+          res.status(400).json({
+            error: true,
+            message: "Error - " + err.sqlMessage,
+          });
+        });
+    })
     .catch((err) => {
       res.status(400).json({
         error: true,
-        message: "Error registering user "
+        message: "Error registering user ",
       });
     });
 });
