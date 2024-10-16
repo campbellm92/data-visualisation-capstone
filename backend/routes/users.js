@@ -2,6 +2,9 @@ var express = require("express");
 var router = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const authRateLimiter = require("../middleware/authRateLimiter");
+
+router.use(authRateLimiter);
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
