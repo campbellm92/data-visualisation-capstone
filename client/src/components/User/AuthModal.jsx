@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import Login from './Login/login';  
-import Register from './Register/register';  
+import React, { useState } from "react";
+import Login from "./Login/login";
+import Register from "./Register/register";
 
 const AuthModal = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -11,10 +11,12 @@ const AuthModal = () => {
 
   return (
     <dialog id="auth_modal" className="modal">
-      <div className="modal-box relative"> {/* Set position relative here */}
-        <button 
-          className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" 
-          onClick={() => document.getElementById('auth_modal').close()}
+      <div className="modal-box relative">
+        {" "}
+        {/* Set position relative here */}
+        <button
+          className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+          onClick={() => document.getElementById("auth_modal").close()}
         >
           ✕
         </button>
@@ -25,6 +27,9 @@ const AuthModal = () => {
           <Register toggle={toggleForm} />
         )}
       </div>
+      <form method="dialog" className="modal-backdrop">
+        <button>close</button>
+      </form>
     </dialog>
   );
 };
