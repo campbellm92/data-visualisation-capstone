@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import Login from './Login/login';
-import Register from './Register/register';
+import { useState } from "react";
+import Login from "./login/Login";
+import Register from "./register/Register";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true); // State to toggle between login and register
@@ -18,7 +18,7 @@ const AuthForm = () => {
             <>
               <Login />
               <p className="mt-4">
-                Don't have an account?{' '}
+                Don't have an account?{" "}
                 <button
                   className="text-blue-500 hover:underline"
                   onClick={toggleForm}
@@ -31,7 +31,7 @@ const AuthForm = () => {
             <>
               <Register />
               <p className="mt-4">
-                Already have an account?{' '}
+                Already have an account?{" "}
                 <button
                   className="text-blue-500 hover:underline"
                   onClick={toggleForm}

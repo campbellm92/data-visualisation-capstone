@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import Login from "./Login/login";
-import Register from "./Register/register";
+import { useState } from "react";
+import Login from "./login/Login";
+import Register from "./register/Register";
 
 const AuthModal = () => {
   const [isLogin, setIsLogin] = useState(true);
