@@ -7,8 +7,6 @@ import {
 } from "../../../hooks/input-sanitizers/useAuthValidators";
 
 const Login = ({ toggle }) => {
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
 
   const {
     value: emailValue,
