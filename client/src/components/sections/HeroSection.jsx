@@ -3,7 +3,7 @@ import { ButtonMediumWide } from "../ui/Buttons";
 export default function HeroSection() {
   return (
     <div className="hero bg-base-300 min-h-screen">
-      <div className="hero-content text-primary-content text-center">
+      <div className="hero-content text-primary-content text-center z-auto">
         <div className="max-w-md">
           <h1 className="text-5xl font-bold">Hello there</h1>
           <p className="py-6">
