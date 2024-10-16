@@ -1,26 +1,32 @@
-import { useState, useRef } from "react";
+import { useEffect } from "react";
 import { ButtonSmall } from "../ui/Buttons";
 import AuthModal from "../User/AuthModal";
-import useClickOutside from "../../hooks/useClickOutside";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef();
+  // This useEffect will handle the outside click event for closing the dropdowns
+  // If you add more dropdowns, make sure to add the class "dropdown" to the parent element
+  // Reference: https://stackoverflow.com/questions/76786642/daisyui-click-outside-to-close-details-summary-dropdown
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      document.querySelectorAll(".dropdown").forEach((dropdown) => {
+        if (!dropdown.contains(e.target)) {
+          dropdown.open = false; // Close the dropdown if clicked outside
+        }
+      });
+    };
 
-  useClickOutside(ref, () => {
-    if (isOpen) setIsOpen(false);
-  });
+    window.addEventListener("click", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("click", handleClickOutside); // Clean up event listener
+    };
+  }, []);
 
   return (
     <div className="navbar bg-base-300">
       <div className="navbar-start">
-        <div className="dropdown" ref={ref}>
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost lg:hidden"
-            onClick={() => setIsOpen(!isOpen)}
-          >
+        <div className="dropdown">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -36,40 +42,40 @@ export default function Navbar() {
               />
             </svg>
           </div>
-          {isOpen && (
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a>Item 3</a>
-              </li>
-            </ul>
-          )}
+
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+          >
+            <li>
+              <a>Item 1</a>
+            </li>
+            <li>
+              <a>Parent</a>
+              <ul className="p-2">
+                <li>
+                  <a>Submenu 1</a>
+                </li>
+                <li>
+                  <a>Submenu 2</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a>Item 3</a>
+            </li>
+          </ul>
         </div>
         <a className="btn btn-ghost text-xl text-primary-content">Localis</a>
       </div>
+
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
             <a className="text-primary-content">Item 1</a>
           </li>
           <li>
-            <details>
+            <details className="dropdown">
               <summary className="text-primary-content">Parent</summary>
               <ul className="p-2">
                 <li>
@@ -86,11 +92,11 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
+
       <div className="navbar-end">
         {/* Button to trigger modal */}
         <ButtonSmall
           onClick={() => {
-            console.log("Modal button clicked");
             document.getElementById("auth_modal").showModal();
           }}
         >
