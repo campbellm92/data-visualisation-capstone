@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import InputField from "../InputField";
 import { ButtonMediumFullWide } from "../../ui/Buttons";
 import {
@@ -27,7 +28,7 @@ const Login = ({ toggle }) => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
-  const handleLogin = () => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     emailMarkAsTouched();
@@ -45,12 +46,36 @@ const Login = ({ toggle }) => {
       return;
     }
 
-    console.log("Logging in with:", username, password);
+    // console.log("Logging in with:", username, password);
 
     emailInputReset();
     passwordInputReset();
     setError(null);
     setSuccess("Login successful!");
+
+    try {
+      const res = await axios.post("http://localhost:3000/users/login", {
+        email: emailValue,
+        password: passwordValue,
+      });
+
+      if (res.data.success) {
+        emailInputReset();
+        passwordInputReset();
+        setError(null);
+        setSuccess("Login successful!");
+      } else {
+        setError(res.data.message || "User or Password is incorrect.");
+        setSuccess(null);
+      }
+    } catch (err) {
+      setError(
+        err.response?.data?.message ||
+          "Server error. Could not complete login."
+      );
+      setSuccess(null);
+    }
+
   };
 
   return (
