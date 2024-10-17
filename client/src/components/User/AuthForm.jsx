@@ -14,6 +14,7 @@ const AuthForm = () => {
     <div className="flex justify-center items-center min-h-screen">
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
+          {/* If isLogin is true, show login form, else show register form */}
           {isLogin ? (
             <>
               <Login />

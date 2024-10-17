@@ -1,3 +1,4 @@
+// Desc: InputField component for user form
 const InputField = ({
   label,
   type,
@@ -14,6 +15,7 @@ const InputField = ({
       <label className="label">
         <span className="label-text">{label}</span>
       </label>
+      {/* If type is select, render select field, else render input field */}
       {type === "select" ? (
         <select
           className="input input-bordered"
@@ -24,6 +26,7 @@ const InputField = ({
           <option value="" disabled>
             {placeholder}
           </option>
+          {/* Map through options and render each option */}
           {options.map((option, index) => (
             <option key={index} value={option}>
               {option}
@@ -40,6 +43,7 @@ const InputField = ({
           onBlur={onBlur}
         />
       )}
+      {/* If hasError is true, render error message */}
       {hasError && <p className="pt-3 text-error">{errorMessage}</p>}
     </div>
   );

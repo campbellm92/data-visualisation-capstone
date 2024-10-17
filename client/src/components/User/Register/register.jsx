@@ -24,31 +24,38 @@ function Register({ toggle }) {
     inputReset: passwordInputReset,
   } = usePasswordValidator();
 
+  // State variables for local area, error and success messages
   const [localArea, setLocalArea] = useState("");
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
+  // Local area options
   const localAreaOptions = ["Cairns", "Gold Coast", "Noosa", "Whitsunday"];
 
   // Function to handle registration
   const handleRegister = async (e) => {
+    // Prevent default form submission
     e.preventDefault();
 
+    // Mark email and password fields as touched
     emailMarkAsTouched();
     passwordMarkAsTouched();
 
+    // Check if all fields are filled
     if (!emailValue || !passwordValue || !localArea) {
       setError("All fields are required to continue.");
       setSuccess(null);
       return;
     }
 
+    // Check if email and password have errors
     if (emailHasError || passwordHasError) {
       setError("Invalid email or password. Please try again.");
       setSuccess(null);
       return;
     }
 
+    // Check if local area is selected
     if (!localArea) {
       setError("Please select your local government area (LGA).");
       setSuccess(null);
@@ -56,24 +63,29 @@ function Register({ toggle }) {
     }
 
     try {
+      // Send a POST request to register endpoint with email, password and local area
       const res = await axios.post("http://localhost:3000/users/register", {
         email: emailValue,
         password: passwordValue,
         LGAName: localArea,
       });
 
+      // Check if the response is successful
       if (res.data.success) {
         emailInputReset();
         passwordInputReset();
         setLocalArea("");
+        // Reset error and set success message
         setError(null);
         setSuccess("Registration successful!");
       } else {
+        // If the response is not successful, set error message
         setError(res.data.message || "An error occurred during registration.");
         setSuccess(null);
       }
     } catch (err) {
       setError(
+        // If an error occurs, set error
         err.response?.data?.message ||
           "Server error. Could not complete registration."
       );
@@ -84,6 +96,7 @@ function Register({ toggle }) {
   return (
     <div className="flex flex-col">
       <h2 className="card-title">Register</h2>
+      {/* Input field for email */}
       <InputField
         label="Username"
         type="text"
@@ -94,6 +107,7 @@ function Register({ toggle }) {
         hasError={emailHasError}
         errorMessage="Please enter a valid email address."
       />
+      {/* Input field for password */}
       <InputField
         label="Password"
         type="password"
@@ -105,6 +119,7 @@ function Register({ toggle }) {
         errorMessage="Password must be more than 8 characters long, include an
                   uppercase letter, a number, and a special character."
       />
+      {/* Select field for local area */}
       <InputField
         label="Local Area"
         type="select"
@@ -114,12 +129,14 @@ function Register({ toggle }) {
         options={localAreaOptions}
       />
 
+      {/* Register button */}
       <div className="form-control mt-6">
         <ButtonMediumFullWide onClick={handleRegister}>
           Register
         </ButtonMediumFullWide>
       </div>
 
+      {/* Error and success messages */}
       {error && <div className="pt-3 text-error">{error}</div>}
       {success && <div className="pt-3 text-success">{success}</div>}
 

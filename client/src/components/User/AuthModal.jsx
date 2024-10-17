@@ -3,9 +3,10 @@ import Login from "./login/Login";
 import Register from "./register/Register";
 
 const AuthModal = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(true); // State to toggle between login and register
 
   const toggleForm = () => {
+    // Switch between login and register
     setIsLogin(!isLogin);
   };
 
@@ -20,7 +21,7 @@ const AuthModal = () => {
         >
           ✕
         </button>
-        {/* Toggle between Login and Register */}
+        {/* If isLogin is true, show login form, else show register form */}
         {isLogin ? (
           <Login toggle={toggleForm} />
         ) : (
