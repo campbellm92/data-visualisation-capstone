@@ -19,7 +19,7 @@ router.post("/login", function (req, res, next) {
   // Verify body
   if (!email || !password) {
     res.status(400).json({
-      error: true,
+      success: false,
       message: "Request body incomplete - email and password needed",
     });
     return;
@@ -34,6 +34,10 @@ router.post("/login", function (req, res, next) {
     .then((users) => {
       if (users.length === 0) {
         console.log("User does not exist");
+        res.status(401).json({
+          success: false,
+          message: "User does not exist",
+        });
         return;
       }
 
@@ -45,20 +49,31 @@ router.post("/login", function (req, res, next) {
       if (!match) {
         console.log("Passwords do not match");
         res.status(401).json({
-          error: "Invalid login",
+          success: false,
+          message: "Passwords do not match",
         });
-        res.end();
         return;
       }
       // Create and return JWT token
-      const expires_in = 60 * 60 * 24; // 24 hours
+      const expires_in = 60 * 60 * 48; // 48 hours
       const exp = Math.floor(Date.now() / 1000) + expires_in;
       const token = jwt.sign({ email, exp }, process.env.JWT_SECRET);
       res.status(200).json({
+        success: true,
         token,
         token_type: "Bearer",
         expires_in,
       });
+    })
+    .catch((err) => {
+      //Check if headers have already been sent
+      if(!res.headersSent){
+        //If headers have not been sent, send a 500 response with an error message
+        res.status(500).json({
+          success: false,
+          message: "Server error. Could not complete login.",
+        });
+      }
     });
 });
 
