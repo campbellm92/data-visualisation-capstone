@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Navbar from "./components/layout/Navbar";
 import HeroSection from "./components/sections/HeroSection";
 import Diff from "./components/layout/Diff";
@@ -9,9 +10,16 @@ import {
 } from "./components/ui/Buttons";
 
 function App() {
+  // State to check if user is logged in
+  // If token is present in local storage, user is logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("token") ? true : false
+  );
+
+  console.log(localStorage.getItem("token"));
   return (
     <div>
-      <Navbar />
+      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <HeroSection />
       <Diff />
       <ButtonSmall>Small</ButtonSmall>
