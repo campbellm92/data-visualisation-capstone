@@ -10,12 +10,12 @@ import DailyRateChart from './DailyRateChart';
 import OccupancyChart from './OccupancyChart';
 import LengthOfStayChart from './LengthOfStayChart';
 import { useLocalisDataOccupancy } from "../../api";
-import CanvasCoordinates from '../ui/CanvasCoordinates';
+//import CanvasCoordinates from '../ui/CanvasCoordinates';
 import { useState } from 'react';
 import { NumberSliderMedium, DateSliderMedium } from '../ui/Sliders';
 import { kOriginDate } from '../../constants';
 
-const kGraphWidth = 500;
+const kGraphWidth = 1500;
 
 function daySliderChange(e) {
   console.log("hello");
