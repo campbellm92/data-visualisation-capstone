@@ -30,9 +30,42 @@
                 "tags": [
                     "query"
                 ],
-                "summary": "List all data combined",
+                "summary": "List all data combined filtered optionally by LGAName, start and/or end",
                 "description": "Full listing of all data combined from the database",
                 "operationId": "listAllData",
+                "parameters": [
+                    {
+                        "name": "LGAName",
+                        "in": "query",
+                        "description": "The LGA Name in question ie. Noosa, Whitsunday, Cairns, Gold Coast",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Start date filter in the format yyyy-mm-dd",
+                        "required": false,
+                        "explode": true,
+                        "schema": {
+                            "type": "date",
+                            "default": ""
+                        }
+                    },
+                    {
+                        "name": "end",
+                        "in": "query",
+                        "description": "End date filter in the format yyyy-mm-dd",
+                        "required": false,
+                        "explode": true,
+                        "schema": {
+                            "type": "date",
+                            "default": ""
+                        }
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -93,7 +126,7 @@
                 "tags": [
                     "query"
                 ],
-                "summary": "List all data combined filtered by LGA Name",
+                "summary": "List all data combined filtered by LGA Name (mandatory) and optionally start and/or end",
                 "description": "Listing of combined data filtered by LGA Name from the database",
                 "operationId": "listAllDataByLGA",
                 "parameters": [

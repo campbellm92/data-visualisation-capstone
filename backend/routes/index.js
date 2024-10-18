@@ -13,6 +13,17 @@ router.get("/api/combined_data", function (req, res, next) {
   req.db
     .from("combined_data")
     .select("sample_date", "lga_name", "average_historical_occupancy", "average_daily_rate", "average_length_of_stay", "average_booking_window")
+    .modify((qb) => {
+      if (req.query.LGAName !== undefined) {
+        qb.where("lga_name", "=", req.query.LGAName)
+      }
+      if (req.query.start !== undefined) {
+        qb.where("sample_date", ">=", req.query.start)
+      }
+      if (req.query.end !== undefined) {
+        qb.where("sample_date", "<=", req.query.end)
+      }
+    })
     .then((rows) => {
       res.json({ Error: false, Message: "Success", combined_data: rows });
     })
