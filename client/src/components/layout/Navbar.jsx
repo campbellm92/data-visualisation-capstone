@@ -2,7 +2,16 @@ import { useEffect } from "react";
 import { ButtonSmall } from "../ui/Buttons";
 import AuthModal from "../User/AuthModal";
 
-export default function Navbar() {
+export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
+  // Function to handle logout
+  // This function will remove the token from the local storage and set isLoggedIn to false
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    console.log("Token removed");
+    console.log("Logged out")
+  };
+
   // This useEffect will handle the outside click event for closing the dropdowns
   // If you add more dropdowns, make sure to add the class "dropdown" to the parent element
   // Reference: https://stackoverflow.com/questions/76786642/daisyui-click-outside-to-close-details-summary-dropdown
@@ -94,18 +103,22 @@ export default function Navbar() {
       </div>
 
       <div className="navbar-end">
-        {/* Button to trigger modal */}
-        <ButtonSmall
-          onClick={() => {
-            document.getElementById("auth_modal").showModal();
-          }}
-        >
-          Login
-        </ButtonSmall>
+        {/* If user is not logged in, show login button, else show logout button */}
+        {!isLoggedIn ? (
+          <ButtonSmall
+            onClick={() => {
+              document.getElementById("auth_modal").showModal();
+            }}
+          >
+            Login
+          </ButtonSmall>
+        ) : (
+          <ButtonSmall onClick={handleLogout}>Logout</ButtonSmall>
+        )}
       </div>
 
       {/* Render the AuthModal */}
-      <AuthModal />
+      <AuthModal setIsLoggedIn={setIsLoggedIn} />
     </div>
   );
 }

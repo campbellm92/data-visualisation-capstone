@@ -7,7 +7,7 @@ import {
   usePasswordValidator,
 } from "../../../hooks/input-sanitizers/useAuthValidators";
 
-const Login = ({ toggle }) => {
+const Login = ({ toggle, setIsLoggedIn }) => {
 
   const {
     value: emailValue,
@@ -66,10 +66,16 @@ const Login = ({ toggle }) => {
       if (res.data.success) {
         emailInputReset();
         passwordInputReset();
+        // Set user as logged in
+        setIsLoggedIn(true);
         // Clear any previous error messages
         setError(null);
         // Set success message
         setSuccess("Login successful!");
+        // Set token in local storage
+        localStorage.setItem("token", res.data.token);
+        // Close the modal
+        document.getElementById("auth_modal").close();
       } else {
         // If the response is not successful, set error message
         setError(res.data.message || "User or Password is incorrect.");
