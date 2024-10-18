@@ -29,7 +29,7 @@ export default function Graphs() {
   return (
     <div className="" style={{ padding: 0, display: 'flex', flexDirection: 'column', flexWrap: 'wrap', justifyContent: 'center' }}>
 
-      <div className="chart" style={{ width: 400 }}>Data Scroller (experimental)
+      <div className="chart" style={{ width: 400 }}>Data Scroller (experimental - click and drag inside box below)
         {<CanvasCoordinates startDate={startDate}
           setStartDate={setStartDate}
           windowDays={windowDays}
