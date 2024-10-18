@@ -1,7 +1,7 @@
 // 
-//  IFQ715 Web Development Pratice Assignment 2 By Gary Cazzulino
+//  IFQ717 Web Development Capstone
 //
-//  RankingsChart.js - graph on Rankings page
+//  OccupancyChart.js - 
 //
 //
 
@@ -9,7 +9,7 @@ import { AgCharts } from 'ag-charts-react';
 import { kGraphLineStyle } from '../../constants';
 
 
-export default function RankingsChart({ year, currentCountry, occupancy }) {
+export default function OccupancyChart({ year, currentCountry, occupancy }) {
 
   let options = {
     title: {
@@ -30,7 +30,6 @@ export default function RankingsChart({ year, currentCountry, occupancy }) {
                "whitsunday_average_historical_occupancy": sample.lga_name == 'Whitsunday' ? parseFloat(sample.average_historical_occupancy) : null,
                "cairns_average_historical_occupancy": sample.lga_name == 'Cairns' ? parseFloat(sample.average_historical_occupancy) : null
                
- 
       }
     }),
     // Series: Defines which chart type and data to use

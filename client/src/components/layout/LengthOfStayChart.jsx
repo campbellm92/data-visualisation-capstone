@@ -1,12 +1,9 @@
 // 
-//  IFQ715 Web Development Pratice Assignment 2 By Gary Cazzulino
+//  IFQ717 Web Development Capstone
 //
-//  RankingsChart.js - graph on Rankings page
+//  LengthOfStayChart.jsx -
 //
 //
-
-
-// File: ChartComponent.js
 
 import React from 'react';
 import {

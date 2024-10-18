@@ -1,12 +1,16 @@
 // 
 //  IFQ717 Web Development Capstone
 //
-//  api.js - Main app API function definitions - please see comments below
+//  api.js - Main app API function definitions
 //
 //
 
 import { useState, useEffect } from 'react';
 import { kAPI_KEY, kAPI_URL, kALL_VALUES, kTOKEN_NAME, kDEFAULT_ERROR_MSG } from './constants';
+
+export function average(arr) {
+  return arr.reduce((p, c) => p + c, 0) / arr.length
+}
 
 // Given a cache array and a specific URL string, getUrlFromCache will return the previous
 // API response for that URL if it exists in the cache, filtered by an optionally provided filter

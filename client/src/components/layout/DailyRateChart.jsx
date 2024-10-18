@@ -1,7 +1,7 @@
 // 
-//  IFQ715 Web Development Pratice Assignment 2 By Gary Cazzulino
+//  IFQ717 Web Development Capstone
 //
-//  RankingsChart.js - graph on Rankings page
+//  DailyRateChart.jsx - 
 //
 //
 
