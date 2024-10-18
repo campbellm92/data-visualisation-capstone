@@ -12,3 +12,16 @@
     position: relative;
     max-height: 100%;
   }
+
+  .chart {
+    background-color: white;
+    border-radius: 8px;
+    border-width: 1px !important;
+    border-style: solid;
+    border-color: rgba(1,1,1,.1);
+    padding: 20px;
+    /*margin-bottom: 20px;*/
+    margin: 20px;
+    box-shadow: 10px 10px 5px rgba(1,1,1,.1);     
+}
+
