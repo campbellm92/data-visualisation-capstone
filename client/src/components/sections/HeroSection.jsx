@@ -1,11 +1,9 @@
 import { ButtonMediumWide } from "../ui/Buttons";
-import Graphs from "../layout/Graphs";
-import { useLocalisDataOccupancy } from "../../api";
 
 export default function HeroSection() {
   return (
     <div>
-    <Graphs />
+  
     <div className="hero bg-base-300 min-h-screen">
       <div className="hero-content text-primary-content text-center z-auto">
         <div className="max-w-md">

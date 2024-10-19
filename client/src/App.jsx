@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
-import HeroSection from "./components/sections/HeroSection";
-import Diff from "./components/layout/Diff";
+import CombinedComponent from "./components/Combined/Combined";
+import Welcome from "./components/Welcome/Welcome";
 import {
   ButtonSmall,
   ButtonMedium,
@@ -9,19 +10,31 @@ import {
   ButtonSmallWide,
 } from "./components/ui/Buttons";
 
+
 function App() {
   // State to check if user is logged in
   // If token is present in local storage, user is logged in
+  const token = localStorage.getItem("token");
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("token") ? true : false
   );
 
-  console.log(localStorage.getItem("token"));
+   // Conditional logging based on token presence
+   if (token) {
+    console.log(`Token: ${token}, Logged in`);
+  } else {
+    console.log("Token not found, not logged in");
+  }
   return (
-    <div>
+    <Router>
       <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-      <HeroSection />
-      <Diff />
+      <Routes>
+        <Route path="/" element={<CombinedComponent />} />
+        <Route
+          path="/welcome"
+          element={isLoggedIn ? <Welcome /> : <Navigate to="/" />}
+        />
+      </Routes>
       <ButtonSmall>Small</ButtonSmall>
       <ButtonMedium>Medium</ButtonMedium>
       <ButtonOutline>Outline</ButtonOutline>
@@ -30,7 +43,7 @@ function App() {
       <p className="text-success">Success</p>
       <p className="text-warning">Warning</p>
       <p className="text-error">Error</p>
-    </div>
+    </Router>
   );
 }
 
