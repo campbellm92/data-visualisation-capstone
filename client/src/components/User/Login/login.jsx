@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import InputField from "../InputField";
 import { ButtonMediumFullWide } from "../../ui/Buttons";
@@ -8,6 +9,8 @@ import {
 } from "../../../hooks/input-sanitizers/useAuthValidators";
 
 const Login = ({ toggle, setIsLoggedIn }) => {
+  // useNavigate hook to navigate to different pages
+  const navigate = useNavigate();
 
   const {
     value: emailValue,
@@ -76,6 +79,8 @@ const Login = ({ toggle, setIsLoggedIn }) => {
         localStorage.setItem("token", res.data.token);
         // Close the modal
         document.getElementById("auth_modal").close();
+        // Navigate to welcome page
+        navigate("/welcome"); 
       } else {
         // If the response is not successful, set error message
         setError(res.data.message || "User or Password is incorrect.");
