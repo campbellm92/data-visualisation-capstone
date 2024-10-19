@@ -40,19 +40,12 @@ const Login = ({ toggle, setIsLoggedIn }) => {
     emailMarkAsTouched();
     passwordMarkAsTouched();
 
-    // if (!emailValue && !passwordValue) {
-    //   setError("Please enter a valid email address and password.");
-    //   setSuccess(null);
-    //   return;
-    // }
-
     if (emailHasError || passwordHasError) {
       setError("Invalid email or password. Please try again.");
       setSuccess(null);
       return;
     }
 
-    // emailInputReset(); // remove so user doesn't have to enter the entire email address again?
     passwordInputReset();
     setError(null);
     setSuccess(null);
@@ -73,14 +66,20 @@ const Login = ({ toggle, setIsLoggedIn }) => {
         setIsLoggedIn(true);
         // Clear any previous error messages
         setError(null);
-        // Set success message
+        // Set success msg
         setSuccess("Login successful!");
+        setIsLoading(true);
         // Set token in local storage
         localStorage.setItem("token", res.data.token);
-        // Close the modal
-        document.getElementById("auth_modal").close();
-        // Navigate to welcome page
-        navigate("/welcome");
+        setTimeout(() => {
+          // Close the modal
+          document.getElementById("auth_modal").close();
+          // Navigate to welcome page
+          navigate("/welcome");
+
+          setSuccess(null);
+          setIsLoading(false);
+        }, 3000);
       } else {
         // If the response is not successful, set error message
         setError(res.data.message || "User or Password is incorrect.");
@@ -92,8 +91,6 @@ const Login = ({ toggle, setIsLoggedIn }) => {
         err.response?.data?.message || "Server error. Could not complete login."
       );
       setSuccess(null);
-    } finally {
-      setIsLoading(false);
     }
   };
 
