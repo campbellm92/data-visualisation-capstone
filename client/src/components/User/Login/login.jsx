@@ -3,15 +3,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import InputField from "../InputField";
 import { ButtonMediumFullWide } from "../../ui/Buttons";
+import LoadingSpinner from "../../ui/LoadingSpinner";
 import {
   useEmailValidator,
   usePasswordValidator,
 } from "../../../hooks/input-sanitizers/useAuthValidators";
 
 const Login = ({ toggle, setIsLoggedIn }) => {
-  // useNavigate hook to navigate to different pages
-  const navigate = useNavigate();
-
   const {
     value: emailValue,
     hasError: emailHasError,
@@ -31,6 +29,9 @@ const Login = ({ toggle, setIsLoggedIn }) => {
   // State variables for error and success messages
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  // useNavigate hook to navigate to different pages
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     // Prevent default form submission
@@ -39,11 +40,11 @@ const Login = ({ toggle, setIsLoggedIn }) => {
     emailMarkAsTouched();
     passwordMarkAsTouched();
 
-    if (!emailValue && !passwordValue) {
-      setError("Please enter a valid email address and password.");
-      setSuccess(null);
-      return;
-    }
+    // if (!emailValue && !passwordValue) {
+    //   setError("Please enter a valid email address and password.");
+    //   setSuccess(null);
+    //   return;
+    // }
 
     if (emailHasError || passwordHasError) {
       setError("Invalid email or password. Please try again.");
@@ -51,12 +52,11 @@ const Login = ({ toggle, setIsLoggedIn }) => {
       return;
     }
 
-    // console.log("Logging in with:", username, password);
-
-    emailInputReset();
+    // emailInputReset(); // remove so user doesn't have to enter the entire email address again?
     passwordInputReset();
     setError(null);
-    setSuccess("Login successful!");
+    setSuccess(null);
+    setIsLoading(true);
 
     try {
       // Send a POST request to login endpoint with email and password
@@ -80,7 +80,7 @@ const Login = ({ toggle, setIsLoggedIn }) => {
         // Close the modal
         document.getElementById("auth_modal").close();
         // Navigate to welcome page
-        navigate("/welcome"); 
+        navigate("/welcome");
       } else {
         // If the response is not successful, set error message
         setError(res.data.message || "User or Password is incorrect.");
@@ -89,12 +89,12 @@ const Login = ({ toggle, setIsLoggedIn }) => {
     } catch (err) {
       // If an error occurs, set error
       setError(
-        err.response?.data?.message ||
-          "Server error. Could not complete login."
+        err.response?.data?.message || "Server error. Could not complete login."
       );
       setSuccess(null);
+    } finally {
+      setIsLoading(false);
     }
-
   };
 
   return (
@@ -119,12 +119,14 @@ const Login = ({ toggle, setIsLoggedIn }) => {
         value={passwordValue}
         onChange={passwordChangeHandler}
         onBlur={passwordMarkAsTouched}
-        hasError={passwordHasError}
-        errorMessage="The password you've entered is incorrect. Please try again."
+        // hasError={passwordHasError}
+        // errorMessage="The password you've entered is incorrect. Please try again."
       />
       {/* Login button */}
       <div className="form-control mt-6">
-        <ButtonMediumFullWide onClick={handleLogin}>Login</ButtonMediumFullWide>
+        <ButtonMediumFullWide onClick={handleLogin}>
+          {isLoading ? <LoadingSpinner /> : "Login"}
+        </ButtonMediumFullWide>
       </div>
       {/* Error and success messages */}
       {error && <div className="pt-3 text-error">{error}</div>}
