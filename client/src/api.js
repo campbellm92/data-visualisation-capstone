@@ -30,13 +30,13 @@ function getUrlFromServer(url, authenticate) {
     headers: authenticate ?
       ({
         "Content-Type": "application/json",
-        "X-API-KEY": kAPI_KEY,
+        //"X-API-KEY": kAPI_KEY,
         "Authorization": "Bearer " + localStorage.getItem(kTOKEN_NAME)
       })
       :
       ({
         "Content-Type": "application/json",
-        "X-API-KEY": kAPI_KEY
+        //"X-API-KEY": kAPI_KEY
       }),
   })
     .then((res) => res.json())
