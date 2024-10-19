@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import InputField from "../InputField";
 import { ButtonMediumFullWide } from "../../ui/Buttons";
+import LoadingSpinner from "../../ui/LoadingSpinner";
 import {
   useEmailValidator,
   usePasswordValidator,
@@ -28,6 +29,7 @@ function Register({ toggle }) {
   const [localArea, setLocalArea] = useState("");
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Local area options
   const localAreaOptions = ["Cairns", "Gold Coast", "Noosa", "Whitsunday"];
@@ -56,11 +58,11 @@ function Register({ toggle }) {
     }
 
     // Check if local area is selected
-    if (!localArea) {
-      setError("Please select your local government area (LGA).");
-      setSuccess(null);
-      return;
-    }
+    // if (!localArea) {
+    //   setError("Please select your local government area (LGA).");
+    //   setSuccess(null);
+    //   return;
+    // } // necessary?
 
     try {
       // Send a POST request to register endpoint with email, password and local area
@@ -78,6 +80,12 @@ function Register({ toggle }) {
         // Reset error and set success message
         setError(null);
         setSuccess("Registration successful!");
+        setIsLoading(true);
+        setTimeout(() => {
+          document.getElementById("auth_modal").close();
+          setSuccess(null);
+          setIsLoading(false);
+        }, 3000);
       } else {
         // If the response is not successful, set error message
         setError(res.data.message || "An error occurred during registration.");
@@ -132,7 +140,7 @@ function Register({ toggle }) {
       {/* Register button */}
       <div className="form-control mt-6">
         <ButtonMediumFullWide onClick={handleRegister}>
-          Register
+          {isLoading ? <LoadingSpinner /> : "Register"}
         </ButtonMediumFullWide>
       </div>
 
