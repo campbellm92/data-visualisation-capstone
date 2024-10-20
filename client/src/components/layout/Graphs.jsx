@@ -5,26 +5,27 @@
 //
 //
 
-import BookingWindowChart from './BookingWindowChart';
-import DailyRateChart from './DailyRateChart';
-import OccupancyChart from './OccupancyChart';
-import LengthOfStayChart from './LengthOfStayChart';
-import { useLocalisDataOccupancy } from "../../api";
+//import GraphDetailsRechart from './GraphDetailsRechart';
+
+import GraphDetails from '../charts/GraphDetails';
+import GraphAverages from '../charts/GraphAverages';
+import { useLocalisData } from "../../api/hooks/useLocalisData";
 import CanvasCoordinates from '../ui/CanvasCoordinates';
 import { useState } from 'react';
-import { NumberSliderMedium, DateSliderMedium } from '../ui/Sliders';
-import { kOriginDate } from '../../constants';
-import DataAverages from './DataAverages';
+import { NumberSliderMedium } from '../ui/Sliders';
+import { kOriginDate } from '../../utils/constants';
+import Spinner from '../ui/Spinner';
 
 const kGraphWidth = 1200;
 
 export default function Graphs() {
 
-  const [windowDays, setWindowDays] = useState(7);
+  const useRechart = true;
+  const [windowDays, setWindowDays] = useState(28);
   // const [dateOffset, setDateOffset] = useState(0);
 
   const [startDate, setStartDate] = useState(kOriginDate);
-  const { loading, occupancy, error } = useLocalisDataOccupancy(startDate, windowDays);
+  const { loading, dataSet, error } = useLocalisData(startDate, windowDays);
 
   return (
     <div className="" style={{ padding: 0, display: 'flex', flexDirection: 'column', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -34,36 +35,35 @@ export default function Graphs() {
           setStartDate={setStartDate}
           windowDays={windowDays}
           setWindowDays={setWindowDays} />}
-        <div className="chart">
+          <br></br>
           Start Date: {startDate}<br></br><br></br>
           {/*<DateSliderMedium originDate={kOriginDate} min={1} max={100} title="Start Date" value={startDate} setValue={setStartDate} />*/}
           <NumberSliderMedium min={1} max={365} title="Day Window" value={windowDays} setValue={setWindowDays} />
-        </div>
       </div>
 
-      {!loading && !error && occupancy ? (
+      {!loading && !error && dataSet ? (
         <div>
           <div className="chart" style={{ height: 400, width: kGraphWidth }}>
-            <OccupancyChart occupancy={occupancy} />
+            <GraphDetails useRechart={useRechart} title='Average Daily Rate ($)' field='average_daily_rate' scale={1.0} dataSet={dataSet} />
           </div>
           <div className="chart" style={{ height: 400, width: kGraphWidth }}>
-            <LengthOfStayChart occupancy={occupancy} />
+            <GraphDetails useRechart={useRechart} title='Average Length of Stay (days)' field='average_length_of_stay' scale={1.0} dataSet={dataSet} />
           </div>
           <div className="chart" style={{ height: 400, width: kGraphWidth }}>
-            <DailyRateChart occupancy={occupancy} />
+            <GraphDetails useRechart={useRechart} title='Average Historical Occupancy (%)' field='average_historical_occupancy' scale={100.0} dataSet={dataSet} />
           </div>
           <div className="chart" style={{ height: 400, width: kGraphWidth }}>
-            <BookingWindowChart occupancy={occupancy} />
+            <GraphDetails useRechart={useRechart} title='Average Booking Window (days)' field='average_booking_window' scale={1.0} dataSet={dataSet} />
           </div>
           <div className="chart" style={{ height: 400, width: '40%' }}>
-            <DataAverages title='Average % Occupancy' scale={100.0} field="average_historical_occupancy" occupancy={occupancy} />
+            <GraphAverages useRechart={useRechart} title='Average % Occupancy' scale={100.0} field="average_historical_occupancy" dataSet={dataSet} />
           </div>
           <div className="chart" style={{ height: 400, width: '40%' }}>
-            <DataAverages title='Average Daily Rate' scale={1.0} field="average_daily_rate" occupancy={occupancy} />
+            <GraphAverages useRechart={useRechart} title='Average Daily Rate' scale={1.0} field="average_daily_rate" dataSet={dataSet} />
           </div>
         </div>)
         : !error ?
-          "Spinner" : null}
+          <div><div className="chart" style={{ height: 400, width: kGraphWidth }}><Spinner /></div></div> : null}
     </div>
   );
 }

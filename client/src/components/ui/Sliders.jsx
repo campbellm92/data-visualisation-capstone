@@ -1,4 +1,4 @@
-import { addDaysToDate, daysBetweenDates } from '../../api';
+import { addDaysToDate, daysBetweenDates } from '../../utils/utils';
 
  export function NumberSliderMedium( {min, max, title, value, setValue}) {
   
@@ -8,7 +8,7 @@ import { addDaysToDate, daysBetweenDates } from '../../api';
   
     return (
       <div>
-        <input type="range" min={min} max={max} value={value}  className="range" onChange={handleNumberValueChange} />
+        <input type="range" min={min} max={max} value={value} className="range" onChange={handleNumberValueChange} />
         <div>{title}: {value}</div>
       </div>
     );

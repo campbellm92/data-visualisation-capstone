@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { addDaysToDate } from '../../api';
+import { addDaysToDate } from '../../utils/utils';
+import backgroundImage from "../../images/gridbackground.png";
 
 function CanvasCoordinates({startDate, setStartDate, windowDays, setWindowDays}) {
   const canvasRef = useRef(null);
@@ -10,29 +11,22 @@ function CanvasCoordinates({startDate, setStartDate, windowDays, setWindowDays})
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     const image = new Image();
-    image.src = 'path/to/your/image.jpg';
+    image.src = backgroundImage;
 
     image.onload = () => {
-      // Adjust canvas size to match the image size
       canvas.width = image.width;
       canvas.height = image.height;
-      // Draw the image onto the canvas
       context.drawImage(image, 0, 0);
     };
 
-    // Prevent default touch actions like scrolling
     canvas.style.touchAction = 'none';
-
-    // Prevent the canvas from being draggable
     canvas.addEventListener('dragstart', (e) => e.preventDefault());
 
     return () => {
-      // Clean up the event listener
       canvas.removeEventListener('dragstart', (e) => e.preventDefault());
     };
   }, []);
 
-  // Mouse event handlers
   const handleMouseDown = (event) => {
     setIsInteracting(true);
     captureCoordinates(event);
@@ -48,7 +42,6 @@ function CanvasCoordinates({startDate, setStartDate, windowDays, setWindowDays})
     setIsInteracting(false);
   };
 
-  // Touch event handlers
   const handleTouchStart = (event) => {
     setIsInteracting(true);
     captureTouchCoordinates(event);
@@ -64,7 +57,6 @@ function CanvasCoordinates({startDate, setStartDate, windowDays, setWindowDays})
     setIsInteracting(false);
   };
 
-  // Function to capture mouse coordinates
   const captureCoordinates = (event) => {
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
@@ -73,11 +65,10 @@ function CanvasCoordinates({startDate, setStartDate, windowDays, setWindowDays})
 
     setCoords({ x: Math.round(x), y: Math.round(y) });
 
-    setWindowDays(Math.round(y * 5));
+    setWindowDays(Math.round((100 - y) * 3.6));
     setStartDate(addDaysToDate('2023-10-01', Math.round(x - (365 / 2))))
   };
 
-  // Function to capture touch coordinates
   const captureTouchCoordinates = (event) => {
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
@@ -96,21 +87,19 @@ function CanvasCoordinates({startDate, setStartDate, windowDays, setWindowDays})
           width: 365,
           height: 100,
           border: '1px solid black',
-          touchAction: 'none', // Prevents touch actions like scrolling
-          userSelect: 'none',  // Prevents text selection
-          WebkitUserDrag: 'none', // Prevents image dragging in WebKit browsers
+          touchAction: 'none', 
+          userSelect: 'none',
+          WebkitUserDrag: 'none', 
         }}
-        // Mouse events
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp} // Ensure interaction ends if cursor leaves canvas
-        // Touch events
+        onMouseLeave={handleMouseUp}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       ></canvas>
-      <p>Coordinates: {`(${coords.x}, ${coords.y})`}</p>
+      {/*<p>Coordinates: {`(${coords.x}, ${coords.y})`}</p>*/}
     </div>
   );
 }

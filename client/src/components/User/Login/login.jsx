@@ -53,7 +53,7 @@ const Login = ({ toggle, setIsLoggedIn }) => {
 
     try {
       // Send a POST request to login endpoint with email and password
-      const res = await axios.post("http://localhost:3000/users/login", {
+      const res = await axios.post("https://localhost:3000/users/login", {
         email: emailValue,
         password: passwordValue,
       });

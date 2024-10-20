@@ -66,7 +66,7 @@ function Register({ toggle }) {
 
     try {
       // Send a POST request to register endpoint with email, password and local area
-      const res = await axios.post("http://localhost:3000/users/register", {
+      const res = await axios.post("https://localhost:3000/users/register", {
         email: emailValue,
         password: passwordValue,
         LGAName: localArea,
