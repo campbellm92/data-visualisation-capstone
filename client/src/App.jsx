@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import CombinedComponent from "./components/Combined/Combined";
 import Welcome from "./components/Welcome/Welcome";
@@ -9,7 +14,20 @@ import {
   ButtonOutline,
   ButtonSmallWide,
 } from "./components/ui/Buttons";
-
+import {
+  DropdownMonth,
+  DropdownSeason,
+  DropdownYear,
+} from "./components/ui/DropDowns";
+import {
+  TextInput,
+  SearchBar,
+  SearchBarWithOptional,
+  TextInputXS,
+  TextInputSM,
+  TextInputMD,
+  TextInputLG,
+} from "./components/ui/Inputs";
 
 function App() {
   // State to check if user is logged in
@@ -19,8 +37,8 @@ function App() {
     localStorage.getItem("token") ? true : false
   );
 
-   // Conditional logging based on token presence
-   if (token) {
+  // Conditional logging based on token presence
+  if (token) {
     console.log(`Token: ${token}, Logged in`);
   } else {
     console.log("Token not found, not logged in");
@@ -43,6 +61,16 @@ function App() {
       <p className="text-success">Success</p>
       <p className="text-warning">Warning</p>
       <p className="text-error">Error</p>
+      <DropdownMonth />
+      <DropdownSeason />
+      <DropdownYear />
+      <TextInput />
+      <SearchBar />
+      <SearchBarWithOptional />
+      <TextInputXS />
+      <TextInputSM />
+      <TextInputMD />
+      <TextInputLG />
     </Router>
   );
 }
