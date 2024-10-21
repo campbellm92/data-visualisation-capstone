@@ -24,6 +24,7 @@ router.get("/api/combined_data", function (req, res, next) {
         qb.where("sample_date", "<=", req.query.end)
       }
     })
+    .orderBy('sample_date', 'lga_name')
     .then((rows) => {
       res.json({ Error: false, Message: "Success", combined_data: rows });
     })

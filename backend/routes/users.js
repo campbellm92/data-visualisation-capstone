@@ -66,6 +66,7 @@ router.post("/login", function (req, res, next) {
       });
     })
     .catch((err) => {
+      console.log(err);
       //Check if headers have already been sent
       if(!res.headersSent){
         //If headers have not been sent, send a 500 response with an error message
