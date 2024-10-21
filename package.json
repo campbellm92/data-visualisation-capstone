@@ -1,0 +1,11 @@
+{
+  "name": "capstone",
+  "scripts": {
+    "client": "npm run dev --prefix client",
+    "backend": "npm start --prefix backend",
+    "dev": "concurrently \"npm run client\" \"npm run backend\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
