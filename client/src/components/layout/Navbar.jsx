@@ -1,20 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthProvider";
 import { ButtonSmall } from "../ui/Buttons";
+import LoadingSpinner from "../ui/LoadingSpinner";
 import AuthModal from "../User/AuthModal";
 
-export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
-  // Function to handle logout
-  // This function will remove the token from the local storage and set isLoggedIn to false
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
-    console.log("Token removed");
-    console.log("Logged out")
+export default function Navbar() {
+  const { isLoggedIn, handleLogout } = useContext(AuthContext);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  // make sure spinner isn't going when logged in
+  useEffect(() => {
+    if (isLoggedIn) {
+      setIsLoggingOut(false);
+    }
+  }, [isLoggedIn]);
+
+  const handleLogoutClick = () => {
+    setIsLoggingOut(true);
+    handleLogout(() => setIsLoggingOut(false));
   };
 
-  // This useEffect will handle the outside click event for closing the dropdowns
-  // If you add more dropdowns, make sure to add the class "dropdown" to the parent element
-  // Reference: https://stackoverflow.com/questions/76786642/daisyui-click-outside-to-close-details-summary-dropdown
+  // handle outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       document.querySelectorAll(".dropdown").forEach((dropdown) => {
@@ -23,9 +29,7 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
         }
       });
     };
-
     window.addEventListener("click", handleClickOutside);
-
     return () => {
       window.removeEventListener("click", handleClickOutside); // Clean up event listener
     };
@@ -113,12 +117,14 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
             Login
           </ButtonSmall>
         ) : (
-          <ButtonSmall onClick={handleLogout}>Logout</ButtonSmall>
+          <ButtonSmall onClick={handleLogoutClick} disabled={isLoggingOut}>
+            {isLoggingOut ? <LoadingSpinner /> : "Logout"}
+          </ButtonSmall>
         )}
       </div>
 
       {/* Render the AuthModal */}
-      <AuthModal setIsLoggedIn={setIsLoggedIn} />
+      <AuthModal />
     </div>
   );
 }
