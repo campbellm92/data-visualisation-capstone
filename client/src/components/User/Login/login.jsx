@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import InputField from "../InputField";
@@ -8,8 +8,9 @@ import {
   useEmailValidator,
   usePasswordValidator,
 } from "../../../hooks/input-sanitizers/useAuthValidators";
+import { AuthContext } from "../../../context/AuthProvider"; // Import AuthContext
 
-const Login = ({ toggle, setIsLoggedIn }) => {
+const Login = ({ toggle }) => {
   const {
     value: emailValue,
     hasError: emailHasError,
@@ -27,6 +28,7 @@ const Login = ({ toggle, setIsLoggedIn }) => {
   } = usePasswordValidator();
 
   // State variables for error and success messages
+  const { setIsLoggedIn } = useContext(AuthContext);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -79,11 +81,12 @@ const Login = ({ toggle, setIsLoggedIn }) => {
 
           setSuccess(null);
           setIsLoading(false);
-        }, 3000);
+        }, 2000);
       } else {
         // If the response is not successful, set error message
         setError(res.data.message || "User or Password is incorrect.");
         setSuccess(null);
+        setIsLoading(false);
       }
     } catch (err) {
       // If an error occurs, set error
@@ -91,6 +94,7 @@ const Login = ({ toggle, setIsLoggedIn }) => {
         err.response?.data?.message || "Server error. Could not complete login."
       );
       setSuccess(null);
+      setIsLoading(false);
     }
   };
 
