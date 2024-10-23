@@ -106,9 +106,9 @@ function Register({ toggle }) {
       <h2 className="card-title">Register</h2>
       {/* Input field for email */}
       <InputField
-        label="Username"
+        label="Email"
         type="text"
-        placeholder="Username"
+        placeholder="Please enter your email address"
         value={emailValue}
         onChange={emailChangeHandler}
         onBlur={emailMarkAsTouched}
