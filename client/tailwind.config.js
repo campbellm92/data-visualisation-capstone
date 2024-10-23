@@ -17,8 +17,10 @@ export default {
           // accent: "",
           // "accent-content": "",
           "base-100": "#ffffff", // background
-          "base-200": "#7a8e7c",
-          "base-300": "#173a2c",
+          // "base-200": "#7a8e7c",
+          "base-200": "#0ea5e9",
+          // "base-300": "#173a2c",
+          "base-300": "#0c4a6e",
           info: "#237496",
           success: "#289b6f",
           warning: "#fccd5e",
