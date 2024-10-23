@@ -1,7 +1,8 @@
 import { useContext } from "react";
-import HeroSection from "../sections/landing-page/HeroSection";
-import Toast from "../components/ui/Toasts";
 import { AuthContext } from "../context/AuthProvider";
+import Toast from "../components/ui/Toasts";
+import HeroSection from "../sections/landing-page/HeroSection";
+import InfoSection from "../sections/landing-page/InfoSection";
 
 export default function LandingPage() {
   const { showLogoutToast } = useContext(AuthContext);
@@ -9,6 +10,7 @@ export default function LandingPage() {
   return (
     <div>
       <HeroSection />
+      <InfoSection />
       {showLogoutToast && <Toast>Successfully logged out</Toast>}
     </div>
   );
