@@ -9,6 +9,7 @@ import {
 import Navbar from "./components/layout/Navbar";
 import LandingPage from "./pages/LandingPage";
 import Welcome from "./pages/welcome/Welcome";
+import Footer from "./sections/footer/Footer";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           {/* This is now a protected route which uses the auth provider logic */}
           <Route path="/welcome" element={<ProtectedRoute />} />
         </Routes>
+        <Footer />
       </Router>
     </AuthProvider>
   );

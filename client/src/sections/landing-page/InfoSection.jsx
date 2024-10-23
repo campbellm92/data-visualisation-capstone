@@ -1,6 +1,6 @@
 export default function InfoSection() {
   return (
-    <div className="h-screen">
+    <div>
       <div className="info-part bg-base-100 flex flex-col lg:flex-row-reverse items-center justify-center w-full">
         <div className="hero w-full h-full">
           <div className="hero-content flex-col lg:flex-row-reverse text-center justify-between lg:p-10">
