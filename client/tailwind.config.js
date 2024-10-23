@@ -20,7 +20,10 @@ export default {
           // "base-200": "#7a8e7c",
           "base-200": "#0ea5e9",
           // "base-300": "#173a2c",
-          "base-300": "#0c4a6e",
+          // "base-300": "#0c4a6e",
+          // "base-300": "#111827",
+          "base-300": "#1f2937",
+
           info: "#237496",
           success: "#289b6f",
           warning: "#fccd5e",
