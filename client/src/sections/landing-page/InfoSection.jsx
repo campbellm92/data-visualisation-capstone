@@ -1,3 +1,5 @@
+import { ButtonMediumWide } from "../../components/ui/Buttons";
+
 export default function InfoSection() {
   return (
     <div>
@@ -9,6 +11,9 @@ export default function InfoSection() {
               className="max-w-xs md:max-w-sm lg:max-w-md rounded-lg shadow-2xl object-cover sm:mt-6"
             />
             <div className="lg:mr-10 sm:my-6">
+              <h3 className="mb-4 text-light font-bold text-base-200">
+                OUR DATA IN YOUR HANDS
+              </h3>
               <h1 className="text-5xl font-bold">
                 Hey! 👋 We're{" "}
                 <span className="text-bold text-primary underline decoration-base-200">
@@ -21,7 +26,7 @@ export default function InfoSection() {
                 dignissimos nesciunt saepe iste eum incidunt similique deserunt
                 cupiditate. Magnam facilis error ut fugit!
               </p>
-              <button className="btn btn-primary">Get Started</button>
+              <ButtonMediumWide>Get a quote</ButtonMediumWide>
             </div>
           </div>
         </div>
