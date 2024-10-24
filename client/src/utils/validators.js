@@ -1,5 +1,6 @@
 export const checkValidEmailFormat = (email) => {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const trimmedEmail = email.trim();
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail);
 };
 
 export const checkValidPasswordFormat = (password) => {
