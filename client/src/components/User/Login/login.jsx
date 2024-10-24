@@ -48,6 +48,8 @@ const Login = ({ toggle }) => {
       return;
     }
 
+    const trimmedEmail = emailValue.trim();
+
     passwordInputReset();
     setError(null);
     setSuccess(null);
@@ -56,7 +58,7 @@ const Login = ({ toggle }) => {
     try {
       // Send a POST request to login endpoint with email and password
       const res = await axios.post("http://localhost:3000/users/login", {
-        email: emailValue,
+        email: trimmedEmail,
         password: passwordValue,
       });
 
