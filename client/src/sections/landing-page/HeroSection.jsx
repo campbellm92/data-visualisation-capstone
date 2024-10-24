@@ -7,7 +7,10 @@ export default function HeroSection() {
         <div className="hero-content text-primary-content text-center">
           <div className="max-w-3xl">
             <h1 className="text-6xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold">
-              Data-driven insights for smart tourism
+              Data-driven{" "}
+              <span className="underline decoration-base-200">insights</span>{" "}
+              for smart{" "}
+              <span className="underline decoration-base-200">tourism</span>
             </h1>
             <p className="py-6">
               Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
