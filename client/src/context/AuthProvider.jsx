@@ -4,6 +4,8 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // below logic allows access to token for other pages
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
   // state for showing logout Toast component
   const [showLogoutToast, setShowLogoutToast] = useState(false);
 
@@ -13,8 +15,10 @@ export function AuthProvider({ children }) {
     if (token) {
       setIsLoggedIn(true);
       console.log(`Token: ${token}, Logged in`);
+    } else {
       console.log("Token not found, not logged in");
     }
+    setIsAuthChecked(true);
   }, []);
 
   // function for handling logout and showing the toast
@@ -34,7 +38,7 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider
       value={{ isLoggedIn, setIsLoggedIn, handleLogout, showLogoutToast }}
     >
-      {children}
+      {isAuthChecked ? children : null}
     </AuthContext.Provider>
   );
 }
