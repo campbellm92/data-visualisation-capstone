@@ -1,21 +1,19 @@
-import { useState, useEffect } from 'react';
-import { kAPI_URL } from '../../utils/constants';
-import { getUrlFromCache, getUrlFromServer } from '../../utils/utils';
+import { useState, useEffect } from "react";
+import { kAPI_URL } from "../../utils/constants";
+import { getUrlFromCache, getUrlFromServer } from "../utils/utils";
 
 // Retrieve the list of Countries from the external API
 export function useLGANames() {
+  const [loading, setLoading] = useState(false);
+  const [LGANames, setLGANames] = useState();
+  const [error, setError] = useState(null);
+  const [cache, setCache] = useState({});
 
-    const [loading, setLoading] = useState(false);
-    const [LGANames, setLGANames] = useState();
-    const [error, setError] = useState(null);
-    const [cache, setCache] = useState({});
-  
-    useEffect(() => {
-  
-      const url = `${kAPI_URL}/countries`;
-  
-      setLGANames(['Cairns', 'Gold Coast', 'Noosa', 'Whitsunday', ]);
-      /*
+  useEffect(() => {
+    const url = `${kAPI_URL}/countries`;
+
+    setLGANames(["Cairns", "Gold Coast", "Noosa", "Whitsunday"]);
+    /*
       if (getUrlFromCache(cache, url)) {
   
         setLoading(false);
@@ -38,12 +36,11 @@ export function useLGANames() {
             setLoading(false);
           });
       }*/
-    }, [cache]);
-  
-    return {
-      loading: loading,
-      LGANames: LGANames,
-      error: error,
-    };
-  }
-  
+  }, [cache]);
+
+  return {
+    loading: loading,
+    LGANames: LGANames,
+    error: error,
+  };
+}

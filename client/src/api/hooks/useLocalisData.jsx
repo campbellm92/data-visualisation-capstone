@@ -6,9 +6,9 @@
 //
 
 import { useState, useEffect } from "react";
-import { addDaysToDate } from "../../utils/utils";
-import { kAPI_URL, kDEFAULT_ERROR_MSG } from "../../utils/constants";
-import { getUrlFromCache, getUrlFromServer } from "../../utils/utils";
+import { addDaysToDate } from "../utils/utils";
+import { kAPI_URL, kDEFAULT_ERROR_MSG } from "../utils/constants";
+import { getUrlFromCache, getUrlFromServer } from "../utils/utils";
 
 // Retrieve Ranking data based on year and country from the external API
 export function useLocalisData(startDate, windowDays) {

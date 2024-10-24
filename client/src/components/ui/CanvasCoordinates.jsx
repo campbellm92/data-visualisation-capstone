@@ -1,15 +1,20 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { addDaysToDate } from '../../utils/utils';
+import { useRef, useEffect, useState } from "react";
+import { addDaysToDate } from "../../api/utils/utils";
 import backgroundImage from "../../images/gridbackground.png";
 
-function CanvasCoordinates({startDate, setStartDate, windowDays, setWindowDays}) {
+function CanvasCoordinates({
+  startDate,
+  setStartDate,
+  windowDays,
+  setWindowDays,
+}) {
   const canvasRef = useRef(null);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [isInteracting, setIsInteracting] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext("2d");
     const image = new Image();
     image.src = backgroundImage;
 
@@ -19,11 +24,11 @@ function CanvasCoordinates({startDate, setStartDate, windowDays, setWindowDays})
       context.drawImage(image, 0, 0);
     };
 
-    canvas.style.touchAction = 'none';
-    canvas.addEventListener('dragstart', (e) => e.preventDefault());
+    canvas.style.touchAction = "none";
+    canvas.addEventListener("dragstart", (e) => e.preventDefault());
 
     return () => {
-      canvas.removeEventListener('dragstart', (e) => e.preventDefault());
+      canvas.removeEventListener("dragstart", (e) => e.preventDefault());
     };
   }, []);
 
@@ -66,7 +71,7 @@ function CanvasCoordinates({startDate, setStartDate, windowDays, setWindowDays})
     setCoords({ x: Math.round(x), y: Math.round(y) });
 
     setWindowDays(Math.round((100 - y) * 3.6));
-    setStartDate(addDaysToDate('2023-10-01', Math.round(x - (365 / 2))))
+    setStartDate(addDaysToDate("2023-10-01", Math.round(x - 365 / 2)));
   };
 
   const captureTouchCoordinates = (event) => {
@@ -86,10 +91,10 @@ function CanvasCoordinates({startDate, setStartDate, windowDays, setWindowDays})
         style={{
           width: 365,
           height: 100,
-          border: '1px solid black',
-          touchAction: 'none', 
-          userSelect: 'none',
-          WebkitUserDrag: 'none', 
+          border: "1px solid black",
+          touchAction: "none",
+          userSelect: "none",
+          WebkitUserDrag: "none",
         }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
