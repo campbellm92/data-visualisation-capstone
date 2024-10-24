@@ -9,6 +9,7 @@ import {
 import Navbar from "./components/layout/Navbar";
 import LandingPage from "./pages/LandingPage";
 import Welcome from "./pages/welcome/Welcome";
+import LGAPage from "./pages/data-visualisation/LGAPage";
 import Footer from "./sections/footer/Footer";
 
 function App() {
@@ -21,7 +22,14 @@ function App() {
           {/* landing page code now in pages > LandingPage.jsx */}
           <Route path="/" element={<LandingPage />} />
           {/* This is now a protected route which uses the auth provider logic */}
-          <Route path="/welcome" element={<ProtectedRoute />} />
+          <Route
+            path="/welcome"
+            element={<ProtectedRoute component={Welcome} />}
+          />
+          <Route
+            path="/lgapage"
+            element={<ProtectedRoute component={LGAPage} />}
+          />
         </Routes>
         <Footer />
       </Router>
@@ -29,9 +37,9 @@ function App() {
   );
 }
 
-function ProtectedRoute() {
+function ProtectedRoute({ component: Component }) {
   const { isLoggedIn } = useContext(AuthContext);
-  return isLoggedIn ? <Welcome /> : <Navigate to="/" />;
+  return isLoggedIn ? <Component /> : <Navigate to="/" />;
 }
 
 export default App;
