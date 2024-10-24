@@ -3,7 +3,8 @@ export const checkValidEmailFormat = (email) => {
 };
 
 export const checkValidPasswordFormat = (password) => {
-  return /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/.test(
-    password
+  const trimmedPassword = password.trim();
+  return /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/.test(
+    trimmedPassword
   );
 };
