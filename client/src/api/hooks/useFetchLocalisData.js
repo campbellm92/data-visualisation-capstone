@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { kAPI_URL, kDEFAULT_ERROR_MSG } from "../utils/constants";
 import { getUrlFromCache, getUrlFromServer } from "../utils/utils";
 
-export default function useFetchLocalisData(endpoint) {
+export function useFetchLocalisData(endpoint) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
   const [error, setError] = useState(null);
@@ -23,7 +23,6 @@ export default function useFetchLocalisData(endpoint) {
         setData(cachedData);
         setError(null);
       } else {
-        setLoading(true);
         try {
           const dataSet = await getUrlFromServer(url, false);
           setCache((prevCache) => ({ ...prevCache, [url]: dataSet }));
@@ -38,7 +37,7 @@ export default function useFetchLocalisData(endpoint) {
     };
 
     fetchData();
-  });
+  }, [endpoint]);
 
   return {
     loading,
