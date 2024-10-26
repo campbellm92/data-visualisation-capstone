@@ -1,7 +1,7 @@
 //
 //  IFQ717 Web Development Capstone
 //
-//  api.js - Main app API function definitions
+//  api.js - Main app API function definitions  by Gary Cazzulino
 //
 //
 

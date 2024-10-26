@@ -39,3 +39,11 @@ export function ButtonMediumFullWide({ children, onClick }) {
     <button className="btn btn-md btn-primary btn-wide w-full" onClick={onClick}>{children}</button>
   );
 }
+
+
+export function ButtonOutlineFullWide({ children, onClick }) {
+  return (
+    <button className="btn btn-md btn-outline btn-wide w-full" onClick={onClick}>{children}</button>
+  );
+}
+

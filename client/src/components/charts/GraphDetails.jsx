@@ -7,6 +7,7 @@
 
 import { AgCharts } from "ag-charts-react";
 import { kGraphLineStyle } from "../../api/utils/constants";
+import { kGraphColours } from "../../api/utils/constants";
 import {
   LineChart,
   Line,
@@ -45,7 +46,9 @@ export default function GraphDetails({
   field,
   scale,
   useRechart,
+  LGAs
 }) {
+
   if (useRechart) {
     const data = denormalizeDataSet(dataSet, field, scale);
     // dataSet/*.filter(sample => sample.lga_name === 'Gold Coast')*/.map(sample => {
@@ -57,6 +60,8 @@ export default function GraphDetails({
     //       "Cairns": sample.lga_name == 'Cairns' ? parseFloat(sample[field]) * scale : null
     //     }
     //   });
+
+    // console.table(LGAs);
 
     return (
       <div style={{ width: "100%", height: "90%" }}>
@@ -76,38 +81,16 @@ export default function GraphDetails({
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line
-              type="monotone"
-              name="Cairns"
-              dataKey="Cairns"
-              stroke="#ff0000"
-              dot={false}
-              isAnimationActive={false}
-            />
-            <Line
-              type="monotone"
-              name="Gold Coast"
-              dataKey="Gold Coast"
-              stroke="#00ff00"
-              dot={false}
-              isAnimationActive={false}
-            />
-            <Line
-              type="monotone"
-              name="Noosa"
-              dataKey="Noosa"
-              stroke="#0000ff"
-              dot={false}
-              isAnimationActive={false}
-            />
-            <Line
-              type="monotone"
-              name="Whitsunday"
-              dataKey="Whitsunday"
-              stroke="#9B870C"
-              dot={false}
-              isAnimationActive={false}
-            />
+            {LGAs.map((LGA) => { return (
+              <Line
+                type="monotone"
+                name={LGA}
+                dataKey={LGA}
+                stroke={kGraphColours[LGA]}
+                dot={false}
+                isAnimationActive={false}
+              />)
+            })}
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -160,6 +143,7 @@ export default function GraphDetails({
       }),
       // Series: Defines which chart type and data to use
       series: [
+        LGAs.find((LGA) => LGA === 'Noosa') ?
         {
           type: "line",
           xKey: "noosa_sample_date",
@@ -170,7 +154,8 @@ export default function GraphDetails({
           marker: {
             enabled: false,
           },
-        },
+        } : {}, 
+        LGAs.find((LGA) => LGA === 'Gold Coast') ?
         {
           type: "line",
           xKey: "gold_coast_sample_date",
@@ -181,7 +166,8 @@ export default function GraphDetails({
           marker: {
             enabled: false,
           },
-        },
+        } : {},
+        LGAs.find((LGA) => LGA === 'Whitsunday') ?
         {
           type: "line",
           xKey: "whitsunday_sample_date",
@@ -192,7 +178,8 @@ export default function GraphDetails({
           marker: {
             enabled: false,
           },
-        },
+        } : {},
+        LGAs.find((LGA) => LGA === 'Cairns') ?
         {
           type: "line",
           xKey: "cairns_sample_date",
@@ -203,7 +190,7 @@ export default function GraphDetails({
           marker: {
             enabled: false,
           },
-        },
+        } : {},
       ],
       axes: [
         {

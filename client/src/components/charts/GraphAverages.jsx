@@ -1,13 +1,13 @@
 //
 //  IFQ717 Web Development Capstone
 //
-//  DataAverages.js -
+//  GraphAverages.js - Graphs selected average for selected LGAs by Gary Cazzulino
 //
 //
 
 import { AgCharts } from "ag-charts-react";
-import { kGraphLineStyle } from "../../api/utils/constants";
-import { average } from "../../api/utils/utils";
+import { kGraphLineStyle, kGraphColours } from "../../api/utils/constants";
+import { average, convertToLabel } from "../../api/utils/utils";
 import {
   BarChart,
   Bar,
@@ -24,6 +24,7 @@ export default function GraphAverages({
   field,
   scale,
   useRechart,
+  LGAs
 }) {
   let options = {
     title: {
@@ -68,60 +69,110 @@ export default function GraphAverages({
     ],
     // Series: Defines which chart type and data to use
     series: [
-      {
-        type: "bar",
-        xKey: "noosa_lga",
-        yKey: "noosa_average",
-        yName: "Noosa",
-        interpolation: { type: kGraphLineStyle },
-        strokeWidth: 2,
-        marker: {
-          enabled: false,
-        },
-      },
-      {
-        type: "bar",
-        xKey: "gold_coast_lga",
-        yKey: "gold_coast_average",
-        yName: "Gold Coast",
-        interpolation: { type: kGraphLineStyle },
-        strokeWidth: 2,
-        marker: {
-          enabled: false,
-        },
-      },
-      {
-        type: "bar",
-        xKey: "whitsunday_lga",
-        yKey: "whitsunday_average",
-        yName: "Whitsunday",
-        interpolation: { type: kGraphLineStyle },
-        strokeWidth: 2,
-        marker: {
-          enabled: false,
-        },
-      },
-      {
-        type: "bar",
-        xKey: "cairns_lga",
-        yKey: "cairns_average",
-        yName: "Cairns",
-        interpolation: { type: kGraphLineStyle },
-        strokeWidth: 2,
-        marker: {
-          enabled: false,
-        },
-      },
+      LGAs.find((LGA) => LGA === 'Noosa') ?
+        {
+          type: "bar",
+          xKey: "noosa_lga",
+          yKey: "noosa_average",
+          yName: "Noosa",
+          interpolation: { type: kGraphLineStyle },
+          strokeWidth: 2,
+          marker: {
+            enabled: false,
+          },
+        } : {},
+      LGAs.find((LGA) => LGA === 'Gold Coast') ?
+        {
+          type: "bar",
+          xKey: "gold_coast_lga",
+          yKey: "gold_coast_average",
+          yName: "Gold Coast",
+          interpolation: { type: kGraphLineStyle },
+          strokeWidth: 2,
+          marker: {
+            enabled: false,
+          },
+        } : {},
+      LGAs.find((LGA) => LGA === 'Whitsunday') ?
+        {
+          type: "bar",
+          xKey: "whitsunday_lga",
+          yKey: "whitsunday_average",
+          yName: "Whitsunday",
+          interpolation: { type: kGraphLineStyle },
+          strokeWidth: 2,
+          marker: {
+            enabled: false,
+          },
+        } : {},
+      LGAs.find((LGA) => LGA === 'Cairns') ?
+        {
+          type: "bar",
+          xKey: "cairns_lga",
+          yKey: "cairns_average",
+          yName: "Cairns",
+          interpolation: { type: kGraphLineStyle },
+          strokeWidth: 2,
+          marker: {
+            enabled: false,
+          },
+        } : {},
     ],
   };
 
   if (useRechart) {
+    const data = [
+      LGAs.find((LGA) => LGA === 'Noosa') ?
+        {
+          lga: "Noosa",
+          average: average(
+            dataSet
+              .filter((sample) => sample.lga_name === "Noosa")
+              .map((sample) => {
+                return parseFloat(sample[field]) * scale;
+              })
+          )
+        } : null,
+      LGAs.find((LGA) => LGA === 'Gold Coast') ?
+        {
+          lga: "Gold Coast",
+          average: average(
+            dataSet
+              .filter((sample) => sample.lga_name === "Gold Coast")
+              .map((sample) => {
+                return parseFloat(sample[field]) * scale;
+              })
+          )
+        } : null,
+      LGAs.find((LGA) => LGA === 'Whitsunday') ?
+        {
+          lga: "Whitsunday",
+          average: average(
+            dataSet
+              .filter((sample) => sample.lga_name === "Whitsunday")
+              .map((sample) => {
+                return parseFloat(sample[field]) * scale;
+              })
+          )
+        } : null,
+      LGAs.find((LGA) => LGA === 'Cairns') ?
+        {
+          lga: "Cairns",
+          average: average(
+            dataSet
+              .filter((sample) => sample.lga_name === "Cairns")
+              .map((sample) => {
+                return parseFloat(sample[field]) * scale;
+              })
+          )
+        } : null,
+    ];
     return (
       <div style={{ width: "100%", height: "90%" }}>
         <ResponsiveContainer>
           <h2 style={{ textAlign: "center" }}>{title}</h2>
-
-          <BarChart
+          {/*<PieChart width={730} height={250}>*/}
+            <BarChart
             data={options.data}
             margin={{
               top: 10,
@@ -133,46 +184,27 @@ export default function GraphAverages({
             <XAxis dataKey="sample_date" />
             <YAxis />
             <Tooltip />
-            <Legend />
+            {/*<Legend />*/}
+            {/*<Pie data={data} nameKey="lga" dataKey="average" >
+            {data.map((entry, index) => (
+              entry !== null ?
+              <Cell key={`cell-${entry.lga}`} fill={kGraphColours[entry.lga]} /> : null
+            ))}
+          </Pie>*/}
+          {LGAs.map((LGA) => { return (
+              
             <Bar
               type="monotone"
-              name="Cairns"
-              dataKey="cairns_average"
-              stroke="#ff0000"
-              fill="#ff0000"
+              name={LGA}
+              dataKey={convertToLabel(LGA) + "_average"}
+              stroke={kGraphColours[LGA]}
+              fill={kGraphColours[LGA]}
               dot={false}
               isAnimationActive={false}
-            />
-            <Bar
-              type="monotone"
-              name="Gold Coast"
-              dataKey="gold_coast_average"
-              stroke="#00ff00"
-              fill="#00ff00"
-              dot={false}
-              isAnimationActive={false}
-            />
-            <Bar
-              type="monotone"
-              name="Noosa"
-              dataKey="noosa_average"
-              stroke="#0000ff"
-              fill="#0000ff"
-              dot={false}
-              isAnimationActive={false}
-            />
-            <Bar
-              type="monotone"
-              name="Whitsunday"
-              dataKey="whitsunday_average"
-              stroke="#9B870C"
-              fill="#9B870C"
-              dot={false}
-              isAnimationActive={false}
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+            />)})}
+        </BarChart>
+      </ResponsiveContainer>
+      </div >
     );
   } else {
     return <AgCharts options={options} />;

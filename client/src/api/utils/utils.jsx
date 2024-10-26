@@ -6,7 +6,7 @@
 //
 
 export function average(arr) {
-  return arr.reduce((p, c) => p + c, 0) / arr.length;
+  return Math.trunc((arr.reduce((p, c) => p + c, 0) / arr.length) * 10.0) / 10.0;
 }
 
 // Given a cache array and a specific URL string, getUrlFromCache will return the previous
@@ -66,4 +66,8 @@ export function daysBetweenDates(startDate, endDate) {
   const dayDifference = (endDateDate - startDateDate) / millisecondsPerDay;
 
   return Math.floor(dayDifference);
+}
+
+export function convertToLabel(name) {
+  return name.replace(' ', '_').toLowerCase();
 }

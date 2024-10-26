@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { addDaysToDate } from "../../api/utils/utils";
 import backgroundImage from "../../images/gridbackground.png";
 
-function CanvasCoordinates({
+function DateScroller ({
   startDate,
   setStartDate,
   windowDays,
@@ -89,7 +89,7 @@ function CanvasCoordinates({
       <canvas
         ref={canvasRef}
         style={{
-          width: 365,
+          width: '100%',
           height: 100,
           border: "1px solid black",
           touchAction: "none",
@@ -109,4 +109,4 @@ function CanvasCoordinates({
   );
 }
 
-export default CanvasCoordinates;
+export default DateScroller;

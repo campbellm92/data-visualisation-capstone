@@ -4,7 +4,7 @@ import Graphs from "../../components/layout/Graphs";
 const Welcome = () => {
   return (
     <div>
-      <h1>Welcome!</h1>
+     
       <Graphs />
     </div>
   );
