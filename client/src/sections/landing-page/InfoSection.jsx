@@ -11,12 +11,12 @@ export default function InfoSection() {
               className="max-w-xs md:max-w-sm lg:max-w-md rounded-lg shadow-2xl object-cover sm:mt-6"
             />
             <div className="lg:mr-10 sm:my-6">
-              <h3 className="mb-4 text-light font-bold text-base-200">
+              <h3 className="mb-4 text-light font-bold text-secondary">
                 OUR DATA IN YOUR HANDS
               </h3>
               <h1 className="text-5xl font-bold">
                 Hey! 👋 We're{" "}
-                <span className="text-bold text-primary underline decoration-base-200">
+                <span className="text-bold text-primary underline decoration-secondary">
                   Localis
                 </span>
               </h1>
