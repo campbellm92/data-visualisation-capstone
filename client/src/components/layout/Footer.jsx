@@ -1,17 +1,18 @@
-import React from 'react'
-
-function Footer() {
+export default function Footer() {
   return (
     <>
-      <footer className="footer bg-base-100 text-base-content p-20"> 
+      <footer className="footer bg-base-100 text-base-content p-20">
         <aside>
           <p>
-            <span className="text-xl">Localis
+            <span className="text-xl">
+              Localis
               <br />
               Visualise your local
             </span>
             <br />
-            <span>Copyright © {new Date().getFullYear()} - All right reserved</span>
+            <span>
+              Copyright © {new Date().getFullYear()} - All right reserved
+            </span>
           </p>
         </aside>
         <nav>
@@ -32,7 +33,5 @@ function Footer() {
         </nav>
       </footer>
     </>
-  )
+  );
 }
-
-export default Footer
