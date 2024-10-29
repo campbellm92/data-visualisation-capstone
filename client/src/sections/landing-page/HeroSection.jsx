@@ -8,9 +8,9 @@ export default function HeroSection() {
           <div className="max-w-3xl">
             <h1 className="text-6xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold">
               Data-driven{" "}
-              <span className="underline decoration-base-200">insights</span>{" "}
+              <span className="underline decoration-secondary">insights</span>{" "}
               for smart{" "}
-              <span className="underline decoration-base-200">tourism</span>
+              <span className="underline decoration-secondary">tourism</span>
             </h1>
             <p className="py-6">
               Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
