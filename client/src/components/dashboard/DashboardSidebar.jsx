@@ -1,0 +1,40 @@
+import { useLocation } from "react-router-dom";
+import SidebarItem from "./SidebarItem";
+import Icons from "./DashboardIcons";
+
+export default function DashboardSidebar({ isCollapsed }) {
+  const sidebarItems = [
+    { href: "/dashboardtest", label: "Dashboard", icon: <Icons.Home /> },
+    { href: "/", label: "January", icon: <Icons.Calender /> },
+    { href: "/", label: "Data", icon: <Icons.DataStack /> },
+    { href: "/", label: "Grants", icon: <Icons.Pencil /> },
+    { href: "/", label: "AI", icon: <Icons.CPUChip /> },
+  ];
+  return (
+    <aside
+      className={`${
+        isCollapsed ? "w-14" : "w-64"
+      } h-full bg-base-300 transition-all duration-300 border-e-2 border-base-200`}
+    >
+      <div className="p-5">
+        <div className="text-xl text-primary-content font-bold">
+          {isCollapsed ? "L" : "Localis"}
+        </div>
+      </div>
+
+      <nav className="mt-4">
+        <ul>
+          {sidebarItems.map((item) => (
+            <SidebarItem
+              key={item.href}
+              href={item.href}
+              label={item.label}
+              isCollapsed={isCollapsed}
+              icon={item.icon}
+            />
+          ))}
+        </ul>
+      </nav>
+    </aside>
+  );
+}
