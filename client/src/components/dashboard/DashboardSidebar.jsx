@@ -5,10 +5,10 @@ import Icons from "./DashboardIcons";
 export default function DashboardSidebar({ isCollapsed }) {
   const sidebarItems = [
     { href: "/dashboardtest", label: "Dashboard", icon: <Icons.Home /> },
-    { href: "/", label: "January", icon: <Icons.Calender /> },
-    { href: "/", label: "Data", icon: <Icons.DataStack /> },
-    { href: "/", label: "Grants", icon: <Icons.Pencil /> },
-    { href: "/", label: "AI", icon: <Icons.CPUChip /> },
+    { href: "/LGAPage", label: "January", icon: <Icons.Calender /> },
+    { href: "/welcome", label: "Data", icon: <Icons.DataStack /> },
+    { href: "/welcome", label: "Grants", icon: <Icons.Pencil /> },
+    { href: "/welcome", label: "AI", icon: <Icons.CPUChip /> },
   ];
   return (
     <aside
