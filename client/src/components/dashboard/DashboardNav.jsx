@@ -1,9 +1,13 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
 import DarkmodeToggler from "../ui/DarkModeToggler";
 import Icons from "./DashboardIcons";
+import { AuthContext } from "../../context/AuthProvider";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 export default function DashboardNav({ toggleSidebar }) {
+  const { handleLogout, loading } = useContext(AuthContext);
+
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -36,8 +40,12 @@ export default function DashboardNav({ toggleSidebar }) {
                 <li className="px-4 py-2 hover:bg-base-200 cursor-pointer">
                   Settings
                 </li>
-                <li className="px-4 py-2 hover:bg-base-200 cursor-pointer">
-                  Logout
+                <li
+                  className="px-4 py-2 hover:bg-base-200 cursor-pointer"
+                  onClick={handleLogout}
+                  disabled={loading}
+                >
+                  {loading ? <LoadingSpinner /> : "Logout"}
                 </li>
               </ul>
             </div>
