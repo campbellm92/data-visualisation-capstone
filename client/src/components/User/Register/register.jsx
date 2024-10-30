@@ -6,9 +6,26 @@ import LoadingSpinner from "../../ui/LoadingSpinner";
 import {
   useEmailValidator,
   usePasswordValidator,
+  useNameValidator,
 } from "../../../hooks/input-sanitizers/useAuthValidators";
 
 function Register({ toggle }) {
+  const {
+    value: firstName,
+    hasError: firstNameHasError,
+    valueChangeHandler: firstNameChangeHandler,
+    markAsTouched: firstNameMarkAsTouched,
+    inputReset: firstNameInputReset,
+  } = useNameValidator();
+
+  const {
+    value: lastName,
+    hasError: lastNameHasError,
+    valueChangeHandler: lastNameChangeHandler,
+    markAsTouched: lastNameMarkAsTouched,
+    inputReset: lastNameInputReset,
+  } = useNameValidator();
+
   const {
     value: emailValue,
     hasError: emailHasError,
@@ -39,20 +56,22 @@ function Register({ toggle }) {
     // Prevent default form submission
     e.preventDefault();
 
-    // Mark email and password fields as touched
+    // Mark all fields as touched
+    firstNameMarkAsTouched();
+    lastNameMarkAsTouched();
     emailMarkAsTouched();
     passwordMarkAsTouched();
 
     // Check if all fields are filled
-    if (!emailValue || !passwordValue || !localArea) {
+    if (!firstName || !lastName || !emailValue || !passwordValue || !localArea) {
       setError("All fields are required to continue.");
       setSuccess(null);
       return;
     }
 
-    // Check if email and password have errors
-    if (emailHasError || passwordHasError) {
-      setError("Invalid email or password. Please try again.");
+    // Check if any field has errors
+    if (firstNameHasError || lastNameHasError || emailHasError || passwordHasError) {
+      setError("Please correct the errors in the form.");
       setSuccess(null);
       return;
     }
@@ -67,6 +86,8 @@ function Register({ toggle }) {
     try {
       // Send a POST request to register endpoint with email, password and local area
       const res = await axios.post("http://localhost:3000/users/register", {
+        firstName: firstName,
+        lastName: lastName,
         email: emailValue,
         password: passwordValue,
         LGAName: localArea,
@@ -74,6 +95,8 @@ function Register({ toggle }) {
 
       // Check if the response is successful
       if (res.data.success) {
+        firstNameInputReset();
+        lastNameInputReset();
         emailInputReset();
         passwordInputReset();
         setLocalArea("");
@@ -104,6 +127,28 @@ function Register({ toggle }) {
   return (
     <div className="flex flex-col">
       <h2 className="card-title">Register</h2>
+       {/* Input field for first name */}
+       <InputField
+        label="First Name"
+        type="text"
+        placeholder="First Name"
+        value={firstName}
+        onChange={firstNameChangeHandler}
+        onBlur={firstNameMarkAsTouched}
+        hasError={firstNameHasError}
+        errorMessage="Name can only contain letters, hyphens, apostrophes, periods, and spaces."
+      />
+      {/* Input field for last name */}
+      <InputField
+        label="Last Name"
+        type="text"
+        placeholder="Last Name"
+        value={lastName}
+        onChange={lastNameChangeHandler}
+        onBlur={lastNameMarkAsTouched}
+        hasError={lastNameHasError}
+        errorMessage="Name can only contain letters, hyphens, apostrophes, periods, and spaces."
+      />
       {/* Input field for email */}
       <InputField
         label="Email"

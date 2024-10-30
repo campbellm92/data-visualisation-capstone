@@ -7,7 +7,7 @@ export default function Footer() {
             <span className="text-xl">
               Localis
               <br />
-              Visualise your local
+              Visualise your local data
             </span>
             <br />
             <span>

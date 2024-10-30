@@ -9,3 +9,8 @@ export const checkValidPasswordFormat = (password) => {
     trimmedPassword
   );
 };
+
+export const checkValidNameFormat = (name) => {
+  const trimmedName = name.trim();
+  return /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/.test(trimmedName);
+}

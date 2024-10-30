@@ -80,6 +80,8 @@ router.post("/login", function (req, res, next) {
 
 router.post("/register", function (req, res, next) {
   // Retrieve email and password from req.body
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
   const email = req.body.email;
   const password = req.body.password;
   const LGAName = req.body.LGAName;
@@ -115,7 +117,7 @@ router.post("/register", function (req, res, next) {
       const hash = bcrypt.hashSync(password, saltRounds);
       req.db
         .from("users")
-        .insert({ email, hash, LGAName })
+        .insert({ email, hash, LGAName, firstName, lastName })
         .then(() => {
           res.status(201).json({ success: true, message: "User created" });
         })
