@@ -8,6 +8,8 @@ export function AuthProvider({ children }) {
   const [isAuthChecked, setIsAuthChecked] = useState(false);
   // state for showing logout Toast component
   const [showLogoutToast, setShowLogoutToast] = useState(false);
+  // state for loading
+  const [loading, setLoading] = useState(false);
 
   // check if user is already logged in
   useEffect(() => {
@@ -23,7 +25,9 @@ export function AuthProvider({ children }) {
 
   // function for handling logout and showing the toast
   const handleLogout = () => {
+    setLoading(true);
     setTimeout(() => {
+      setLoading(false);
       localStorage.removeItem("token");
       setIsLoggedIn(false);
       setShowLogoutToast(true);
@@ -36,7 +40,13 @@ export function AuthProvider({ children }) {
   };
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, setIsLoggedIn, handleLogout, showLogoutToast }}
+      value={{
+        isLoggedIn,
+        setIsLoggedIn,
+        handleLogout,
+        showLogoutToast,
+        loading,
+      }}
     >
       {isAuthChecked ? children : null}
     </AuthContext.Provider>

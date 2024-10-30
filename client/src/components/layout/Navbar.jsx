@@ -1,31 +1,17 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { ButtonSmall } from "../ui/Buttons";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import AuthModal from "../User/AuthModal";
 
 export default function Navbar() {
-  const { isLoggedIn, handleLogout } = useContext(AuthContext);
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const { isLoggedIn, handleLogout, loading } = useContext(AuthContext);
 
-  // make sure spinner isn't going when logged in
-  useEffect(() => {
-    if (isLoggedIn) {
-      setIsLoggingOut(false);
-    }
-  }, [isLoggedIn]);
-
-  const handleLogoutClick = () => {
-    setIsLoggingOut(true);
-    handleLogout(() => setIsLoggingOut(false));
-  };
-
-  // handle outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       document.querySelectorAll(".dropdown").forEach((dropdown) => {
         if (!dropdown.contains(e.target)) {
-          dropdown.open = false; // Close the dropdown if clicked outside
+          dropdown.open = false;
         }
       });
     };
@@ -117,8 +103,8 @@ export default function Navbar() {
             Login
           </ButtonSmall>
         ) : (
-          <ButtonSmall onClick={handleLogoutClick} disabled={isLoggingOut}>
-            {isLoggingOut ? <LoadingSpinner /> : "Logout"}
+          <ButtonSmall onClick={handleLogout} disabled={loading}>
+            {loading ? <LoadingSpinner /> : "Logout"}
           </ButtonSmall>
         )}
       </div>
