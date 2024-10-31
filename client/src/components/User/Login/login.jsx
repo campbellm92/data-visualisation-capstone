@@ -28,7 +28,7 @@ const Login = ({ toggle }) => {
   } = usePasswordValidator();
 
   // State variables for error and success messages
-  const { setIsLoggedIn } = useContext(AuthContext);
+  const { setIsLoggedIn, fetchUserData } = useContext(AuthContext);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -64,23 +64,17 @@ const Login = ({ toggle }) => {
 
       // Check if the response is successful
       if (res.data.success) {
+        localStorage.setItem("token", res.data.token);
+        setIsLoggedIn(true);
+        await fetchUserData();
+        setError(null);
         emailInputReset();
         passwordInputReset();
-        // Set user as logged in
-        setIsLoggedIn(true);
-        // Clear any previous error messages
-        setError(null);
-        // Set success msg
         setSuccess("Login successful!");
-        setIsLoading(true);
-        // Set token in local storage
-        localStorage.setItem("token", res.data.token);
+        setIsLoading(false);
         setTimeout(() => {
-          // Close the modal
           document.getElementById("auth_modal").close();
-          // Navigate to welcome page
           navigate("/welcome");
-
           setSuccess(null);
           setIsLoading(false);
         }, 2000);
