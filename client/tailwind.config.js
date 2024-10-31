@@ -9,7 +9,24 @@ export default {
   daisyui: {
     themes: [
       {
-        noosa: {
+        publicTheme: {
+          primary: "#c88441", // buttons
+          "primary-content": "#edebe7", // text
+          secondary: "#0ea5e9",
+          // "secondary-content": "",
+          // accent: "",
+          // "accent-content": "",
+          "base-100": "#ffffff",
+          "base-200": "#374151",
+          "base-300": "#1f2937",
+          info: "#237496",
+          success: "#289b6f",
+          warning: "#fccd5e",
+          error: "#f87979",
+        },
+      },
+      {
+        noosaTheme: {
           primary: "#c88441", // buttons
           "primary-content": "#0f172a", // text
           secondary: "#0ea5e9",
@@ -26,16 +43,16 @@ export default {
         },
       },
       {
-        gold_coast: {},
+        goldCoastTheme: {},
       },
       {
-        whitsunday: {},
+        whitsundayTheme: {},
       },
       {
-        cairns: {},
+        cairnsTheme: {},
       },
       {
-        dark: {
+        darkTheme: {
           primary: "#c88441", // buttons
           "primary-content": "#edebe7", // text
           secondary: "#0ea5e9",
