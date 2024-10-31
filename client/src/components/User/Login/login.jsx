@@ -123,6 +123,7 @@ const Login = ({ toggle }) => {
         onBlur={passwordMarkAsTouched}
         // hasError={passwordHasError}
         // errorMessage="The password you've entered is incorrect. Please try again."
+        onKeyDown={(e) => e.key === "Enter" && handleLogin(e)} // Trigger login on Enter key press
       />
       {/* Login button */}
       <div className="form-control mt-6">
