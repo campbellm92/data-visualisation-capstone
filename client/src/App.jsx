@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthProvider";
+import { ThemeProvider } from "./context/ThemeProvider";
 import {
   BrowserRouter as Router,
   Routes,
@@ -32,9 +33,11 @@ function App() {
           path="/welcome"
           element={
             <ProtectedRoute>
-              <DashboardLayout>
-                <Welcome />
-              </DashboardLayout>
+              <ThemeProvider>
+                <DashboardLayout>
+                  <Welcome />
+                </DashboardLayout>
+              </ThemeProvider>
             </ProtectedRoute>
           }
         />
@@ -42,9 +45,11 @@ function App() {
           path="/lgapage"
           element={
             <ProtectedRoute>
-              <DashboardLayout>
-                <LGAPage />
-              </DashboardLayout>
+              <ThemeProvider>
+                <DashboardLayout>
+                  <LGAPage />
+                </DashboardLayout>
+              </ThemeProvider>
             </ProtectedRoute>
           }
         />
@@ -52,9 +57,11 @@ function App() {
           path="/dashboardtest"
           element={
             <ProtectedRoute>
-              <DashboardLayout>
-                <DashboardTestPage />
-              </DashboardLayout>
+              <ThemeProvider>
+                <DashboardLayout>
+                  <DashboardTestPage />
+                </DashboardLayout>
+              </ThemeProvider>
             </ProtectedRoute>
           }
         />
