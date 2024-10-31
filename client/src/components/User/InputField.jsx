@@ -23,6 +23,7 @@ const InputField = ({
           value={value}
           onChange={onChange}
           onBlur={onBlur}
+          onKeyDown={onKeyDown}
         >
           <option value="" disabled>
             {placeholder}
