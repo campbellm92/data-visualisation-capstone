@@ -15,6 +15,8 @@ export function useFetchLocalisData(endpoint) {
       setLoading(true);
 
       let url = `${kAPI_URL}${endpoint}`;
+      // let url = endpoint.startsWith("/") ? endpoint : `${kAPI_URL}${endpoint}`;
+      // let url = `http://localhost:3000${endpoint}`;
 
       const cachedData = getUrlFromCache(cache, url);
 
