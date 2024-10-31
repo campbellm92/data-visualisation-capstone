@@ -23,3 +23,39 @@ export function getMonthlyAverageADR(data, year) {
     value: item.totalADR / item.count,
   }));
 }
+
+export function getUrlFromCache(cache, url, filter = (element) => true) {
+  return cache[url] ? cache[url].filter(filter) : null;
+}
+
+export async function getUrlFromServer(url) {
+  const token = localStorage.getItem("token");
+
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      headers: headers,
+    });
+    if (!res.ok) {
+      throw new Error("No response from server ");
+    }
+
+    const data = await res.json();
+
+    if (data.error) {
+      throw new Error(data.message || "Failed to fetch user data.");
+    }
+    return data;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
