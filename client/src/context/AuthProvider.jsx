@@ -2,6 +2,12 @@ import { createContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext();
 
+// consider changing imports and provider usage in components (navs)
+// hook for using the context:
+// export const useAuth = () => {
+//   return useContext(AuthContext);
+// };
+
 export function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // below logic allows access to token for other pages
@@ -11,16 +17,57 @@ export function AuthProvider({ children }) {
   // state for loading
   const [loading, setLoading] = useState(false);
 
-  // check if user is already logged in
-  useEffect(() => {
+  const [user, setUser] = useState(null);
+
+  const fetchUserData = async () => {
     const token = localStorage.getItem("token");
+
     if (token) {
-      setIsLoggedIn(true);
-      console.log(`Token: ${token}, Logged in`);
+      // const cachedUser = localStorage.getItem("userData");
+      // if (cachedUser) {
+      //   setUser(JSON.parse(cachedUser));
+      //   setIsLoggedIn(true);
+      //   setIsAuthChecked(true);
+      //   return;
+      // }
+
+      try {
+        const res = await fetch("http://localhost:3000/users/profile", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!res.ok) {
+          throw new Error(`Error: ${res.status}`);
+        }
+        const data = await res.json();
+
+        const transformedUserData = {
+          email: data.user.email,
+          firstName: data.user.FirstName,
+          lastName: data.user.LastName,
+          lga: data.user.LGAName,
+        };
+        setUser(transformedUserData);
+        localStorage.setItem("userData", JSON.stringify(transformedUserData));
+        setIsLoggedIn(true);
+      } catch (err) {
+        console.error("Couldn't fetch user data", err);
+        setIsLoggedIn(false);
+        localStorage.removeItem("token");
+        localStorage.removeItem("userData");
+      } finally {
+        setIsAuthChecked(true);
+      }
     } else {
-      console.log("Token not found, not logged in");
+      setIsAuthChecked(true);
     }
-    setIsAuthChecked(true);
+  };
+
+  useEffect(() => {
+    fetchUserData();
   }, []);
 
   // function for handling logout and showing the toast
@@ -29,7 +76,9 @@ export function AuthProvider({ children }) {
     setTimeout(() => {
       setLoading(false);
       localStorage.removeItem("token");
+      localStorage.removeItem("userData");
       setIsLoggedIn(false);
+      setUser(null);
       setShowLogoutToast(true);
       console.log("Token removed");
       console.log("Logged out");
@@ -46,6 +95,9 @@ export function AuthProvider({ children }) {
         handleLogout,
         showLogoutToast,
         loading,
+        user,
+        isAuthChecked,
+        fetchUserData,
       }}
     >
       {isAuthChecked ? children : null}
