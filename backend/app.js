@@ -1,4 +1,4 @@
-var createError = require("http-errors");
+// var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
@@ -17,9 +17,9 @@ var usersRouter = require("./routes/users");
 
 var app = express();
 
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
+// view engine setup - not needed b/c app has a frontend - consider deletion
+// app.set("views", path.join(__dirname, "views"));
+// app.set("view engine", "jade");
 
 // middleware
 app.use(require("./middleware/logOriginalUrl"));
@@ -29,7 +29,7 @@ app.use(helmet());
 const corsOptions = {
   origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "x-api-key"], 
+  allowedHeaders: ["Content-Type", "Authorization", "x-api-key"],
 };
 
 logger.token("res", (req, res) => {
@@ -41,7 +41,7 @@ logger.token("res", (req, res) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public"))); < don't need to serve files from public dir
 app.use(cors(corsOptions));
 app.use((req, res, next) => {
   req.db = knex;
@@ -65,20 +65,34 @@ app.get("/knex", function (req, res, next) {
   res.send("Version Logged successfully");
 });
 
-// catch 404 and forward to error handler
+// // catch 404 and forward to error handler
+// app.use(function (req, res, next) {
+//   next(createError(404));
+// });
+
+// // error handler
+// app.use(function (err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get("env") === "development" ? err : {};
+
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.render("error");
+// });
+
+// this error handling middleware supplies information in json
+// better for testing in Insomnia
 app.use(function (req, res, next) {
-  next(createError(404));
+  res.status(404).json({ error: true, message: "Not Found" });
 });
 
-// error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render("error");
+  console.error(err.stack);
+  res.status(err.status || 500).json({
+    error: true,
+    message: err.message || "Internal Server Error",
+  });
 });
 
 module.exports = app;
