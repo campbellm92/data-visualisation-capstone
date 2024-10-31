@@ -1,10 +1,19 @@
+import { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeProvider";
+
 export default function DarkmodeToggler() {
+  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
   return (
     <label className="swap swap-rotate">
       {/* this hidden checkbox controls the state */}
       {/* CHANGE VALUE */}
-      <input type="checkbox" className="theme-controller" value="noosa" />
-
+      <input
+        type="checkbox"
+        className="theme-controller"
+        checked={darkMode}
+        onChange={toggleDarkMode}
+      />
+      {/* removed value="noosaTheme" */}
       {/* sun icon */}
       <svg
         className="swap-off size-6 fill-current text-primary-content"
