@@ -9,6 +9,7 @@ const InputField = ({
   hasError,
   errorMessage,
   options,
+  onKeyDown,
 }) => {
   return (
     <div className="form-control">
@@ -41,6 +42,7 @@ const InputField = ({
           value={value}
           onChange={onChange}
           onBlur={onBlur}
+          onKeyDown={onKeyDown}
         />
       )}
       {/* If hasError is true, render error message */}
