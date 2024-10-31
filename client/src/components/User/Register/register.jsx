@@ -180,6 +180,11 @@ function Register({ toggle }) {
         value={localArea}
         onChange={(e) => setLocalArea(e.target.value)}
         options={localAreaOptions}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleRegister(e);
+          }
+        }}
       />
 
       {/* Register button */}
