@@ -12,7 +12,7 @@ export default function Checkbox({ label, value, setValue }) {
                 <input id={label} type="checkbox" checked={value} className="checkbox checkbox-xl" onChange={handleChange} />
             </div>
             <div className="p-0 col-span-4">
-                <label className="whitespace-nowrap">{label}</label>
+                <label className="whitespace-nowrap text-primary-content">{label}</label>
             </div>
         </div>
     )

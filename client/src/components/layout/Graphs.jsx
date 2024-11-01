@@ -1,7 +1,7 @@
 //
 //  IFQ717 Web Development Capstone
 //
-//  Graphs.jsx - Sample display of current graphing modules
+//  Graphs.jsx - Sample display of current graphing modules by Gary Cazzulino
 //
 //
 
@@ -16,6 +16,7 @@ import Checkbox from "../ui/Checkbox";
 import { kOriginDate } from "../../api/utils/constants";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import { ButtonOutlineFullWide } from "../ui/Buttons";
+import AnalyseModal from "./AnalyseModal";
 import Map from "../ui/Map";
 
 const kGraphWidth = "100%";
@@ -48,11 +49,13 @@ export default function Graphs() {
 
 
   return (
-    <div className="container mx-auto p-4 drop-shadow">
+          <div className="mx-auto p-4">
+            {/*     <div className="container mx-auto p-4 drop-shadow"> */}
+
       <div className="grid md:grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
         <div className="p-4 col-span-2">
           <div className="drop-shadow" >
-            <div>
+            <div className="text-primary-content">
               Date Scroller: {startDate}
               <NumberSliderMedium
                 min={1}
@@ -96,7 +99,27 @@ export default function Graphs() {
               <Checkbox label="Cairns" value={cairnsSelected} setValue={setCairnsSelected} />
             </div>
           </div>
-          <ButtonOutlineFullWide children="Analyse" onClick="alert('hello world')"/>
+          {!loading && !error && dataSet ? (
+            <div>
+              <AnalyseModal dataSet={dataSet.filter(sample => LGAs.includes(sample.lga_name))
+                .map(sample => {
+
+                  const retSample = {
+                    sample_date: sample.sample_date,
+                    lga_name: sample.lga_name
+                  }
+
+                  if (dailyRateSelected) retSample.average_daily_rate = sample.average_daily_rate;
+                  if (occupancySelected) retSample.average_historical_occupancy = sample.average_historical_occupancy;
+                  if (lengthOfStaySelected) retSample.average_length_of_stay = sample.average_length_of_stay;
+                  if (bookingWindowSelected) retSample.average_booking_window = sample.average_booking_window;
+
+                  return retSample;
+                })} />
+              <ButtonOutlineFullWide children="Analyse" onClick={() => {
+                document.getElementById("analyse_modal").showModal();
+              }} /> 
+              </div>) : null }
         </div>
         <div className="p-4 col-span-10">
           <div className="grid grid-cols-5 gap-4 mb-4 drop-shadow">
@@ -117,14 +140,14 @@ export default function Graphs() {
 
           {!loading && !error && dataSet ? (
             <div className="h-[80vh] overflow-scroll pr-3">
-              {dailyRateSelected ? <GraphSet useRechart={useRechart} title="Average Daily Rate ($)" avgTitle="LGA Comparison" field={"average_daily_rate"} dataSet={dataSet} LGAs={LGAs} scale={1.0} />      
+              {dailyRateSelected ? <GraphSet useRechart={useRechart} title="Average Daily Rate ($)" avgTitle="LGA Comparison" field={"average_daily_rate"} dataSet={dataSet} LGAs={LGAs} scale={1.0} />
                 : null}
               {lengthOfStaySelected ? <GraphSet useRechart={useRechart} title="Average Length of Stay (days)" avgTitle="LGA Comparison" field={"average_length_of_stay"} dataSet={dataSet} LGAs={LGAs} scale={1.0} />
-               : null}
+                : null}
               {occupancySelected ? <GraphSet useRechart={useRechart} title="Average Historical Occupancy (%)" avgTitle="LGA Comparison" field={"average_historical_occupancy"} dataSet={dataSet} LGAs={LGAs} scale={100.0} />
                 : null}
               {bookingWindowSelected ? <GraphSet useRechart={useRechart} title="Average Booking Window (days)" avgTitle="LGA Comparison" field={"average_booking_window"} dataSet={dataSet} LGAs={LGAs} scale={1.0} />
-               : null}
+                : null}
             </div>
           ) : !error ? (
             <div>

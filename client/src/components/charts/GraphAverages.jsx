@@ -170,7 +170,7 @@ export default function GraphAverages({
     return (
       <div style={{ width: "100%", height: "90%" }}>
         <ResponsiveContainer>
-          <h2 style={{ textAlign: "center" }}>{title}</h2>
+          <h2 className="text-primary-content" style={{ textAlign: "center" }}>{title}</h2>
           {/*<PieChart width={730} height={250}>*/}
             <BarChart
             data={options.data}

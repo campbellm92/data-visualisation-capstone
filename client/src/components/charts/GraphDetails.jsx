@@ -1,7 +1,7 @@
 //
 //  IFQ717 Web Development Capstone
 //
-//  BookingWindowChart.jsx -
+//  GraphDetails.jsx - Graphs selected details for selected LGAs by Gary Cazzulino
 //
 //
 
@@ -66,7 +66,7 @@ export default function GraphDetails({
     return (
       <div style={{ width: "100%", height: "90%" }}>
         <ResponsiveContainer>
-          <h2 style={{ textAlign: "center" }}>{title}</h2>
+          <h2 className="text-primary-content" style={{ textAlign: "center" }}>{title}</h2>
 
           <LineChart
             data={data}

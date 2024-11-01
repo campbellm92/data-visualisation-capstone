@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { addDaysToDate } from "../../api/utils/utils";
-import backgroundImage from "../../images/gridbackground.png";
+import backgroundImage from "../../images/gridbackground.png"; // from https://www.freepik.com/premium-vector/vector-perspective-grid-digital-background-retro-style-wireframe-landscape-white-background_28114469.htm
 
 function DateScroller ({
   startDate,
