@@ -17,7 +17,7 @@ export default function GraphSet({ useRechart, title, avgTitle, field, dataSet, 
 
     return (
 
-        <div className="grid grid-cols-5 gap-4 mb-4 drop-shadow">
+        <div className="grid grid-cols-5 gap-4 mb-4 box-drop-shadow">
             <div className="col-span-4">
                 <div className="" style={{ height: kGraphHeight, width: kGraphWidth }}>
                     <GraphDetails

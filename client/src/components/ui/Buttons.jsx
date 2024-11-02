@@ -41,9 +41,9 @@ export function ButtonMediumFullWide({ children, onClick }) {
 }
 
 
-export function ButtonOutlineFullWide({ children, onClick }) {
+export function ButtonOutlineFullWide({ children, onClick, id }) {
   return (
-    <button className="btn btn-md btn-outline btn-wide w-full" onClick={onClick}>{children}</button>
+    <button id={id} className="btn btn-md btn-outline btn-wide w-full" onClick={onClick}>{children}</button>
   );
 }
 

@@ -49,56 +49,32 @@ export default function Graphs() {
 
 
   return (
-          <div className="mx-auto p-4">
-            {/*     <div className="container mx-auto p-4 drop-shadow"> */}
+    <div className="mx-auto p-4">
+      {/*     <div className="container mx-auto p-4 box-drop-shadow"> */}
 
       <div className="grid md:grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
         <div className="p-4 col-span-2">
-          <div className="drop-shadow" >
-            <div className="text-primary-content">
-              Date Scroller: {startDate}
-              <NumberSliderMedium
-                min={1}
-                max={365}
-                title="Day Window"
-                value={windowDays}
-                setValue={setWindowDays}
-              />
-              {
+          <div className="box-drop-shadow text-primary-content">
+            Date Scroller:
+            <div className="drop-shadow mt-2" >
+              <div className="p-1">
                 <DateScroller
                   startDate={startDate}
                   setStartDate={setStartDate}
                   windowDays={windowDays}
                   setWindowDays={setWindowDays}
                 />
-              }
-              {/*<br></br>
-            Start Date: {startDate}
-            <br></br>
-            <br></br>
-            {/*<DateSliderMedium originDate={kOriginDate} min={1} max={100} title="Start Date" value={startDate} setValue={setStartDate} />* /}
-            <NumberSliderMedium
-              min={1}
-              max={365}
-              title="Day Window"
-              value={windowDays}
-              setValue={setWindowDays}
-            />*/}
-            </div>
-            {/*<div className="p-4">
-            <Map location="Noosa" />
-            {/*<Map location="Cairns"/>
-        <Map location="Gold Coast"/>
-        <Map location="Whitsundays"/>* /}
-          </div>*/}
-            <div>
-              <br></br>
-              <Checkbox label="Gold Coast" value={goldCoastSelected} setValue={setGoldCoastSelected} />
-              <Checkbox label="Noosa" value={noosaSelected} setValue={setNoosaSelected} />
-              <Checkbox label="Whitsunday" value={whitsundaySelected} setValue={setWhitsundaySelected} />
-              <Checkbox label="Cairns" value={cairnsSelected} setValue={setCairnsSelected} />
+              </div>
             </div>
           </div>
+          <div className="box-drop-shadow">
+            <br></br>
+            <Checkbox label="Gold Coast" value={goldCoastSelected} setValue={setGoldCoastSelected} />
+            <Checkbox label="Noosa" value={noosaSelected} setValue={setNoosaSelected} />
+            <Checkbox label="Whitsunday" value={whitsundaySelected} setValue={setWhitsundaySelected} />
+            <Checkbox label="Cairns" value={cairnsSelected} setValue={setCairnsSelected} />
+          </div>
+
           {!loading && !error && dataSet ? (
             <div>
               <AnalyseModal dataSet={dataSet.filter(sample => LGAs.includes(sample.lga_name))
@@ -118,11 +94,11 @@ export default function Graphs() {
                 })} />
               <ButtonOutlineFullWide children="Analyse" onClick={() => {
                 document.getElementById("analyse_modal").showModal();
-              }} /> 
-              </div>) : null }
+              }} />
+            </div>) : null}
         </div>
         <div className="p-4 col-span-10">
-          <div className="grid grid-cols-5 gap-4 mb-4 drop-shadow">
+          <div className="grid grid-cols-5 gap-4 mb-4 box-drop-shadow">
             <div className="p-1">
               <Checkbox label="Daily Rate" value={dailyRateSelected} setValue={setDailyRateSelected} />
             </div>
@@ -151,7 +127,7 @@ export default function Graphs() {
             </div>
           ) : !error ? (
             <div>
-              <div className="drop-shadow" style={{ height: 400, width: kGraphWidth }}>
+              <div className="box-drop-shadow" style={{ height: 400, width: kGraphWidth }}>
                 <LoadingSpinner />
               </div>
             </div>

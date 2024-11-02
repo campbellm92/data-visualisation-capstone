@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { addDaysToDate } from "../../api/utils/utils";
 import backgroundImage from "../../images/gridbackground.png"; // from https://www.freepik.com/premium-vector/vector-perspective-grid-digital-background-retro-style-wireframe-landscape-white-background_28114469.htm
+import { kOriginDate } from "../../api/utils/constants";
 
 function DateScroller ({
   startDate,
@@ -15,22 +16,28 @@ function DateScroller ({
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    const image = new Image();
-    image.src = backgroundImage;
 
-    image.onload = () => {
-      canvas.width = image.width;
-      canvas.height = image.height;
-      context.drawImage(image, 0, 0);
-    };
+    context.fillStyle = "#1f1f1f";
+    context.fillRect(0, 0, canvas.width, canvas.height);
 
-    canvas.style.touchAction = "none";
-    canvas.addEventListener("dragstart", (e) => e.preventDefault());
+    // const image = new Image();
+    // image.src = backgroundImage;
+    // object-fit: contain
 
-    return () => {
-      canvas.removeEventListener("dragstart", (e) => e.preventDefault());
-    };
+    // image.onload = () => {
+    //   canvas.width = image.width;
+    //   canvas.height = image.height;
+    //   context.drawImage(image, 0, 0);
+    // };
+
+    // canvas.style.touchAction = "none";
+    // canvas.addEventListener("dragstart", (e) => e.preventDefault());
+
+    // return () => {
+    //   canvas.removeEventListener("dragstart", (e) => e.preventDefault());
+    // };
   }, []);
+
 
   const handleMouseDown = (event) => {
     setIsInteracting(true);
@@ -71,7 +78,7 @@ function DateScroller ({
     setCoords({ x: Math.round(x), y: Math.round(y) });
 
     setWindowDays(Math.round((100 - y) * 3.6));
-    setStartDate(addDaysToDate("2023-10-01", Math.round(x - 365 / 2)));
+    setStartDate(addDaysToDate(kOriginDate, Math.max(0.0, Math.round( ((x / rect.width) * 613.0)))));
   };
 
   const captureTouchCoordinates = (event) => {
@@ -85,26 +92,19 @@ function DateScroller ({
   };
 
   return (
-    <div>
-      <canvas
-        ref={canvasRef}
-        style={{
-          width: '100%',
-          height: 100,
-          border: "1px solid black",
-          touchAction: "none",
-          userSelect: "none",
-          WebkitUserDrag: "none",
-        }}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
+    <div className="m-1">
+      <div className="horizontal-text">TIME&rarr;</div>
+      <div className="vertical-text">ZOOM&darr;</div>
+      <canvas className="box-drop-shadow dateScroller"
+        ref={canvasRef} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       ></canvas>
-      {/*<p>Coordinates: {`(${coords.x}, ${coords.y})`}</p>*/}
+      Start Date: <span style={{whiteSpace: 'nowrap'}}>{startDate}<br></br></span>
+      Zoom: <span style={{whiteSpace: 'nowrap'}}>{windowDays} days</span>
     </div>
   );
 }
