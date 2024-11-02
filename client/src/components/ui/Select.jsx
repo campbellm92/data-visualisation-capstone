@@ -11,5 +11,6 @@ export function SelectLLMPrompt({ id, handleSelectChange }) {
             <option>Please write a 150 word summary of the selected data</option>
             <option>Please highlight any anomolies in the selected data</option>
             <option>Please write a 200 word news article about the selected data</option>
+            <option>Please explain the anomalies in the selected data</option>
         </select>);
 }
