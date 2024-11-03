@@ -95,4 +95,7 @@ app.use(function (err, req, res, next) {
   });
 });
 
+// pre-cache commonly requested end points
+fetch('http://localhost:3000/api/combined_data');
+
 module.exports = app;
