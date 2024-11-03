@@ -12,7 +12,7 @@ import LoadingSpinner from "../ui/LoadingSpinner";
 import LLMResponse from './LLMResponse';
 import { SelectLLMPrompt } from "../ui/Select";
 
-const kDefaultResponse = 'Hi there, please select a default prompt or enter a custom prompt and click Analyse.';
+const kDefaultResponse = 'Hi there, please select a default prompt or enter a custom prompt above and then click Analyse to pass your prompt and the selected data to an LLM for analysis.';
 
 function handleSelectChange() {
     document.getElementById('prompt').value = '';
@@ -91,15 +91,15 @@ const AnalyseModal = ({ dataSet }) => {
                     <br></br>
                     <label id="prompt-label" className="form-control text-base-content">
                         <div className="label">
-                            <span className="label-text">Default prompts</span>
+                            <span className="label-text">Use a Default Prompt</span>
                         </div>
                         <SelectLLMPrompt id="defaultLLMPrompt" handleSelectChange={handleSelectChange} />
                     </label>
                     <label id="prompt-label" className="form-control text-base-content">
                         <div className="label">
-                            <span className="label-text"></span>
+                            <span className="label-text">Or Write a Custom Prompt</span>
                         </div>
-                        <textarea id="prompt" className="textarea textarea-bordered h-24 text-base-content box-drop-shadow" placeholder="Or enter a custom prompt"></textarea>
+                        <textarea id="prompt" className="textarea textarea-bordered h-24 text-base-content box-drop-shadow" placeholder="" style={{maxHeight: '40vh' }}></textarea>
                     </label>
                 </form>
 
