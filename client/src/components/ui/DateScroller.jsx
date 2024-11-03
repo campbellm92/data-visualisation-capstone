@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { addDaysToDate } from "../../api/utils/utils";
 import { kOriginDate } from "../../api/utils/constants";
 import { useWindowWidthResize } from "../../api/hooks/useWindowWidthResize";
+import backgroundImage from "../../images/gridbackground.png";
 
 function DateScroller ({
   startDate,
@@ -21,15 +22,14 @@ function DateScroller ({
     context.fillStyle = "#3f3f3f";
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    // const image = new Image();
-    // image.src = backgroundImage;
-    // object-fit: contain
+    const image = new Image();
+    image.src = backgroundImage;
 
-    // image.onload = () => {
-    //   canvas.width = image.width;
-    //   canvas.height = image.height;
-    //   context.drawImage(image, 0, 0);
-    // };
+    image.onload = () => {
+      canvas.width = image.width;
+      canvas.height = image.height;
+      context.drawImage(image, 0, 0);
+    };
 
     // canvas.style.touchAction = "none";
     // canvas.addEventListener("dragstart", (e) => e.preventDefault());
