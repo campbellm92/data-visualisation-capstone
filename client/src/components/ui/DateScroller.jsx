@@ -3,6 +3,7 @@ import { addDaysToDate } from "../../api/utils/utils";
 import { kOriginDate } from "../../api/utils/constants";
 import { useWindowWidthResize } from "../../api/hooks/useWindowWidthResize";
 import backgroundImage from "../../images/gridbackground.png";
+//import backgroundImage from "../../images/perspective-grid-flat.svg"; //https://www.clipsafari.com/clips/o220396-perspective-grid-flat
 
 function DateScroller ({
   startDate,
@@ -78,7 +79,10 @@ function DateScroller ({
 
     setCoords({ x: Math.round(x), y: Math.round(y) });
 
-    setWindowDays(Math.round((100 - y) * 3.65));
+    console.log(rect.height);
+    console.log(Math.round(y));
+
+    setWindowDays(Math.round(((rect.height - y)/rect.height * 100) * 3.65));
     setStartDate(addDaysToDate(kOriginDate, Math.max(0.0, Math.round( ((x / rect.width) * 613.0)))));
   };
 
@@ -97,8 +101,6 @@ function DateScroller ({
     //return { left: (coords.x + 15) *.95, top: (coords.y + 18) *.75};
     return { left: coords.x, top: coords.y };
   }
-
-
 
   return (
     <div className="m-1">
