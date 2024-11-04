@@ -30,12 +30,12 @@ export default {
           primary: "#c88441", // buttons
           "primary-content": "#0f172a", // text
           secondary: "#0ea5e9",
-          // "secondary-content": "",
+          "secondary-content": "#7e22ce",
           // accent: "",
           // "accent-content": "",
-          "base-100": "#4f46e5",
-          "base-200": "#818cf8",
-          "base-300": "#eef2ff",
+          "base-100": "#f3e8ff",
+          "base-200": "#e5e7eb",
+          "base-300": "#f9fafb",
           info: "#237496",
           success: "#289b6f",
           warning: "#fccd5e",
@@ -43,13 +43,55 @@ export default {
         },
       },
       {
-        goldCoastTheme: {},
+        goldCoastTheme: {
+          primary: "#c88441", // buttons
+          "primary-content": "#0f172a", // text
+          secondary: "#0ea5e9",
+          "secondary-content": "#b45309",
+          // accent: "",
+          // "accent-content": "",
+          "base-100": "#fef3c7",
+          "base-200": "#e5e7eb",
+          "base-300": "#f9fafb",
+          info: "#237496",
+          success: "#289b6f",
+          warning: "#fccd5e",
+          error: "#f87979",
+        },
       },
       {
-        whitsundayTheme: {},
+        whitsundayTheme: {
+          primary: "#c88441", // buttons
+          "primary-content": "#0f172a", // text
+          secondary: "#0ea5e9",
+          "secondary-content": "#0e7490",
+          // accent: "",
+          // "accent-content": "",
+          "base-100": "#cffafe",
+          "base-200": "#e5e7eb",
+          "base-300": "#f9fafb",
+          info: "#237496",
+          success: "#289b6f",
+          warning: "#fccd5e",
+          error: "#f87979",
+        },
       },
       {
-        cairnsTheme: {},
+        cairnsTheme: {
+          primary: "#c88441", // buttons
+          "primary-content": "#0f172a", // text
+          secondary: "#0ea5e9",
+          "secondary-content": "#15803d",
+          // accent: "",
+          // "accent-content": "",
+          "base-100": "#dcfce7",
+          "base-200": "#e5e7eb",
+          "base-300": "#f9fafb",
+          info: "#237496",
+          success: "#289b6f",
+          warning: "#fccd5e",
+          error: "#f87979",
+        },
       },
       {
         darkTheme: {
