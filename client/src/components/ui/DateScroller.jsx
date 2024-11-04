@@ -3,7 +3,6 @@ import { addDaysToDate } from "../../api/utils/utils";
 import { kOriginDate } from "../../api/utils/constants";
 import { useWindowWidthResize } from "../../api/hooks/useWindowWidthResize";
 import backgroundImage from "../../images/gridbackground.png";
-//import backgroundImage from "../../images/perspective-grid-flat.svg"; //https://www.clipsafari.com/clips/o220396-perspective-grid-flat
 
 function DateScroller ({
   startDate,
@@ -14,7 +13,7 @@ function DateScroller ({
   const canvasRef = useRef(null);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [isInteracting, setIsInteracting] = useState(false);
-  const width = useWindowWidthResize();
+  const { width } = useWindowWidthResize();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -99,15 +98,15 @@ function DateScroller ({
   function translate(coords) {
     console.log(width);
     //return { left: (coords.x + 15) *.95, top: (coords.y + 18) *.75};
-    return { left: coords.x, top: coords.y };
+    return { left: coords.x + 7, top: coords.y };
   }
 
   return (
-    <div className="m-1">
+    <div className="m-3">
       <div className="horizontal-text">TIME&rarr;</div>
       <div className="vertical-text">ZOOM&darr;</div>
       <div className="dateScrollerCursor" style={translate(coords)}>📍</div>
-      <canvas className="box-drop-shadow dateScroller" style={{padding:0}}
+      <canvas className="box-drop-shadow dateScroller"
         ref={canvasRef} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onMouseLeave={handleMouseUp}
         onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}
       ></canvas>
