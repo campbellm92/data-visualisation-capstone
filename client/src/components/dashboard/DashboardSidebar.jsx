@@ -1,8 +1,12 @@
+import { useContext } from "react";
 import { useLocation } from "react-router-dom";
+import { ThemeContext } from "../../context/ThemeProvider";
 import SidebarItem from "./SidebarItem";
 import Icons from "./DashboardIcons";
 
 export default function DashboardSidebar({ isCollapsed }) {
+  const { darkMode } = useContext(ThemeContext); // Access dark mode state
+
   const sidebarItems = [
     { href: "/dashboardtest", label: "Dashboard", icon: <Icons.Home /> },
     { href: "/LGAPage", label: "January", icon: <Icons.Calender /> },
@@ -17,7 +21,11 @@ export default function DashboardSidebar({ isCollapsed }) {
       } h-full bg-base-300 transition-all duration-300 border-e-2 border-base-200`}
     >
       <div className="p-5">
-        <div className="text-xl text-primary-content font-bold">
+        <div
+          className={`text-xl font-bold ${
+            darkMode ? "text-primary-content" : "text-secondary-content"
+          }`}
+        >
           {isCollapsed ? "L" : "Localis"}
         </div>
       </div>
