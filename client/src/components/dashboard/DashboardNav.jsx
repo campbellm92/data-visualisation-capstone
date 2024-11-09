@@ -31,17 +31,17 @@ export default function DashboardNav({ toggleSidebar }) {
           {dropdownIsOpen && (
             <div
               ref={dropdownRef}
-              className="absolute right-2 top-14 mt-4 w-32 bg-base-100 shadow-md rounded-md z-10"
+              className="absolute right-2 top-14 mt-4 w-32 bg-base-300 shadow-md rounded-md z-10"
             >
               <ul className="py-2">
-                <li className="px-4 py-2 hover:bg-base-200 cursor-pointer">
+                <li className="px-4 py-2 hover:bg-base-200 text-primary-content cursor-pointer">
                   Profile
                 </li>
-                <li className="px-4 py-2 hover:bg-base-200 cursor-pointer">
+                <li className="px-4 py-2 hover:bg-base-200 text-primary-content cursor-pointer">
                   Settings
                 </li>
                 <li
-                  className="px-4 py-2 hover:bg-base-200 cursor-pointer"
+                  className="px-4 py-2 hover:bg-base-200 font-bold  text-primary cursor-pointer"
                   onClick={handleLogout}
                   disabled={loading}
                 >
