@@ -13,7 +13,7 @@ export default {
           primary: "#c88441", // buttons
           "primary-content": "#edebe7", // text
           secondary: "#0ea5e9",
-          // "secondary-content": "",
+          "secondary-content": "#f1f5f9",
           // accent: "",
           // "accent-content": "",
           "base-100": "#ffffff",
@@ -27,14 +27,15 @@ export default {
       },
       {
         noosaTheme: {
-          primary: "#c88441", // buttons
+          primary: "#7e22ce", // buttons
           "primary-content": "#0f172a", // text
           secondary: "#0ea5e9",
-          "secondary-content": "#7e22ce",
+          "secondary-content": "#f1f5f9",
+
           // accent: "",
           // "accent-content": "",
           "base-100": "#f3e8ff",
-          "base-200": "#e5e7eb",
+          "base-200": "#f3f4f6",
           "base-300": "#f9fafb",
           info: "#237496",
           success: "#289b6f",
@@ -51,7 +52,7 @@ export default {
           // accent: "",
           // "accent-content": "",
           "base-100": "#fef3c7",
-          "base-200": "#e5e7eb",
+          "base-200": "#f3f4f6",
           "base-300": "#f9fafb",
           info: "#237496",
           success: "#289b6f",
@@ -61,14 +62,14 @@ export default {
       },
       {
         whitsundayTheme: {
-          primary: "#c88441", // buttons
+          primary: "#0e7490", // buttons
           "primary-content": "#0f172a", // text
           secondary: "#0ea5e9",
-          "secondary-content": "#0e7490",
+          "secondary-content": "#f1f5f9",
           // accent: "",
           // "accent-content": "",
-          "base-100": "#cffafe",
-          "base-200": "#e5e7eb",
+          "base-100": "#ecfeff",
+          "base-200": "#f3f4f6",
           "base-300": "#f9fafb",
           info: "#237496",
           success: "#289b6f",
@@ -78,14 +79,14 @@ export default {
       },
       {
         cairnsTheme: {
-          primary: "#c88441", // buttons
+          primary: "#15803d", // buttons
           "primary-content": "#0f172a", // text
           secondary: "#0ea5e9",
-          "secondary-content": "#15803d",
+          "secondary-content": "#f1f5f9",
           // accent: "",
           // "accent-content": "",
           "base-100": "#dcfce7",
-          "base-200": "#e5e7eb",
+          "base-200": "#f3f4f6",
           "base-300": "#f9fafb",
           info: "#237496",
           success: "#289b6f",
@@ -98,7 +99,7 @@ export default {
           primary: "#c88441", // buttons
           "primary-content": "#edebe7", // text
           secondary: "#0ea5e9",
-          // "secondary-content": "",
+          "secondary-content": "#f1f5f9",
           // accent: "",
           // "accent-content": "",
           // "base-100": "#ffffff",
@@ -107,7 +108,6 @@ export default {
           "base-200": "#1f2937",
           // "base-300": "#1f2937",
           "base-300": "#111827",
-          // base 300 change to #111827?
 
           info: "#237496",
           success: "#289b6f",
