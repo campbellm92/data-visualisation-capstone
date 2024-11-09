@@ -24,7 +24,7 @@ export default function GraphAverages({
   field,
   scale,
   useRechart,
-  LGAs
+  LGAs,
 }) {
   let options = {
     title: {
@@ -69,110 +69,123 @@ export default function GraphAverages({
     ],
     // Series: Defines which chart type and data to use
     series: [
-      LGAs.find((LGA) => LGA === 'Noosa') ?
-        {
-          type: "bar",
-          xKey: "noosa_lga",
-          yKey: "noosa_average",
-          yName: "Noosa",
-          interpolation: { type: kGraphLineStyle },
-          strokeWidth: 2,
-          marker: {
-            enabled: false,
-          },
-        } : {},
-      LGAs.find((LGA) => LGA === 'Gold Coast') ?
-        {
-          type: "bar",
-          xKey: "gold_coast_lga",
-          yKey: "gold_coast_average",
-          yName: "Gold Coast",
-          interpolation: { type: kGraphLineStyle },
-          strokeWidth: 2,
-          marker: {
-            enabled: false,
-          },
-        } : {},
-      LGAs.find((LGA) => LGA === 'Whitsunday') ?
-        {
-          type: "bar",
-          xKey: "whitsunday_lga",
-          yKey: "whitsunday_average",
-          yName: "Whitsunday",
-          interpolation: { type: kGraphLineStyle },
-          strokeWidth: 2,
-          marker: {
-            enabled: false,
-          },
-        } : {},
-      LGAs.find((LGA) => LGA === 'Cairns') ?
-        {
-          type: "bar",
-          xKey: "cairns_lga",
-          yKey: "cairns_average",
-          yName: "Cairns",
-          interpolation: { type: kGraphLineStyle },
-          strokeWidth: 2,
-          marker: {
-            enabled: false,
-          },
-        } : {},
+      LGAs.find((LGA) => LGA === "Noosa")
+        ? {
+            type: "bar",
+            xKey: "noosa_lga",
+            yKey: "noosa_average",
+            yName: "Noosa",
+            interpolation: { type: kGraphLineStyle },
+            strokeWidth: 2,
+            marker: {
+              enabled: false,
+            },
+          }
+        : {},
+      LGAs.find((LGA) => LGA === "Gold Coast")
+        ? {
+            type: "bar",
+            xKey: "gold_coast_lga",
+            yKey: "gold_coast_average",
+            yName: "Gold Coast",
+            interpolation: { type: kGraphLineStyle },
+            strokeWidth: 2,
+            marker: {
+              enabled: false,
+            },
+          }
+        : {},
+      LGAs.find((LGA) => LGA === "Whitsunday")
+        ? {
+            type: "bar",
+            xKey: "whitsunday_lga",
+            yKey: "whitsunday_average",
+            yName: "Whitsunday",
+            interpolation: { type: kGraphLineStyle },
+            strokeWidth: 2,
+            marker: {
+              enabled: false,
+            },
+          }
+        : {},
+      LGAs.find((LGA) => LGA === "Cairns")
+        ? {
+            type: "bar",
+            xKey: "cairns_lga",
+            yKey: "cairns_average",
+            yName: "Cairns",
+            interpolation: { type: kGraphLineStyle },
+            strokeWidth: 2,
+            marker: {
+              enabled: false,
+            },
+          }
+        : {},
     ],
   };
 
   if (useRechart) {
     const data = [
-      LGAs.find((LGA) => LGA === 'Noosa') ?
-        {
-          lga: "Noosa",
-          average: average(
-            dataSet
-              .filter((sample) => sample.lga_name === "Noosa")
-              .map((sample) => {
-                return parseFloat(sample[field]) * scale;
-              })
-          )
-        } : null,
-      LGAs.find((LGA) => LGA === 'Gold Coast') ?
-        {
-          lga: "Gold Coast",
-          average: average(
-            dataSet
-              .filter((sample) => sample.lga_name === "Gold Coast")
-              .map((sample) => {
-                return parseFloat(sample[field]) * scale;
-              })
-          )
-        } : null,
-      LGAs.find((LGA) => LGA === 'Whitsunday') ?
-        {
-          lga: "Whitsunday",
-          average: average(
-            dataSet
-              .filter((sample) => sample.lga_name === "Whitsunday")
-              .map((sample) => {
-                return parseFloat(sample[field]) * scale;
-              })
-          )
-        } : null,
-      LGAs.find((LGA) => LGA === 'Cairns') ?
-        {
-          lga: "Cairns",
-          average: average(
-            dataSet
-              .filter((sample) => sample.lga_name === "Cairns")
-              .map((sample) => {
-                return parseFloat(sample[field]) * scale;
-              })
-          )
-        } : null,
+      LGAs.find((LGA) => LGA === "Noosa")
+        ? {
+            lga: "Noosa",
+            average: average(
+              dataSet
+                .filter((sample) => sample.lga_name === "Noosa")
+                .map((sample) => {
+                  return parseFloat(sample[field]) * scale;
+                })
+            ),
+          }
+        : null,
+      LGAs.find((LGA) => LGA === "Gold Coast")
+        ? {
+            lga: "Gold Coast",
+            average: average(
+              dataSet
+                .filter((sample) => sample.lga_name === "Gold Coast")
+                .map((sample) => {
+                  return parseFloat(sample[field]) * scale;
+                })
+            ),
+          }
+        : null,
+      LGAs.find((LGA) => LGA === "Whitsunday")
+        ? {
+            lga: "Whitsunday",
+            average: average(
+              dataSet
+                .filter((sample) => sample.lga_name === "Whitsunday")
+                .map((sample) => {
+                  return parseFloat(sample[field]) * scale;
+                })
+            ),
+          }
+        : null,
+      LGAs.find((LGA) => LGA === "Cairns")
+        ? {
+            lga: "Cairns",
+            average: average(
+              dataSet
+                .filter((sample) => sample.lga_name === "Cairns")
+                .map((sample) => {
+                  return parseFloat(sample[field]) * scale;
+                })
+            ),
+          }
+        : null,
     ];
     return (
       <div style={{ width: "100%", height: "90%" }}>
         <ResponsiveContainer>
-          <h2 className="text-primary-content" style={{ textAlign: "center" }}>{title}</h2>
+          <h2
+            className="text-primary-content font-light pb-3"
+            style={{ textAlign: "center" }}
+          >
+            {title}
+          </h2>
           {/*<PieChart width={730} height={250}>*/}
-            <BarChart
+          <BarChart
             data={options.data}
             margin={{
               top: 10,
@@ -191,20 +204,22 @@ export default function GraphAverages({
               <Cell key={`cell-${entry.lga}`} fill={kGraphColours[entry.lga]} /> : null
             ))}
           </Pie>*/}
-          {LGAs.map((LGA) => { return (
-              
-            <Bar
-              type="monotone"
-              name={LGA}
-              dataKey={convertToLabel(LGA) + "_average"}
-              stroke={kGraphColours[LGA]}
-              fill={kGraphColours[LGA]}
-              dot={false}
-              isAnimationActive={false}
-            />)})}
-        </BarChart>
-      </ResponsiveContainer>
-      </div >
+            {LGAs.map((LGA) => {
+              return (
+                <Bar
+                  type="monotone"
+                  name={LGA}
+                  dataKey={convertToLabel(LGA) + "_average"}
+                  stroke={kGraphColours[LGA]}
+                  fill={kGraphColours[LGA]}
+                  dot={false}
+                  isAnimationActive={false}
+                />
+              );
+            })}
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     );
   } else {
     return <AgCharts options={options} />;
