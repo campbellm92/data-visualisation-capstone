@@ -46,9 +46,8 @@ export default function GraphDetails({
   field,
   scale,
   useRechart,
-  LGAs
+  LGAs,
 }) {
-
   if (useRechart) {
     const data = denormalizeDataSet(dataSet, field, scale);
     // dataSet/*.filter(sample => sample.lga_name === 'Gold Coast')*/.map(sample => {
@@ -66,7 +65,12 @@ export default function GraphDetails({
     return (
       <div style={{ width: "100%", height: "90%" }}>
         <ResponsiveContainer>
-          <h2 className="text-primary-content" style={{ textAlign: "center" }}>{title}</h2>
+          <h2
+            className="text-primary-content font-light pb-3"
+            style={{ textAlign: "center" }}
+          >
+            {title}
+          </h2>
 
           <LineChart
             data={data}
@@ -81,15 +85,17 @@ export default function GraphDetails({
             <YAxis />
             <Tooltip />
             <Legend />
-            {LGAs.map((LGA) => { return (
-              <Line
-                type="monotone"
-                name={LGA}
-                dataKey={LGA}
-                stroke={kGraphColours[LGA]}
-                dot={false}
-                isAnimationActive={false}
-              />)
+            {LGAs.map((LGA) => {
+              return (
+                <Line
+                  type="monotone"
+                  name={LGA}
+                  dataKey={LGA}
+                  stroke={kGraphColours[LGA]}
+                  dot={false}
+                  isAnimationActive={false}
+                />
+              );
             })}
           </LineChart>
         </ResponsiveContainer>
@@ -143,54 +149,58 @@ export default function GraphDetails({
       }),
       // Series: Defines which chart type and data to use
       series: [
-        LGAs.find((LGA) => LGA === 'Noosa') ?
-        {
-          type: "line",
-          xKey: "noosa_sample_date",
-          yKey: "noosa_value",
-          yName: "Noosa",
-          interpolation: { type: kGraphLineStyle },
-          strokeWidth: 1,
-          marker: {
-            enabled: false,
-          },
-        } : {}, 
-        LGAs.find((LGA) => LGA === 'Gold Coast') ?
-        {
-          type: "line",
-          xKey: "gold_coast_sample_date",
-          yKey: "gold_coast_value",
-          yName: "Gold Coast",
-          interpolation: { type: kGraphLineStyle },
-          strokeWidth: 1,
-          marker: {
-            enabled: false,
-          },
-        } : {},
-        LGAs.find((LGA) => LGA === 'Whitsunday') ?
-        {
-          type: "line",
-          xKey: "whitsunday_sample_date",
-          yKey: "whitsunday_value",
-          yName: "Whitsunday",
-          interpolation: { type: kGraphLineStyle },
-          strokeWidth: 1,
-          marker: {
-            enabled: false,
-          },
-        } : {},
-        LGAs.find((LGA) => LGA === 'Cairns') ?
-        {
-          type: "line",
-          xKey: "cairns_sample_date",
-          yKey: "cairns_value",
-          yName: "Cairns",
-          interpolation: { type: kGraphLineStyle },
-          strokeWidth: 1,
-          marker: {
-            enabled: false,
-          },
-        } : {},
+        LGAs.find((LGA) => LGA === "Noosa")
+          ? {
+              type: "line",
+              xKey: "noosa_sample_date",
+              yKey: "noosa_value",
+              yName: "Noosa",
+              interpolation: { type: kGraphLineStyle },
+              strokeWidth: 1,
+              marker: {
+                enabled: false,
+              },
+            }
+          : {},
+        LGAs.find((LGA) => LGA === "Gold Coast")
+          ? {
+              type: "line",
+              xKey: "gold_coast_sample_date",
+              yKey: "gold_coast_value",
+              yName: "Gold Coast",
+              interpolation: { type: kGraphLineStyle },
+              strokeWidth: 1,
+              marker: {
+                enabled: false,
+              },
+            }
+          : {},
+        LGAs.find((LGA) => LGA === "Whitsunday")
+          ? {
+              type: "line",
+              xKey: "whitsunday_sample_date",
+              yKey: "whitsunday_value",
+              yName: "Whitsunday",
+              interpolation: { type: kGraphLineStyle },
+              strokeWidth: 1,
+              marker: {
+                enabled: false,
+              },
+            }
+          : {},
+        LGAs.find((LGA) => LGA === "Cairns")
+          ? {
+              type: "line",
+              xKey: "cairns_sample_date",
+              yKey: "cairns_value",
+              yName: "Cairns",
+              interpolation: { type: kGraphLineStyle },
+              strokeWidth: 1,
+              marker: {
+                enabled: false,
+              },
+            }
+          : {},
       ],
       axes: [
         {
