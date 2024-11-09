@@ -131,7 +131,7 @@ const Login = ({ toggle }) => {
 
       <p className="mt-4">
         Don't have an account?{" "}
-        <button className="text-blue-500 hover:underline" onClick={toggle}>
+        <button className="text-info hover:underline" onClick={toggle}>
           Register here
         </button>
       </p>
