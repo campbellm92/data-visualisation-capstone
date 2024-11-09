@@ -15,7 +15,7 @@ import { NumberSliderMedium } from "../ui/Sliders";
 import Checkbox from "../ui/Checkbox";
 import { kOriginDate } from "../../api/utils/constants";
 import LoadingSpinner from "../ui/LoadingSpinner";
-import { ButtonOutlineFullWide } from "../ui/Buttons";
+import { ButtonMediumFullWide } from "../ui/Buttons";
 import AnalyseModal from "./AnalyseModal";
 import Map from "../ui/Map";
 
@@ -47,17 +47,16 @@ export default function Graphs() {
   if (whitsundaySelected) LGAs.push("Whitsunday");
   if (cairnsSelected) LGAs.push("Cairns");
 
-
   return (
     <div className="mx-auto p-4">
       {/*     <div className="container mx-auto p-4 box-drop-shadow"> */}
 
       <div className="grid md:grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
         <div className="p-4 col-span-2">
-          <div className="box-drop-shadow text-primary-content">
+          <div className="shadow-md text-primary-content font-light bg-base-300 mb-4 border-1 rounded p-4">
             Date Scroller:
-            <div className="drop-shadow mt-2" >
-              <div className="p-1">
+            <div className="drop-shadow mt-2">
+              <div className=" p-2">
                 <DateScroller
                   startDate={startDate}
                   setStartDate={setStartDate}
@@ -67,67 +66,151 @@ export default function Graphs() {
               </div>
             </div>
           </div>
-          <div className="box-drop-shadow">
+          <div className="shadow-md border-1 rounded bg-base-300 mb-3 p-3">
             <br></br>
-            <Checkbox label="Gold Coast" value={goldCoastSelected} setValue={setGoldCoastSelected} />
-            <Checkbox label="Noosa" value={noosaSelected} setValue={setNoosaSelected} />
-            <Checkbox label="Whitsunday" value={whitsundaySelected} setValue={setWhitsundaySelected} />
-            <Checkbox label="Cairns" value={cairnsSelected} setValue={setCairnsSelected} />
+            <Checkbox
+              label="Gold Coast"
+              value={goldCoastSelected}
+              setValue={setGoldCoastSelected}
+            />
+            <Checkbox
+              label="Noosa"
+              value={noosaSelected}
+              setValue={setNoosaSelected}
+            />
+            <Checkbox
+              label="Whitsunday"
+              value={whitsundaySelected}
+              setValue={setWhitsundaySelected}
+            />
+            <Checkbox
+              label="Cairns"
+              value={cairnsSelected}
+              setValue={setCairnsSelected}
+            />
           </div>
 
           {!loading && !error && dataSet ? (
             <div>
-              <AnalyseModal dataSet={dataSet.filter(sample => LGAs.includes(sample.lga_name))
-                .map(sample => {
+              <AnalyseModal
+                dataSet={dataSet
+                  .filter((sample) => LGAs.includes(sample.lga_name))
+                  .map((sample) => {
+                    const retSample = {
+                      sample_date: sample.sample_date,
+                      lga_name: sample.lga_name,
+                    };
 
-                  const retSample = {
-                    sample_date: sample.sample_date,
-                    lga_name: sample.lga_name
-                  }
+                    if (dailyRateSelected)
+                      retSample.average_daily_rate = sample.average_daily_rate;
+                    if (occupancySelected)
+                      retSample.average_historical_occupancy =
+                        sample.average_historical_occupancy;
+                    if (lengthOfStaySelected)
+                      retSample.average_length_of_stay =
+                        sample.average_length_of_stay;
+                    if (bookingWindowSelected)
+                      retSample.average_booking_window =
+                        sample.average_booking_window;
 
-                  if (dailyRateSelected) retSample.average_daily_rate = sample.average_daily_rate;
-                  if (occupancySelected) retSample.average_historical_occupancy = sample.average_historical_occupancy;
-                  if (lengthOfStaySelected) retSample.average_length_of_stay = sample.average_length_of_stay;
-                  if (bookingWindowSelected) retSample.average_booking_window = sample.average_booking_window;
-
-                  return retSample;
-                })} />
-              <ButtonOutlineFullWide children="Analyse" onClick={() => {
-                document.getElementById("analyse_modal").showModal();
-              }} />
-            </div>) : null}
+                    return retSample;
+                  })}
+              />
+              <ButtonMediumFullWide
+                onClick={() => {
+                  document.getElementById("analyse_modal").showModal();
+                }}
+              >
+                Analyse
+              </ButtonMediumFullWide>
+            </div>
+          ) : null}
         </div>
         <div className="p-4 col-span-10">
-          <div className="grid grid-cols-5 gap-4 mb-4 box-drop-shadow">
+          <div className="grid grid-cols-5 gap-4 mb-4 shadow-md border-1 rounded bg-base-300">
             <div className="p-1">
-              <Checkbox label="Daily Rate" value={dailyRateSelected} setValue={setDailyRateSelected} />
+              <Checkbox
+                label="Daily Rate"
+                value={dailyRateSelected}
+                setValue={setDailyRateSelected}
+              />
             </div>
             <div className="p-1">
-              <Checkbox label="Occupancy" value={occupancySelected} setValue={setOccupancySelected} />
+              <Checkbox
+                label="Occupancy"
+                value={occupancySelected}
+                setValue={setOccupancySelected}
+              />
             </div>
             <div className="p-1">
-              <Checkbox label="Length of Stay" value={lengthOfStaySelected} setValue={setLengthOfStaySelected} />
+              <Checkbox
+                label="Length of Stay"
+                value={lengthOfStaySelected}
+                setValue={setLengthOfStaySelected}
+              />
             </div>
             <div className="p-1">
-              <Checkbox label="Booking Window" value={bookingWindowSelected} setValue={setBookingWindowSelected} />
+              <Checkbox
+                label="Booking Window"
+                value={bookingWindowSelected}
+                setValue={setBookingWindowSelected}
+              />
             </div>
-
           </div>
 
           {!loading && !error && dataSet ? (
             <div className="h-[80vh] overflow-scroll pr-3">
-              {dailyRateSelected ? <GraphSet useRechart={useRechart} title="Average Daily Rate ($)" avgTitle="LGA Comparison" field={"average_daily_rate"} dataSet={dataSet} LGAs={LGAs} scale={1.0} />
-                : null}
-              {lengthOfStaySelected ? <GraphSet useRechart={useRechart} title="Average Length of Stay (days)" avgTitle="LGA Comparison" field={"average_length_of_stay"} dataSet={dataSet} LGAs={LGAs} scale={1.0} />
-                : null}
-              {occupancySelected ? <GraphSet useRechart={useRechart} title="Average Historical Occupancy (%)" avgTitle="LGA Comparison" field={"average_historical_occupancy"} dataSet={dataSet} LGAs={LGAs} scale={100.0} />
-                : null}
-              {bookingWindowSelected ? <GraphSet useRechart={useRechart} title="Average Booking Window (days)" avgTitle="LGA Comparison" field={"average_booking_window"} dataSet={dataSet} LGAs={LGAs} scale={1.0} />
-                : null}
+              {dailyRateSelected ? (
+                <GraphSet
+                  useRechart={useRechart}
+                  title="Average Daily Rate ($)"
+                  avgTitle="LGA Comparison"
+                  field={"average_daily_rate"}
+                  dataSet={dataSet}
+                  LGAs={LGAs}
+                  scale={1.0}
+                />
+              ) : null}
+              {lengthOfStaySelected ? (
+                <GraphSet
+                  useRechart={useRechart}
+                  title="Average Length of Stay (days)"
+                  avgTitle="LGA Comparison"
+                  field={"average_length_of_stay"}
+                  dataSet={dataSet}
+                  LGAs={LGAs}
+                  scale={1.0}
+                />
+              ) : null}
+              {occupancySelected ? (
+                <GraphSet
+                  useRechart={useRechart}
+                  title="Average Historical Occupancy (%)"
+                  avgTitle="LGA Comparison"
+                  field={"average_historical_occupancy"}
+                  dataSet={dataSet}
+                  LGAs={LGAs}
+                  scale={100.0}
+                />
+              ) : null}
+              {bookingWindowSelected ? (
+                <GraphSet
+                  useRechart={useRechart}
+                  title="Average Booking Window (days)"
+                  avgTitle="LGA Comparison"
+                  field={"average_booking_window"}
+                  dataSet={dataSet}
+                  LGAs={LGAs}
+                  scale={1.0}
+                />
+              ) : null}
             </div>
           ) : !error ? (
             <div>
-              <div className="box-drop-shadow" style={{ height: 400, width: kGraphWidth }}>
+              <div
+                className="box-drop-shadow"
+                style={{ height: 400, width: kGraphWidth }}
+              >
                 <LoadingSpinner />
               </div>
             </div>
