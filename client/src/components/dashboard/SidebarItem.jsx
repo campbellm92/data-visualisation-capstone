@@ -8,7 +8,7 @@ export default function SidebarItem({ href, label, isCollapsed, icon }) {
     <li className={`group`}>
       <Link
         to={href}
-        className={`flex items-center py-3 px-4 hover:bg-base-100 transition ${
+        className={`flex items-center py-3 px-4 hover:bg-base-200 transition ${
           isActive ? "bg-base-300" : ""
         }`}
       >
