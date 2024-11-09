@@ -23,7 +23,7 @@ export default function DashboardSidebar({ isCollapsed }) {
       <div className="p-5">
         <div
           className={`text-xl font-bold ${
-            darkMode ? "text-primary-content" : "text-secondary-content"
+            darkMode ? "text-primary-content" : "text-primary"
           }`}
         >
           {isCollapsed ? "L" : "Localis"}
