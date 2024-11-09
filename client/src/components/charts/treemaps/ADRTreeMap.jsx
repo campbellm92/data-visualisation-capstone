@@ -1,7 +1,7 @@
 import { Treemap, ResponsiveContainer } from "recharts";
 import { useFetchLocalisData } from "../../../api/hooks/useFetchLocalisData";
 import { filterDataByLGA } from "../../../api/utils/filterUtils";
-import { getMonthlyAverageADR } from "../../../api/utils/getUtils";
+import { getDataMonthlyAverage } from "../../../api/utils/getUtils";
 
 // a tree map representing averages by month for ADR - Average daily rate
 
@@ -10,7 +10,11 @@ export default function ADRTreeMap({ lgaName, year }) {
 
   const filteredDataByLGA = data ? filterDataByLGA(data, lgaName) : null;
 
-  const monthlyAverageData = getMonthlyAverageADR(filteredDataByLGA, year);
+  const monthlyAverageData = getDataMonthlyAverage(
+    filteredDataByLGA,
+    year,
+    "average_daily_rate"
+  );
   console.log(monthlyAverageData);
 
   return (
