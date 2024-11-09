@@ -17,55 +17,51 @@ import DashboardTestPage from "./pages/DashboardTestPage"; // delete when finish
 function App() {
   return (
     <Router>
-      {/* navbar renders everywhere */}
-      {/* <Navbar /> */}
-      <Routes>
-        {/* landing page code now in pages > LandingPage.jsx */}
-        <Route
-          path="/"
-          element={
-            <PublicLayout>
-              <LandingPage />
-            </PublicLayout>
-          }
-        />
-        <Route
-          path="/welcome"
-          element={
-            <ProtectedRoute>
-              <ThemeProvider>
+      <ThemeProvider>
+        {/* navbar renders everywhere */}
+        {/* <Navbar /> */}
+        <Routes>
+          {/* landing page code now in pages > LandingPage.jsx */}
+          <Route
+            path="/"
+            element={
+              <PublicLayout>
+                <LandingPage />
+              </PublicLayout>
+            }
+          />
+          <Route
+            path="/welcome"
+            element={
+              <ProtectedRoute>
                 <DashboardLayout>
                   <Welcome />
                 </DashboardLayout>
-              </ThemeProvider>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/lgapage"
-          element={
-            <ProtectedRoute>
-              <ThemeProvider>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/lgapage"
+            element={
+              <ProtectedRoute>
                 <DashboardLayout>
                   <LGAPage />
                 </DashboardLayout>
-              </ThemeProvider>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/dashboardtest"
-          element={
-            <ProtectedRoute>
-              <ThemeProvider>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboardtest"
+            element={
+              <ProtectedRoute>
                 <DashboardLayout>
                   <DashboardTestPage />
                 </DashboardLayout>
-              </ThemeProvider>
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </ThemeProvider>
     </Router>
   );
 }
