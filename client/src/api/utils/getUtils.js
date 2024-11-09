@@ -14,15 +14,15 @@ export function getDataMonthlyAverage(data, year, dataField) {
     }
 
     if (!monthlyData[month]) {
-      monthlyData[month] = { month, totalADR: 0, count: 0 };
+      monthlyData[month] = { month, total: 0, count: 0 };
     }
 
-    monthlyData[month].totalADR += parseFloat(item[dataField]);
+    monthlyData[month].total += parseFloat(item[dataField]);
     monthlyData[month].count += 1;
   });
   return Object.values(monthlyData).map((item) => ({
     name: item.month,
-    value: item.totalADR / item.count,
+    [dataField]: item.total / item.count,
   }));
 }
 
