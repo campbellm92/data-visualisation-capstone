@@ -5,7 +5,7 @@ import DashboardNav from "../dashboard/DashboardNav";
 export default function DashboardLayout({ children }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const toggleSidebar = () => setIsCollapsed((prev) => !prev);
-  
+
   // Check screen width on component mount and resize
   useEffect(() => {
     const handleResize = () => {
@@ -26,13 +26,13 @@ export default function DashboardLayout({ children }) {
     // Clean up event listener on component unmount
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  
+
   return (
     <div className="flex h-screen">
       <DashboardSidebar isCollapsed={isCollapsed} />
       <div className="flex flex-col flex-1">
         <DashboardNav toggleSidebar={toggleSidebar} />
-        <main className="flex-1 overflow-auto p-4 bg-base-300">{children}</main>
+        <main className="flex-1 overflow-auto p-4 bg-base-200">{children}</main>
       </div>
     </div>
   );
