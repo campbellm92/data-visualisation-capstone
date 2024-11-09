@@ -23,13 +23,13 @@ export function AuthProvider({ children }) {
     const token = localStorage.getItem("token");
 
     if (token) {
-      // const cachedUser = localStorage.getItem("userData");
-      // if (cachedUser) {
-      //   setUser(JSON.parse(cachedUser));
-      //   setIsLoggedIn(true);
-      //   setIsAuthChecked(true);
-      //   return;
-      // }
+      const cachedUser = localStorage.getItem("userData");
+      if (cachedUser) {
+        setUser(JSON.parse(cachedUser));
+        setIsLoggedIn(true);
+        setIsAuthChecked(true);
+        return;
+      }
 
       try {
         const res = await fetch("http://localhost:3000/users/profile", {
