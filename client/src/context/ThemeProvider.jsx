@@ -3,7 +3,8 @@
 // if you're not sure what context is check this out https://legacy.reactjs.org/docs/context.html
 
 import { createContext, useState, useEffect, useContext } from "react";
-import { AuthContext } from "./AuthProvider"; // Import AuthContext
+import { AuthContext } from "./AuthProvider";
+import { useLocation } from "react-router-dom";
 
 export const ThemeContext = createContext();
 
@@ -13,11 +14,14 @@ export function ThemeProvider({ children }) {
 
   const { user, isLoggedIn, isAuthChecked } = useContext(AuthContext);
 
+  const location = useLocation();
+
   useEffect(() => {
-    if (isAuthChecked) {
+    if (location.pathname === "/") {
+      setTheme("publicTheme");
+    } else if (isAuthChecked) {
       if (isLoggedIn && user && user.lga) {
         const lga = user.lga.toLowerCase().replace(/\s+/g, "");
-        console.log("User LGA after processing:", lga);
 
         switch (lga) {
           case "noosa":
@@ -40,7 +44,7 @@ export function ThemeProvider({ children }) {
         setTheme("publicTheme");
       }
     }
-  }, [user, isLoggedIn, isAuthChecked]);
+  }, [user, isLoggedIn, isAuthChecked, location.pathname]);
 
   useEffect(() => {
     const currentTheme = darkMode ? "darkTheme" : theme;
