@@ -63,14 +63,25 @@ function Register({ toggle }) {
     passwordMarkAsTouched();
 
     // Check if all fields are filled
-    if (!firstName || !lastName || !emailValue || !passwordValue || !localArea) {
+    if (
+      !firstName ||
+      !lastName ||
+      !emailValue ||
+      !passwordValue ||
+      !localArea
+    ) {
       setError("All fields are required to continue.");
       setSuccess(null);
       return;
     }
 
     // Check if any field has errors
-    if (firstNameHasError || lastNameHasError || emailHasError || passwordHasError) {
+    if (
+      firstNameHasError ||
+      lastNameHasError ||
+      emailHasError ||
+      passwordHasError
+    ) {
       setError("Please correct the errors in the form.");
       setSuccess(null);
       return;
@@ -127,8 +138,8 @@ function Register({ toggle }) {
   return (
     <div className="flex flex-col">
       <h2 className="card-title">Register</h2>
-       {/* Input field for first name */}
-       <InputField
+      {/* Input field for first name */}
+      <InputField
         label="First Name"
         type="text"
         placeholder="First Name"
@@ -200,7 +211,7 @@ function Register({ toggle }) {
 
       <p className="mt-4">
         Already have an account?{" "}
-        <button className="text-blue-500 hover:underline" onClick={toggle}>
+        <button className="text-info hover:underline" onClick={toggle}>
           Login here
         </button>
       </p>
