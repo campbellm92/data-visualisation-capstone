@@ -62,8 +62,8 @@ export default {
       },
       {
         whitsundayTheme: {
-          primary: "#0e7490", // buttons
-          "primary-content": "#0f172a", // text
+          primary: "#0e7490",
+          "primary-content": "#0f172a",
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",
           // accent: "",
@@ -79,8 +79,8 @@ export default {
       },
       {
         cairnsTheme: {
-          primary: "#15803d", // buttons
-          "primary-content": "#0f172a", // text
+          primary: "#15803d",
+          "primary-content": "#0f172a",
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",
           // accent: "",
@@ -96,8 +96,8 @@ export default {
       },
       {
         darkTheme: {
-          primary: "#c88441", // buttons
-          "primary-content": "#edebe7", // text
+          primary: "#c88441",
+          "primary-content": "#edebe7",
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",
           // accent: "",
@@ -108,7 +108,6 @@ export default {
           "base-200": "#1f2937",
           // "base-300": "#1f2937",
           "base-300": "#111827",
-
           info: "#237496",
           success: "#289b6f",
           warning: "#fccd5e",
