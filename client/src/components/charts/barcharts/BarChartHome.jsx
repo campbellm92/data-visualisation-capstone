@@ -65,15 +65,17 @@ export default function BarChartHome({ year, dataField }) {
     : lgaColours[userLGA].light;
 
   return (
-    <ResponsiveContainer width={400} height={400}>
-      <BarChart width={500} height={300} data={monthlyAverageData}>
-        <XAxis dataKey="name" tickLine={false} axisLine={false} />
-        <YAxis hide={true} />
-        <Tooltip fill={"#E63946"} />
-        <Legend />
-        <Bar dataKey={dataField} fill={fillColour} name={displayName} />
-      </BarChart>
-    </ResponsiveContainer>
+    <div className="rounded-md p-4 bg-base-300 shadow-md flex justify-center items-center">
+      <ResponsiveContainer width={400} height={400}>
+        <BarChart width={500} height={300} data={monthlyAverageData}>
+          <XAxis dataKey="name" tickLine={false} axisLine={false} />
+          <YAxis hide={true} />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey={dataField} fill={fillColour} name={displayName} />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 
