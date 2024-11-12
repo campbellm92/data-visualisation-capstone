@@ -1,6 +1,6 @@
 // this contains the logic for the bar charts that I propose will be placed at the 'home'/'dashboard' endpoint which the user sees once they log in
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -13,9 +13,10 @@ import {
 import { AuthContext } from "../../../context/AuthProvider";
 import { ThemeContext } from "../../../context/ThemeProvider";
 import { useFetchLocalisData } from "../../../api/hooks/useFetchLocalisData";
-import { getDataMonthlyAverage } from "../../../api/utils/getUtils";
-
-// import { filterDataByLGA } from "../../../api/utils/filterUtils";
+import {
+  getDataMonthlyAverage,
+  getDataSeasonalAverage,
+} from "../../../api/utils/getUtils";
 
 // consider moving the following definitions for display names and colors to a constants file or similar
 const dataFieldDisplayNames = {
@@ -32,7 +33,7 @@ const lgaColours = {
   "Gold Coast": { light: "#c88441", dark: "#c88441" },
 };
 
-export default function BarChartHome({ year, dataField }) {
+export default function BarChartHome({ year, monthOrSeason, dataField }) {
   const {
     loading: dataLoading,
     data,
@@ -40,6 +41,8 @@ export default function BarChartHome({ year, dataField }) {
   } = useFetchLocalisData("/combined_data");
   const { user, loading: userLoading } = useContext(AuthContext);
   const { darkMode } = useContext(ThemeContext);
+
+  console.log("User Object:", user);
 
   if (dataLoading || userLoading || !user || !data) {
     return <p>Loading...</p>;
@@ -52,11 +55,20 @@ export default function BarChartHome({ year, dataField }) {
     return itemLGA.trim().toLowerCase() === userLGA.trim().toLowerCase();
   });
 
-  const monthlyAverageData = getDataMonthlyAverage(
-    filteredDataByLGA,
-    year,
-    dataField
-  );
+  let displayedData;
+  if (monthOrSeason === "season") {
+    displayedData = getDataSeasonalAverage(filteredDataByLGA, year, dataField);
+  } else {
+    displayedData = getDataMonthlyAverage(filteredDataByLGA, year, dataField);
+  }
+
+  console.log("Displayed Data:", displayedData);
+
+  // const monthlyAverageData = getDataMonthlyAverage(
+  //   filteredDataByLGA,
+  //   year,
+  //   dataField
+  // );
 
   const displayName = dataFieldDisplayNames[dataField] || dataField;
 
@@ -65,16 +77,18 @@ export default function BarChartHome({ year, dataField }) {
     : lgaColours[userLGA].light;
 
   return (
-    <div className="rounded-md p-4 bg-base-300 shadow-md flex justify-center items-center">
-      <ResponsiveContainer width={400} height={400}>
-        <BarChart width={500} height={300} data={monthlyAverageData}>
-          <XAxis dataKey="name" tickLine={false} axisLine={false} />
-          <YAxis hide={true} />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey={dataField} fill={fillColour} name={displayName} />
-        </BarChart>
-      </ResponsiveContainer>
+    <div className="flex flex-wrap justify-center gap-4">
+      <div className="rounded-md p-4 bg-base-300 shadow-md flex justify-center items-center flex-1 min-w-[300px] max-w-[400px]">
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={displayedData}>
+            <XAxis dataKey="name" tickLine={false} axisLine={false} />
+            <YAxis hide={true} />
+            <Tooltip />
+            <Legend iconType="circle" />
+            <Bar dataKey={dataField} fill={fillColour} name={displayName} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 }
