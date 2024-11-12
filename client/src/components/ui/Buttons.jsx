@@ -39,9 +39,10 @@ export function ButtonMediumWide({ children, onClick }) {
   );
 }
 
-export function ButtonMediumFullWide({ children, onClick }) {
+export function ButtonMediumFullWide({ children, onClick, id }) {
   return (
     <button
+      id={id}
       className="btn btn-md btn-primary btn-wide w-full text-secondary-content"
       onClick={onClick}
     >
