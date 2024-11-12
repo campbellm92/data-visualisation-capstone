@@ -10,8 +10,8 @@ export default {
     themes: [
       {
         publicTheme: {
-          primary: "#c88441", // buttons
-          "primary-content": "#edebe7", // text
+          primary: "#c88441",
+          "primary-content": "#edebe7",
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",
           // accent: "",
@@ -27,8 +27,8 @@ export default {
       },
       {
         noosaTheme: {
-          primary: "#7e22ce", // buttons
-          "primary-content": "#0f172a", // text
+          primary: "#7e22ce",
+          "primary-content": "#0f172a",
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",
 
@@ -45,8 +45,8 @@ export default {
       },
       {
         goldCoastTheme: {
-          primary: "#c88441", // buttons
-          "primary-content": "#0f172a", // text
+          primary: "#c88441",
+          "primary-content": "#0f172a",
           secondary: "#0ea5e9",
           "secondary-content": "#b45309",
           // accent: "",
