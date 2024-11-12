@@ -3,7 +3,7 @@ export function numericDateToString(date) {
   const dateToConvert = new Date(date);
 
   const month = dateToConvert.toLocaleString("default", {
-    month: "narrow",
+    month: "long",
   });
 
   const year = dateToConvert.getFullYear();
