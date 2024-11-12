@@ -37,7 +37,7 @@ export function getDataSeasonalAverage(data, year, dataField) {
       return;
     }
 
-    const season = convertMonthsToSeasons(month);
+    const season = convertMonthsToSeasons(month, itemYear);
 
     if (!seasonalData[season]) {
       seasonalData[season] = { season, total: 0, count: 0 };
@@ -47,9 +47,11 @@ export function getDataSeasonalAverage(data, year, dataField) {
     seasonalData[season].count += 1;
   });
 
+  console.log("Seasonal Data:", seasonalData);
+
   return Object.values(seasonalData).map((item) => ({
     name: item.season,
-    value: item.total / item.count,
+    [dataField]: item.total / item.count,
   }));
 }
 
