@@ -55,12 +55,18 @@ export default function BarChartHome({ year, monthOrSeason, dataField }) {
     return itemLGA.trim().toLowerCase() === userLGA.trim().toLowerCase();
   });
 
-  let displayedData;
-  if (monthOrSeason === "season") {
-    displayedData = getDataSeasonalAverage(filteredDataByLGA, year, dataField);
-  } else {
-    displayedData = getDataMonthlyAverage(filteredDataByLGA, year, dataField);
-  }
+  // let displayedData;
+  // if (monthOrSeason === "season") {
+  //   displayedData = getDataSeasonalAverage(filteredDataByLGA, year, dataField);
+  // } else {
+  //   displayedData = getDataMonthlyAverage(filteredDataByLGA, year, dataField);
+  // }
+
+  const displayedData = getDataMonthlyAverage(
+    filteredDataByLGA,
+    year,
+    dataField
+  );
 
   console.log("Displayed Data:", displayedData);
 
@@ -92,7 +98,3 @@ export default function BarChartHome({ year, monthOrSeason, dataField }) {
     </div>
   );
 }
-
-// issues: "value" should be whatever the data field is
-// need to make it so the data is fetched for the user's LGA dynamically
-//
