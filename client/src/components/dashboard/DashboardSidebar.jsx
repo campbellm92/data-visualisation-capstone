@@ -8,7 +8,7 @@ export default function DashboardSidebar({ isCollapsed }) {
   const { darkMode } = useContext(ThemeContext); // Access dark mode state
 
   const sidebarItems = [
-    { href: "/dashboardtest", label: "Dashboard", icon: <Icons.Home /> },
+    { href: "/dashboard", label: "Dashboard", icon: <Icons.Home /> },
     { href: "/LGAPage", label: "January", icon: <Icons.Calender /> },
     { href: "/welcome", label: "Data", icon: <Icons.DataStack /> },
     { href: "/welcome", label: "Grants", icon: <Icons.Pencil /> },
