@@ -7,12 +7,15 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+// layout imports:
 import PublicLayout from "./components/layout/PublicLayout";
 import DashboardLayout from "./components/layout/DashboardLayout";
+// public pages imports:
 import LandingPage from "./pages/LandingPage";
+// private (dashboard) page imports:
+import Dashboard from "./pages/data-visualisation/Dashboard";
 import Welcome from "./pages/welcome/Welcome";
 import LGAPage from "./pages/data-visualisation/LGAPage";
-import DashboardTestPage from "./pages/DashboardTestPage"; // delete when finished
 
 function App() {
   return (
@@ -51,11 +54,11 @@ function App() {
             }
           />
           <Route
-            path="/dashboardtest"
+            path="/dashboard"
             element={
               <ProtectedRoute>
                 <DashboardLayout>
-                  <DashboardTestPage />
+                  <Dashboard />
                 </DashboardLayout>
               </ProtectedRoute>
             }

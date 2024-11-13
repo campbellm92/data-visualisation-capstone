@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../context/AuthProvider";
-import BarChartHome from "../components/charts/barcharts/BarChartHome";
-import { SelectWithBorderSmall } from "../components/ui/Selects";
+import { AuthContext } from "../../context/AuthProvider";
+import BarChartHome from "../../components/charts/barcharts/BarChartHome";
+import { SelectWithBorderSmall } from "../../components/ui/Selects";
 
 export default function DashboardTestPage() {
   const [year, setYear] = useState(2023);
@@ -25,7 +25,7 @@ export default function DashboardTestPage() {
       </div>
       <div className="pb-5 flex justify-end gap-2">
         <SelectWithBorderSmall
-          onChange={(e) => setYear(parseInt(e.target.value))}
+          onChange={(e) => setYear(Number(e.target.value))}
         >
           <option value="2023">2023</option>
           <option value="2024">2024</option>
