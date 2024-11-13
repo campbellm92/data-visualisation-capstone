@@ -1,6 +1,6 @@
 // this contains the logic for the bar charts that I propose will be placed at the 'home'/'dashboard' endpoint which the user sees once they log in
 
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import {
   BarChart,
   Bar,
@@ -13,27 +13,10 @@ import {
 import { AuthContext } from "../../../context/AuthProvider";
 import { ThemeContext } from "../../../context/ThemeProvider";
 import { useFetchLocalisData } from "../../../api/hooks/useFetchLocalisData";
-import {
-  getDataMonthlyAverage,
-  getDataSeasonalAverage,
-} from "../../../api/utils/getUtils";
+import { getDataMonthlyAverage } from "../../../api/utils/getUtils";
+import { dataFieldDisplayNames, lgaColours } from "../../../utils/constants";
 
-// consider moving the following definitions for display names and colors to a constants file or similar
-const dataFieldDisplayNames = {
-  average_booking_window: "Average Booking Window",
-  average_daily_rate: "Average Daily Rate",
-  average_historical_occupancy: "Average Historical Occupancy",
-  average_length_of_stay: "Average Length of Stay",
-};
-
-const lgaColours = {
-  Cairns: { light: "#15803d", dark: "#c88441" },
-  Noosa: { light: "#7e22ce", dark: "#c88441" },
-  Whitsunday: { light: "#0e7490", dark: "#c88441" },
-  "Gold Coast": { light: "#c88441", dark: "#c88441" },
-};
-
-export default function BarChartHome({ year, monthOrSeason, dataField }) {
+export default function BarChartHome({ year, dataField }) {
   const {
     loading: dataLoading,
     data,
@@ -55,13 +38,6 @@ export default function BarChartHome({ year, monthOrSeason, dataField }) {
     return itemLGA.trim().toLowerCase() === userLGA.trim().toLowerCase();
   });
 
-  // let displayedData;
-  // if (monthOrSeason === "season") {
-  //   displayedData = getDataSeasonalAverage(filteredDataByLGA, year, dataField);
-  // } else {
-  //   displayedData = getDataMonthlyAverage(filteredDataByLGA, year, dataField);
-  // }
-
   const displayedData = getDataMonthlyAverage(
     filteredDataByLGA,
     year,
@@ -69,12 +45,6 @@ export default function BarChartHome({ year, monthOrSeason, dataField }) {
   );
 
   console.log("Displayed Data:", displayedData);
-
-  // const monthlyAverageData = getDataMonthlyAverage(
-  //   filteredDataByLGA,
-  //   year,
-  //   dataField
-  // );
 
   const displayName = dataFieldDisplayNames[dataField] || dataField;
 
