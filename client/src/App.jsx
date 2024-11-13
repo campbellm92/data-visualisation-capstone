@@ -11,11 +11,11 @@ import {
 import PublicLayout from "./components/layout/PublicLayout";
 import DashboardLayout from "./components/layout/DashboardLayout";
 // public pages imports:
-import LandingPage from "./pages/LandingPage";
+import LandingPage from "./pages/public-pages/LandingPage";
 // private (dashboard) page imports:
-import Dashboard from "./pages/data-visualisation/Dashboard";
-import Welcome from "./pages/welcome/Welcome";
-import LGAPage from "./pages/data-visualisation/LGAPage";
+import Dashboard from "./pages/data-vis-pages/Dashboard";
+import Welcome from "./pages/data-vis-pages/Welcome";
+import LGAPage from "./pages/data-vis-pages/LGAPage";
 
 function App() {
   return (
