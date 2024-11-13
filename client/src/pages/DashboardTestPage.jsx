@@ -5,7 +5,7 @@ import { SelectWithBorderSmall } from "../components/ui/Selects";
 
 export default function DashboardTestPage() {
   const [year, setYear] = useState(2023);
-  const [monthOrSeason, setMonthOrSeason] = useState("season");
+  // const [monthOrSeason, setMonthOrSeason] = useState("season");
   const { user } = useContext(AuthContext);
   const userLGA = user?.lga || "Unknown LGA";
 
@@ -30,12 +30,12 @@ export default function DashboardTestPage() {
           <option value="2023">2023</option>
           <option value="2024">2024</option>
         </SelectWithBorderSmall>
-        <SelectWithBorderSmall
+        {/* <SelectWithBorderSmall
           onChange={(e) => setMonthOrSeason(e.target.value)}
         >
           <option value="month">Months</option>
           <option value="season">Seasons</option>
-        </SelectWithBorderSmall>
+        </SelectWithBorderSmall> */}
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -43,7 +43,7 @@ export default function DashboardTestPage() {
           <div key={field}>
             <BarChartHome
               year={year}
-              monthOrSeason={monthOrSeason}
+              // monthOrSeason={monthOrSeason}
               dataField={field}
             />
           </div>
