@@ -13,7 +13,7 @@ import DashboardLayout from "./components/layout/DashboardLayout";
 // public pages imports:
 import LandingPage from "./pages/public-pages/LandingPage";
 // private (dashboard) page imports:
-import Dashboard from "./pages/data-vis-pages/Dashboard";
+import DashboardHome from "./pages/data-vis-pages/DashboardHome";
 import Welcome from "./pages/data-vis-pages/Welcome";
 import LGAPage from "./pages/data-vis-pages/LGAPage";
 
@@ -58,7 +58,7 @@ function App() {
             element={
               <ProtectedRoute>
                 <DashboardLayout>
-                  <Dashboard />
+                  <DashboardHome />
                 </DashboardLayout>
               </ProtectedRoute>
             }
