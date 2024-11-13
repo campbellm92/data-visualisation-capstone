@@ -3,7 +3,7 @@ export function numericDateToString(date) {
   const dateToConvert = new Date(date);
 
   const month = dateToConvert.toLocaleString("default", {
-    month: "long",
+    month: "narrow",
   });
 
   const year = dateToConvert.getFullYear();
@@ -13,10 +13,13 @@ export function numericDateToString(date) {
 //output: January 2023
 
 // convert numeric dates to season names (Summer, Autumn, etc)
+// function not in use
 export function convertMonthsToSeasons(month, year) {
+  let seasonYear = year;
   switch (month) {
     case "December":
-      return `Summer ${year}`;
+      seasonYear = year + 1;
+      return `Summer ${seasonYear}`;
     case "January":
     case "February":
       return `Summer ${year}`;
