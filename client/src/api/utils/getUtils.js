@@ -1,7 +1,6 @@
 import { numericDateToString, convertMonthsToSeasons } from "./dateUtils";
 
 // get a monthly average of the ADR value
-// could also add getDataSeasonalAverage
 export function getDataMonthlyAverage(data, year, dataField) {
   // dataField = average daily rate, etc
   const monthlyData = {};
@@ -26,6 +25,8 @@ export function getDataMonthlyAverage(data, year, dataField) {
   }));
 }
 
+// function for getting averages across seasons
+// function not in use
 export function getDataSeasonalAverage(data, year, dataField) {
   // dataField = average daily rate, etc
   const seasonalData = {};
@@ -33,11 +34,14 @@ export function getDataSeasonalAverage(data, year, dataField) {
   data?.forEach((item) => {
     const { month, year: itemYear } = numericDateToString(item.sample_date);
 
-    if (itemYear !== year) {
+    const season = convertMonthsToSeasons(month, itemYear);
+
+    const seasonYearMatch = season.match(/(\d+)$/);
+    const seasonYear = seasonYearMatch ? parseInt(seasonYearMatch[1]) : null;
+
+    if (seasonYear !== year) {
       return;
     }
-
-    const season = convertMonthsToSeasons(month, itemYear);
 
     if (!seasonalData[season]) {
       seasonalData[season] = { season, total: 0, count: 0 };
