@@ -1,14 +1,22 @@
-export function SelectWithBorder({ children }) {
+export function SelectWithBorder({ onChange, value, children }) {
   return (
-    <select className="select select-bordered w-full max-w-xs bg-base-300">
+    <select
+      className="select select-bordered w-full max-w-xs bg-base-300"
+      onChange={onChange}
+      value={value}
+    >
       {children}
     </select>
   );
 }
 
-export function SelectWithBorderSmall({ children }) {
+export function SelectWithBorderSmall({ onChange, value, children }) {
   return (
-    <select className="select select-bordered select-sm w-fit max-w-xs bg-base-300">
+    <select
+      className="select select-bordered select-sm w-fit max-w-xs bg-base-300"
+      onChange={onChange}
+      value={value}
+    >
       {children}
     </select>
   );
