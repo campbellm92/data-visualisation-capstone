@@ -3,7 +3,7 @@ import { AuthContext } from "../../context/AuthProvider";
 import BarChartHome from "../../components/charts/barcharts/BarChartHome";
 import { SelectWithBorderSmall } from "../../components/ui/Selects";
 
-export default function DashboardTestPage() {
+export default function Dashboard() {
   const [year, setYear] = useState(2023);
   // const [monthOrSeason, setMonthOrSeason] = useState("season");
   const { user } = useContext(AuthContext);
