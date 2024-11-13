@@ -1,4 +1,4 @@
-import { ButtonMediumWide } from "../../components/ui/Buttons";
+import { ButtonMediumWide } from "../../../components/ui/Buttons";
 
 export default function HeroSection() {
   return (
