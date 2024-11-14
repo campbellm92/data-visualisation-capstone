@@ -200,7 +200,10 @@ function Register({ toggle }) {
 
       {/* Register button */}
       <div className="form-control mt-6">
-        <ButtonMediumFullWide onClick={handleRegister}>
+        <ButtonMediumFullWide
+          onClick={handleRegister}
+          textColor={"text-primary-content"}
+        >
           {isLoading ? <LoadingSpinner /> : "Register"}
         </ButtonMediumFullWide>
       </div>

@@ -121,7 +121,10 @@ const Login = ({ toggle }) => {
       />
       {/* Login button */}
       <div className="form-control mt-6">
-        <ButtonMediumFullWide onClick={handleLogin}>
+        <ButtonMediumFullWide
+          onClick={handleLogin}
+          textColor={"text-primary-content"}
+        >
           {isLoading ? <LoadingSpinner /> : "Login"}
         </ButtonMediumFullWide>
       </div>
