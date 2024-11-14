@@ -33,17 +33,25 @@ export function ButtonSmallWide({ children }) {
 
 export function ButtonMediumWide({ children, onClick }) {
   return (
-    <button className="btn btn-md btn-primary btn-wide" onClick={onClick}>
+    <button
+      className="btn btn-md btn-primary btn-wide text-primary-content"
+      onClick={onClick}
+    >
       {children}
     </button>
   );
 }
 
-export function ButtonMediumFullWide({ children, onClick, id }) {
+export function ButtonMediumFullWide({
+  children,
+  onClick,
+  id,
+  textColor = "text-primary-content",
+}) {
   return (
     <button
       id={id}
-      className="btn btn-md btn-primary btn-wide w-full text-secondary-content"
+      className={`btn btn-md btn-primary btn-wide w-full ${textColor}`}
       onClick={onClick}
     >
       {children}
