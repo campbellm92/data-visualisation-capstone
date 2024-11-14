@@ -44,24 +44,33 @@ export default function Navbar() {
 
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Parent</a>
-              <ul className="p-2">
+              <a>Our Services</a>
+              <ul className="p-2 z-50">
                 <li>
-                  <a>Submenu 1</a>
+                  <a>Data visualisation dashboard</a>
                 </li>
                 <li>
-                  <a>Submenu 2</a>
+                  <a>Grant writing</a>
+                </li>
+                <li>
+                  <a>Forecasting</a>
+                </li>
+                <li>
+                  <a>Event analysis</a>
+                </li>
+                <li>
+                  <a>AI-driven insights</a>
+                </li>
+                <li>
+                  <a>Tourism profiles</a>
                 </li>
               </ul>
             </li>
             <li>
-              <a>Item 3</a>
+              <a>Contact</a>
             </li>
           </ul>
         </div>
@@ -69,25 +78,34 @@ export default function Navbar() {
       </div>
 
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <a className="text-primary-content">Item 1</a>
-          </li>
+        <ul className="menu menu-horizontal px-1 z-50">
           <li>
             <details className="dropdown">
-              <summary className="text-primary-content">Parent</summary>
-              <ul className="p-2">
+              <summary className="text-primary-content">Our Services</summary>
+              <ul className="p-2 z-50">
                 <li>
-                  <a>Submenu 1</a>
+                  <a>Data visualisation dashboard</a>
                 </li>
                 <li>
-                  <a>Submenu 2</a>
+                  <a>Grant writing</a>
+                </li>
+                <li>
+                  <a>Forecasting</a>
+                </li>
+                <li>
+                  <a>Event analysis</a>
+                </li>
+                <li>
+                  <a>AI-driven insights</a>
+                </li>
+                <li>
+                  <a>Tourism profiles</a>
                 </li>
               </ul>
             </details>
           </li>
           <li>
-            <a className="text-primary-content">Item 3</a>
+            <a className="text-primary-content">Contact</a>
           </li>
         </ul>
       </div>
