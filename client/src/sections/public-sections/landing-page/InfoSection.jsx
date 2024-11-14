@@ -14,13 +14,13 @@ export default function InfoSection() {
               <h3 className="mb-4 text-light font-bold text-secondary">
                 OUR DATA IN YOUR HANDS
               </h3>
-              <h1 className="text-5xl font-bold">
+              <h1 className="text-5xl font-bold text-secondary-content">
                 Hey! 👋 We're{" "}
                 <span className="text-bold text-primary underline decoration-secondary">
                   Localis
                 </span>
               </h1>
-              <p className="py-6">
+              <p className="py-6 text-secondary-content">
                 We provide lorem ipsum dolor sit amet consectetur adipisicing
                 elit. Eius natus nemo quis! Quos, numquam sed tenetur,
                 dignissimos nesciunt saepe iste eum incidunt similique deserunt
@@ -33,7 +33,7 @@ export default function InfoSection() {
       </div>
 
       <div className="client-logos-part bg-base-100 flex-grow">
-        <div className="header bg-primary-content text-primary text-xl font-bold text-center pt-10">
+        <div className="header bg-primary-content text-primary text-2xl font-bold text-center pt-10">
           WHO WE'VE HELPED
         </div>
         <div className="banner">
