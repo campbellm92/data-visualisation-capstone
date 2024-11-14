@@ -120,6 +120,7 @@ export default function Graphs() {
                 onClick={() => {
                   document.getElementById("analyse_modal").showModal();
                 }}
+                textColor={"text-secondary-content"}
               >
                 Analyse
               </ButtonMediumFullWide>
