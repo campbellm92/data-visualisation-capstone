@@ -13,7 +13,7 @@ export default {
           primary: "#c88441",
           "primary-content": "#edebe7",
           secondary: "#0ea5e9",
-          "secondary-content": "#f1f5f9",
+          "secondary-content": "#0f172a",
           // accent: "",
           // "accent-content": "",
           "base-100": "#ffffff",
