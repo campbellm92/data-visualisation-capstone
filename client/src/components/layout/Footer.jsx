@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <>
-      <footer className="footer bg-base-100 text-base-content p-20">
+      <footer className="footer bg-base-100 text-secondary-content p-20">
         <aside>
           <p>
             <span className="text-xl">
@@ -11,7 +11,7 @@ export default function Footer() {
             </span>
             <br />
             <span>
-              Copyright © {new Date().getFullYear()} - All right reserved
+              Copyright © {new Date().getFullYear()} - All rights reserved
             </span>
           </p>
         </aside>
