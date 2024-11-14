@@ -27,7 +27,7 @@ export default {
       },
       {
         noosaTheme: {
-          primary: "#7e22ce",
+          primary: "#ab274f",
           "primary-content": "#0f172a",
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",
