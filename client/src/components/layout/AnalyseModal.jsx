@@ -141,6 +141,7 @@ const AnalyseModal = ({ dataSet }) => {
             doAnalysis(e);
             return false;
           }}
+          textColor={"text-secondary-content"}
         >
           Analyse
         </ButtonMediumFullWide>
