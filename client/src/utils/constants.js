@@ -1,4 +1,4 @@
-// bare data fields for use within components (see )
+// bare data fields for use within components
 export const fields = [
   "average_daily_rate",
   "average_booking_window",
@@ -18,7 +18,7 @@ export const dataFieldDisplayNames = {
 // note: because of Recharts restrictions, this cannot be handled in tailwind.config.js
 export const lgaColours = {
   Cairns: { light: "#15803d", dark: "#c88441" },
-  Noosa: { light: "#7e22ce", dark: "#c88441" },
+  Noosa: { light: "#ab274f", dark: "#c88441" },
   Whitsunday: { light: "#0e7490", dark: "#c88441" },
   "Gold Coast": { light: "#c88441", dark: "#c88441" },
 };
