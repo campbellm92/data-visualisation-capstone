@@ -54,7 +54,7 @@ export default function BarChartHome({ year, dataField }) {
 
   return (
     <div className="flex flex-wrap justify-center gap-4">
-      <div className="rounded-md p-4 bg-base-300 shadow-md flex justify-center items-center flex-1 min-w-[300px] max-w-[400px]">
+      <div className="p-4 flex justify-center items-center flex-1 min-w-[300px] max-w-[400px]">
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={displayedData}>
             <XAxis dataKey="name" tickLine={false} axisLine={false} />
