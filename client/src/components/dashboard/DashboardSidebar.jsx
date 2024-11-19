@@ -22,7 +22,7 @@ export default function DashboardSidebar({ isCollapsed }) {
     >
       <div className="p-5">
         <div
-          className={`text-xl font-bold ${
+          className={`text-xl font-bold relative -top-1 ${
             darkMode ? "text-primary-content" : "text-primary"
           }`}
         >
