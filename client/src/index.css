@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+:root {
+  --tw-color-primary: #1D4ED8;
+  --tw-color-secondary: #9333EA;
+}
+
 /*Custom Css for modal*/
 .modal-box {
   height: auto;
