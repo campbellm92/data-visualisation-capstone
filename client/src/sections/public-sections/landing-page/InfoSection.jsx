@@ -9,11 +9,12 @@ export default function InfoSection() {
             <img
               src="/assets/images/josh-withers-9h479w-syaQ-unsplash.jpg"
               className="max-w-xs md:max-w-sm lg:max-w-md rounded-lg shadow-2xl object-cover sm:mt-6"
+              alt="Beach Image"
             />
             <div className="lg:mr-10 sm:my-6">
-              <h3 className="mb-4 text-light font-bold text-secondary">
+              <p className="mb-4 text-light font-bold text-secondary">
                 OUR DATA IN YOUR HANDS
-              </h3>
+              </p>
               <h1 className="text-5xl font-bold text-secondary-content">
                 Hey! 👋 We're{" "}
                 <span className="text-bold text-primary underline decoration-secondary">
