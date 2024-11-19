@@ -112,6 +112,7 @@ const Login = ({ toggle }) => {
       <InputField
         label="Password"
         type="password"
+        placeholder={"Please enter your password"}
         value={passwordValue}
         onChange={passwordChangeHandler}
         onBlur={passwordMarkAsTouched}

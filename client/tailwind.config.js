@@ -10,9 +10,9 @@ export default {
     themes: [
       {
         publicTheme: {
-          primary: "#c88441",
-          "primary-content": "#edebe7",
-          secondary: "#0ea5e9",
+          primary: "#925e2a", //button background color
+          "primary-content": "#ffffff",
+          secondary: "#086189",
           "secondary-content": "#0f172a",
           // accent: "",
           // "accent-content": "",

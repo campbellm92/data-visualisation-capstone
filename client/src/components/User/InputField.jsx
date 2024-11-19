@@ -20,6 +20,7 @@ const InputField = ({
       {type === "select" ? (
         <select
           className="input input-bordered"
+          aria-label="Select Local Area"
           value={value}
           onChange={onChange}
           onBlur={onBlur}
@@ -30,7 +31,7 @@ const InputField = ({
           </option>
           {/* Map through options and render each option */}
           {options.map((option, index) => (
-            <option key={index} value={option}>
+            <option key={index} value={option} aria-label={option}>
               {option}
             </option>
           ))}
