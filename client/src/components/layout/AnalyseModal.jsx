@@ -145,6 +145,18 @@ const AnalyseModal = ({ dataSet }) => {
         >
           Analyse
         </ButtonMediumFullWide>
+        <div className="mb-4"></div>
+        <ButtonMediumFullWide
+          id="report-button"
+          onClick={(e) => {
+            generateReport(e);
+            return false;
+          }}
+          disabled={true}
+          textColor={"text-secondary-content"}
+        >
+          Download Report
+        </ButtonMediumFullWide>
       </div>
     </dialog>
   );

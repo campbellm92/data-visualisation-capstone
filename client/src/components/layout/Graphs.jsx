@@ -52,11 +52,11 @@ export default function Graphs() {
       {/*     <div className="container mx-auto p-4 box-drop-shadow"> */}
 
       <div className="grid md:grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
-        <div className="p-4 col-span-2">
-          <div className="shadow-md text-primary-content font-light bg-base-300 mb-4 border-1 rounded p-4">
+        <div className="p-4 lg:col-span-4 xl:col-span-2 max-w-96">
+          <div className="shadow-md text-primary-content font-light bg-base-300 mb-4 border-1 rounded p-1">
             Date Scroller:
             <div className="drop-shadow mt-2">
-              <div className=" p-2">
+              <div className="p-1">
                 <DateScroller
                   startDate={startDate}
                   setStartDate={setStartDate}
@@ -127,7 +127,7 @@ export default function Graphs() {
             </div>
           ) : null}
         </div>
-        <div className="p-4 col-span-10">
+        <div className="p-4 lg:col-span-8 xl:col-span-10">
           <div className="grid grid-cols-5 gap-4 mb-4 shadow-md border-1 rounded bg-base-300">
             <div className="p-1">
               <Checkbox

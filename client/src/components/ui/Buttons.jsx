@@ -47,12 +47,14 @@ export function ButtonMediumFullWide({
   onClick,
   id,
   textColor = "text-primary-content",
+  disabled
 }) {
   return (
     <button
       id={id}
       className={`btn btn-md btn-primary btn-wide w-full ${textColor}`}
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </button>
