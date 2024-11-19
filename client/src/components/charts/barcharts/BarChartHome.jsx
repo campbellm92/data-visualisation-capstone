@@ -10,41 +10,21 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { AuthContext } from "../../../context/AuthProvider";
 import { ThemeContext } from "../../../context/ThemeProvider";
-import { useFetchLocalisData } from "../../../api/hooks/useFetchLocalisData";
-import { getDataMonthlyAverage } from "../../../api/utils/getUtils";
 import { dataFieldDisplayNames, lgaColours } from "../../../utils/constants";
+import { useChartDataConfig } from "../../../api/hooks/useChartDataConfig";
 
 export default function BarChartHome({ year, dataField }) {
-  const {
-    loading: dataLoading,
-    data,
-    error,
-  } = useFetchLocalisData("/combined_data");
-  const { user, loading: userLoading } = useContext(AuthContext);
-  const { darkMode } = useContext(ThemeContext);
-
-  console.log("User Object:", user);
-
-  if (dataLoading || userLoading || !user || !data) {
-    return <p>Loading...</p>;
-  }
-
-  const userLGA = user.lga || "";
-
-  const filteredDataByLGA = data.filter((item) => {
-    const itemLGA = item.lga_name || "";
-    return itemLGA.trim().toLowerCase() === userLGA.trim().toLowerCase();
+  const { loading, data, error, user } = useChartDataConfig({
+    endpoint: "/combined_data",
+    year,
+    dataField,
+    chartType: "bar",
   });
 
-  const displayedData = getDataMonthlyAverage(
-    filteredDataByLGA,
-    year,
-    dataField
-  );
+  const { darkMode } = useContext(ThemeContext);
 
-  console.log("Displayed Data:", displayedData);
+  const userLGA = user.lga || "";
 
   const displayName = dataFieldDisplayNames[dataField] || dataField;
 
@@ -56,7 +36,7 @@ export default function BarChartHome({ year, dataField }) {
     <div className="flex flex-wrap justify-center gap-4">
       <div className="p-4 flex justify-center items-center flex-1 min-w-[300px] max-w-[400px]">
         <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={displayedData}>
+          <BarChart data={data}>
             <XAxis dataKey="name" tickLine={false} axisLine={false} />
             <YAxis hide={true} />
             <Tooltip />
