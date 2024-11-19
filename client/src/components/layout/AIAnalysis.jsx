@@ -12,15 +12,64 @@ import LoadingSpinner from "../ui/LoadingSpinner";
 import LLMResponse from "./LLMResponse";
 import { SelectLLMPrompt } from "../ui/Select";
 
-const kDefaultResponse =
-  "Hi there, please select a default prompt or enter a custom prompt above and then click Analyse to pass your prompt and the selected data to an LLM for analysis.";
+
+/*
+
+To compile your Recharts graphs and rendered Markdown as a multipage PDF, you can use libraries like html-to-pdfmake (for converting HTML to a format suitable for PDF) and pdfmake (to generate the PDF). Here's a step-by-step approach:
+
+1. Install Required Libraries
+npm install pdfmake html-to-pdfmake jspdf dom-to-image
+2. Export Graphs and Markdown as Images
+Use dom-to-image to convert your Recharts graphs and rendered Markdown divs to images.
+
+3. Generate a PDF
+Use pdfmake or jspdf to compile the images into a multipage PDF.
+
+Example Code
+Here’s how you can do it:
+
+Step 1: Capture Graph and Markdown as Images
+
+import domtoimage from 'dom-to-image';
+import { jsPDF } from 'jspdf';
+
+const captureAsImage = async (elementId) => {
+  const element = document.getElementById(elementId);
+  return await domtoimage.toPng(element);
+};
+Step 2: Generate the PDF
+
+const generatePDF = async () => {
+  const pdf = new jsPDF();
+
+  // Capture Graph
+  const graphImage = await captureAsImage('graph-container');
+  pdf.addImage(graphImage, 'PNG', 10, 10, 180, 90); // Adjust dimensions as needed
+
+  // Add new page
+  pdf.addPage();
+
+  // Capture Markdown
+  const markdownImage = await captureAsImage('markdown-container');
+  pdf.addImage(markdownImage, 'PNG', 10, 10, 180, 90);
+
+  // Save the PDF
+  pdf.save('output.pdf');
+};
+4. Integration in React
+Create a button or trigger for generating the PDF:
+
+<button onClick={generatePDF}>Download PDF</button>
+Notes
+
+
+*/
 
 function handleSelectChange() {
   document.getElementById("prompt").value = "";
 }
 
-const AnalyseModal = ({ dataSet }) => {
-  const [llmResponse, setllmResponse] = useState(kDefaultResponse);
+const AIAnalysis = ({ dataSet, llmResponse, setllmResponse }) => {
 
   function closeForm() {
     setllmResponse(kDefaultResponse);
@@ -80,16 +129,11 @@ const AnalyseModal = ({ dataSet }) => {
   }
 
   return (
-    <dialog id="analyse_modal" className="modal w-full">
-      <div className="modal-box relative shadow-lg bg-base-300">
-        <button
-          className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-          onClick={() => closeForm()}
-        >
-          ✕
-        </button>
+    <div>
+      {/*<dialog id="analyse_modal" className="modal w-full">*/}
+
+      <div className="shadow-md border-1 rounded p-3 relative shadow-lg bg-base-300">
         <form id="prompt-form" method="dialog">
-          <br></br>
           <label
             id="prompt-label"
             className="form-control text-primary-content"
@@ -120,7 +164,7 @@ const AnalyseModal = ({ dataSet }) => {
           </label>
         </form>
 
-        <label id="response-label" className="form-control mb-5">
+        <label id="response-label" className="form-control mb-5" style={{ display: "none" }}>
           <div className="label">
             <span className="text-primary-content">LLM Response</span>
           </div>
@@ -129,12 +173,14 @@ const AnalyseModal = ({ dataSet }) => {
             style={{ minHeight: "30vh", maxHeight: "40vh" }}
           >
             <LLMResponse content={llmResponse} />
-            <div className="text-left" id="working" style={{ display: "none" }}>
-              <LoadingSpinner />
-            </div>
           </div>
         </label>
+        <div className="text-left" id="working" style={{ display: "none" }}>
+          <LoadingSpinner />
+        </div>
+
         <div></div>
+        <div className="mb-4"></div>
         <ButtonMediumFullWide
           id="analyse-button"
           onClick={(e) => {
@@ -145,9 +191,22 @@ const AnalyseModal = ({ dataSet }) => {
         >
           Analyse
         </ButtonMediumFullWide>
+        <div className="mb-4"></div>
+        <ButtonMediumFullWide
+          id="report-button"
+          onClick={(e) => {
+            generateReport(e);
+            return false;
+          }}
+          disabled={true}
+          textColor={"text-secondary-content"}
+        >
+          Download Report
+        </ButtonMediumFullWide>
       </div>
-    </dialog>
+      {/*</dialog>*/}
+    </div>
   );
 };
 
-export default AnalyseModal;
+export default AIAnalysis;

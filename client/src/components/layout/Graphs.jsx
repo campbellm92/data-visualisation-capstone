@@ -13,10 +13,12 @@ import DateScroller from "../ui/DateScroller";
 import { useState } from "react";
 import { NumberSliderMedium } from "../ui/Sliders";
 import Checkbox from "../ui/Checkbox";
-import { kOriginDate } from "../../api/utils/constants";
+import { kOriginDate, kDefaultResponse } from "../../api/utils/constants";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import { ButtonMediumFullWide } from "../ui/Buttons";
-import AnalyseModal from "./AnalyseModal";
+import AIAnalysis from "./AIAnalysis";
+import LLMResponse from "./LLMResponse";
+
 import Map from "../ui/Map";
 
 const kGraphWidth = "100%";
@@ -29,6 +31,8 @@ export default function Graphs() {
 
   const [startDate, setStartDate] = useState(kOriginDate);
   const { loading, dataSet, error } = useLocalisData(startDate, windowDays);
+
+  const [llmResponse, setllmResponse] = useState(kDefaultResponse);
 
   const [goldCoastSelected, setGoldCoastSelected] = useState(true);
   const [noosaSelected, setNoosaSelected] = useState(true);
@@ -52,11 +56,11 @@ export default function Graphs() {
       {/*     <div className="container mx-auto p-4 box-drop-shadow"> */}
 
       <div className="grid md:grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
-        <div className="p-4 col-span-2">
-          <div className="shadow-md text-primary-content font-light bg-base-300 mb-4 border-1 rounded p-4">
+        <div className="p-4 lg:col-span-5 xl:col-span-2 max-w-96 md:min-w-52">
+          <div className="shadow-md text-primary-content font-light bg-base-300 mb-4 border-1 rounded p-1">
             Date Scroller:
             <div className="drop-shadow mt-2">
-              <div className=" p-2">
+              <div className="p-1">
                 <DateScroller
                   startDate={startDate}
                   setStartDate={setStartDate}
@@ -66,7 +70,7 @@ export default function Graphs() {
               </div>
             </div>
           </div>
-          <div className="shadow-md border-1 rounded bg-base-300 mb-3 p-3">
+          <div className="shadow-md border-1 rounded bg-base-300 mb-3 p-3 md:min-w-44">
             <br></br>
             <Checkbox
               label="Gold Coast"
@@ -92,7 +96,7 @@ export default function Graphs() {
 
           {!loading && !error && dataSet ? (
             <div>
-              <AnalyseModal
+              <AIAnalysis
                 dataSet={dataSet
                   .filter((sample) => LGAs.includes(sample.lga_name))
                   .map((sample) => {
@@ -115,19 +119,13 @@ export default function Graphs() {
 
                     return retSample;
                   })}
+                llmResponse={llmResponse}
+                setllmResponse={setllmResponse}
               />
-              <ButtonMediumFullWide
-                onClick={() => {
-                  document.getElementById("analyse_modal").showModal();
-                }}
-                textColor={"text-secondary-content"}
-              >
-                Analyse
-              </ButtonMediumFullWide>
             </div>
           ) : null}
         </div>
-        <div className="p-4 col-span-10">
+        <div className="p-4 lg:col-span-7 xl:col-span-10 sm:ml-0 md:ml-4">
           <div className="grid grid-cols-5 gap-4 mb-4 shadow-md border-1 rounded bg-base-300">
             <div className="p-1">
               <Checkbox
@@ -161,6 +159,9 @@ export default function Graphs() {
 
           {!loading && !error && dataSet ? (
             <div className="h-[80vh] overflow-scroll pr-3">
+              <div className="h-60 overflow-scroll shadow-md border-1 rounded mb-3 bg-base-300">
+                <LLMResponse content={llmResponse} ></LLMResponse>
+              </div>
               {dailyRateSelected ? (
                 <GraphSet
                   useRechart={useRechart}
