@@ -12,59 +12,6 @@ import LoadingSpinner from "../ui/LoadingSpinner";
 import LLMResponse from "./LLMResponse";
 import { SelectLLMPrompt } from "../ui/Select";
 
-
-/*
-
-To compile your Recharts graphs and rendered Markdown as a multipage PDF, you can use libraries like html-to-pdfmake (for converting HTML to a format suitable for PDF) and pdfmake (to generate the PDF). Here's a step-by-step approach:
-
-1. Install Required Libraries
-npm install pdfmake html-to-pdfmake jspdf dom-to-image
-2. Export Graphs and Markdown as Images
-Use dom-to-image to convert your Recharts graphs and rendered Markdown divs to images.
-
-3. Generate a PDF
-Use pdfmake or jspdf to compile the images into a multipage PDF.
-
-Example Code
-Here’s how you can do it:
-
-Step 1: Capture Graph and Markdown as Images
-
-import domtoimage from 'dom-to-image';
-import { jsPDF } from 'jspdf';
-
-const captureAsImage = async (elementId) => {
-  const element = document.getElementById(elementId);
-  return await domtoimage.toPng(element);
-};
-Step 2: Generate the PDF
-
-const generatePDF = async () => {
-  const pdf = new jsPDF();
-
-  // Capture Graph
-  const graphImage = await captureAsImage('graph-container');
-  pdf.addImage(graphImage, 'PNG', 10, 10, 180, 90); // Adjust dimensions as needed
-
-  // Add new page
-  pdf.addPage();
-
-  // Capture Markdown
-  const markdownImage = await captureAsImage('markdown-container');
-  pdf.addImage(markdownImage, 'PNG', 10, 10, 180, 90);
-
-  // Save the PDF
-  pdf.save('output.pdf');
-};
-4. Integration in React
-Create a button or trigger for generating the PDF:
-
-<button onClick={generatePDF}>Download PDF</button>
-Notes
-
-
-*/
-
 function handleSelectChange() {
   document.getElementById("prompt").value = "";
 }

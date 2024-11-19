@@ -12,6 +12,10 @@
   "dependencies": {
     "ag-charts-react": "^10.1.0",
     "axios": "^1.7.7",
+    "dom-to-image": "^2.6.0",
+    "html-to-pdfmake": "^2.5.15",
+    "jspdf": "^2.5.2",
+    "pdfmake": "^0.2.15",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.1",
