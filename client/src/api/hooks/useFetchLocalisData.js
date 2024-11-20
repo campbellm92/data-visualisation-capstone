@@ -16,13 +16,15 @@ export function useFetchLocalisData(endpoint) {
 
       let url = `${kAPI_URL}${endpoint}`;
 
+      // call cache function
       const cachedData = getUrlFromCache(cache, url);
-
+      // check if data is in cache
       if (cachedData) {
         setLoading(false);
         setData(cachedData);
         setError(null);
       } else {
+        // otherwise get data from server
         try {
           const dataSet = await getUrlFromServer(url, false);
           setCache((prevCache) => ({ ...prevCache, [url]: dataSet }));
