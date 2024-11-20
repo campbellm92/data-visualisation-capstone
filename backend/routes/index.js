@@ -3,7 +3,7 @@ var express = require("express");
 var router = express.Router();
 const authorization = require("../middleware/authorization");
 
-const llm = 'gpt-4o-mini';  //'o1-mini';// 'gpt-4o-mini'; //'gpt-4-turbo'; //'gpt-4o-mini'; //'o1-preview';
+const llm = 'o1-mini'; // 'o1-preview'; //'gpt-4o-mini';  //'o1-mini';// 'gpt-4o-mini'; //'gpt-4-turbo'; //'gpt-4o-mini'; //'o1-preview';
 const llmUrl = 'https://api.openai.com/v1/chat/completions';
 const apiKey = process.env.LLM_API_KEY;
 
