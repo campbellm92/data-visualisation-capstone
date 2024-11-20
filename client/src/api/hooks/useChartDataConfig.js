@@ -26,10 +26,20 @@ function processQuadrantScatterChartData(data, userLGA, year, dataFields) {
 
 export function useChartDataConfig({ endpoint, year, dataFields, chartType }) {
   const { loading: dataLoading, data, error } = useFetchLocalisData(endpoint);
-  const { user, loading: userLoading } = useContext(AuthContext);
+
+  const { user, isAuthChecked } = useContext(AuthContext);
+  const userLoading = !isAuthChecked;
 
   const processedData = useMemo(() => {
-    if (dataLoading || userLoading || !user || !data) return null;
+    console.log("userLoading:", userLoading);
+    console.log("dataLoading:", dataLoading);
+    console.log("user:", user);
+    console.log("data:", data);
+
+    if (dataLoading || userLoading || !user || !data) {
+      console.log("Early return from useMemo due to loading or missing data");
+      return null;
+    }
 
     const userLGA = user.lga || "";
 
@@ -39,9 +49,8 @@ export function useChartDataConfig({ endpoint, year, dataFields, chartType }) {
         return processBarChartData(data, userLGA, year, dataFields);
       case "quadrantScatter":
         return processQuadrantScatterChartData(data, userLGA, year, dataFields);
-
       default:
-        return data;
+        data;
     }
   }, [data, dataLoading, user, userLoading, year, dataFields, chartType]);
   return {
