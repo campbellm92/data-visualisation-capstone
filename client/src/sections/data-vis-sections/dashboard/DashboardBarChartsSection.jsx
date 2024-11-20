@@ -8,8 +8,7 @@ export default function DashboardBarChartsSection() {
   const [year, setYear] = useState(2023);
 
   return (
-    <div className="barchart-section">
-      {/* Year Selector */}
+    <div className="barchart-section mb-5">
       <div className="pb-5 flex justify-end gap-2">
         <SelectWithBorderSmall
           onChange={(e) => setYear(Number(e.target.value))}
@@ -19,7 +18,6 @@ export default function DashboardBarChartsSection() {
         </SelectWithBorderSmall>
       </div>
 
-      {/* Bar Charts Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {fields.map((field) => (
           <div

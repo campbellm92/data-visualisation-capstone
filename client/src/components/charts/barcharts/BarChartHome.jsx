@@ -18,7 +18,7 @@ export default function BarChartHome({ year, dataField }) {
   const { loading, data, error, user } = useChartDataConfig({
     endpoint: "/combined_data",
     year,
-    dataField,
+    dataFields: [dataField],
     chartType: "bar",
   });
 
@@ -37,7 +37,7 @@ export default function BarChartHome({ year, dataField }) {
       <div className="p-4 flex justify-center items-center flex-1 min-w-[300px] max-w-[400px]">
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={data}>
-            <XAxis dataKey="name" tickLine={false} axisLine={false} />
+            <XAxis dataKey="month" tickLine={false} axisLine={false} />
             <YAxis hide={true} />
             <Tooltip />
             <Legend iconType="circle" />

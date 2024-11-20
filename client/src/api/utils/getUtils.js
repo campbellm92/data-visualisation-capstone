@@ -1,8 +1,8 @@
 import { numericDateToString, convertMonthsToSeasons } from "./dateUtils";
 
 // get a monthly average of the ADR value
-export function getDataMonthlyAverage(data, year, dataField) {
-  // dataField = average daily rate, etc
+export function getDataMonthlyAverages(data, year, dataFields) {
+  // dataFields is an array of strings representing the fields to average
   const monthlyData = {};
 
   data?.forEach((item) => {
@@ -13,16 +13,33 @@ export function getDataMonthlyAverage(data, year, dataField) {
     }
 
     if (!monthlyData[month]) {
-      monthlyData[month] = { month, total: 0, count: 0 };
+      monthlyData[month] = { month, totals: {}, counts: {} };
+
+      // initialise totals and counts for each data field
+      dataFields.forEach((field) => {
+        monthlyData[month].totals[field] = 0;
+        monthlyData[month].counts[field] = 0;
+      });
     }
 
-    monthlyData[month].total += parseFloat(item[dataField]);
-    monthlyData[month].count += 1;
+    // accumulate totals and counts for each data field
+    dataFields.forEach((field) => {
+      const value = parseFloat(item[field]);
+      if (!isNaN(value)) {
+        monthlyData[month].totals[field] += value;
+        monthlyData[month].counts[field] += 1;
+      }
+    });
   });
-  return Object.values(monthlyData).map((item) => ({
-    name: item.month,
-    [dataField]: item.total / item.count,
-  }));
+
+  // calculate averages for each data field
+  return Object.values(monthlyData).map((item) => {
+    const averages = { month: item.month };
+    dataFields.forEach((field) => {
+      averages[field] = item.totals[field] / item.counts[field];
+    });
+    return averages;
+  });
 }
 
 // function for getting averages across seasons
