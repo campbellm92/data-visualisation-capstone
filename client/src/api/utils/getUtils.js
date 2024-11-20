@@ -15,7 +15,7 @@ export function getDataMonthlyAverages(data, year, dataFields) {
     if (!monthlyData[month]) {
       monthlyData[month] = { month, totals: {}, counts: {} };
 
-      // initialize totals and counts for each data field
+      // initialise totals and counts for each data field
       dataFields.forEach((field) => {
         monthlyData[month].totals[field] = 0;
         monthlyData[month].counts[field] = 0;
