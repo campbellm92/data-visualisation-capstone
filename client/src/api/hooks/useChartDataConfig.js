@@ -14,6 +14,14 @@ function processBarChartData(data, userLGA, year, dataField) {
 
 // function for processing X chart data:
 
+function processQuadrantScatterChartData(data, userLGA, year, dataField) {
+  const filteredData = data.filter(
+    (item) =>
+      item.lga_name.trim().toLowerCase() === userLGA.trim().toLowerCase()
+  );
+  return getDataMonthlyAverage(filteredData, year, dataField);
+}
+
 // hook for chart data config, including fetch call, user state
 
 export function useChartDataConfig({ endpoint, year, dataField, chartType }) {
@@ -25,10 +33,13 @@ export function useChartDataConfig({ endpoint, year, dataField, chartType }) {
 
     const userLGA = user.lga || "";
 
+    // add other cases here (e.g. scatterplot, heatmap, etc etc) as appropriate
     switch (chartType) {
       case "bar":
         return processBarChartData(data, userLGA, year, dataField);
-      // add other cases here (e.g. scatterplot, heatmap, etc etc)
+      case "quadrantScatter":
+        return processQuadrantScatterChartData(data, userLGA, year, dataField);
+
       default:
         return data;
     }
