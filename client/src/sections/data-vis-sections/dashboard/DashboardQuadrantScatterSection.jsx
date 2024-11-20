@@ -1,22 +1,23 @@
 import { useState } from "react";
 import QuadrantScatterHome from "../../../components/charts/scattercharts/QuadrantScatterHome";
+import { SelectWithBorderSmall } from "../../../components/ui/Selects";
 
 export default function DashboardQuadrantScatterSection() {
-  const [year, setYear] = useState("2023");
-
-  const handleYearChange = (event) => {
-    setYear(event.target.value);
-  };
+  const [year, setYear] = useState(2023);
 
   return (
-    <div className="quadrant-scatter-section">
-      <div className="year-selector">
-        <label htmlFor="year">Select Year:</label>
-        <select id="year" value={year} onChange={handleYearChange}>
+    <div className="quadrant-scatter-section mb-5s">
+      <div className="pb-5 flex justify-end gap-2">
+        <SelectWithBorderSmall
+          onChange={(e) => setYear(Number(e.target.value))}
+        >
           <option value="2023">2023</option>
-        </select>
+          <option value="2024">2024</option>
+        </SelectWithBorderSmall>
       </div>
-      <QuadrantScatterHome year={year} />
+      <div className="p-4 bg-base-300 rounded-md shadow-md">
+        <QuadrantScatterHome year={year} />
+      </div>
     </div>
   );
 }
