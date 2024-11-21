@@ -3,14 +3,16 @@ import {
   Scatter,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
+  ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
-import { ThemeContext } from "../../../context/ThemeProvider";
-import { lgaColours } from "../../../utils/constants";
-import { useChartDataConfig } from "../../../api/hooks/useChartDataConfig";
 import { useContext } from "react";
+import { ThemeContext } from "../../../context/ThemeProvider";
+import { lgaColours } from "../../../api/utils/graphColourConfig";
+import CustomTooltip from "../CustomTooltips/CustomTooltip";
+import CustomScatterDots from "../CustomScatterDots/CustomScatterDots";
+import { useChartDataConfig } from "../../../api/hooks/useChartDataConfig";
 
 export default function QuadrantScatterHome({ year }) {
   const dataFields = ["average_daily_rate", "average_length_of_stay"];
@@ -26,20 +28,20 @@ export default function QuadrantScatterHome({ year }) {
 
   const userLGA = user?.lga || "";
 
-  const fillColour = darkMode
-    ? lgaColours[userLGA]?.dark || "#8884d8"
-    : lgaColours[userLGA]?.light || "#82ca9d";
-
   let scatterData = [];
   let xMin = 0;
   let xMax = 0;
+  let yMin = 0;
+  let yMax = 0;
+  let xMid = 0;
+  let yMid = 0;
   let xTicks = [];
 
   if (!loading && data) {
     scatterData = data
       .map((item) => {
-        const x = parseFloat(item["average_daily_rate"]);
-        const y = parseFloat(item["average_length_of_stay"]);
+        const x = parseFloat(item["average_daily_rate"].toFixed(2));
+        const y = parseFloat(item["average_length_of_stay"].toFixed(2));
         if (isNaN(x) || isNaN(y)) {
           return null;
         }
@@ -53,20 +55,31 @@ export default function QuadrantScatterHome({ year }) {
 
     // Calculate x-axis min, max, and ticks
     const xValues = scatterData.map((point) => point.x);
+    const yValues = scatterData.map((point) => point.y);
+
     xMin = Math.floor(Math.min(...xValues) / 10) * 10;
     xMax = Math.ceil(Math.max(...xValues) / 10) * 10;
+    yMin = Math.floor(Math.min(...yValues) / 10) * 10;
+    yMax = Math.ceil(Math.max(...yValues) / 10) * 10;
 
-    // Ensure xMin and xMax are valid
+    // mid values needed for reference line
+    xMid = (xMin + xMax) / 2;
+    yMid = (yMin + yMax) / 2;
+
+    //min, max values needed to determine what to display on axes
     if (xMin === xMax) {
       xMin -= 10;
       xMax += 10;
     }
 
-    // Generate ticks in increments of 10
     for (let i = xMin; i <= xMax; i += 10) {
       xTicks.push(i);
     }
   }
+
+  const colours = lgaColours[userLGA]?.[darkMode ? "dark" : "light"];
+
+  const fillColour = colours.primary;
 
   return (
     <div style={{ width: "100%", height: 400 }}>
@@ -84,7 +97,6 @@ export default function QuadrantScatterHome({ year }) {
               left: 20,
             }}
           >
-            <CartesianGrid />
             <XAxis
               type="number"
               dataKey="x"
@@ -92,18 +104,40 @@ export default function QuadrantScatterHome({ year }) {
               unit="(AUD)"
               domain={[xMin, xMax]}
               ticks={xTicks}
+              style={{
+                fill: colours["primary-content"],
+              }}
+              padding={{ left: 40, right: 40 }}
             />
             <YAxis
               type="number"
               dataKey="y"
               name="Average Length of Stay"
               unit=" days"
+              style={{
+                fill: colours["primary-content"],
+              }}
+              padding={{ top: 20, bottom: 20 }}
             />
-            <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+            <Tooltip
+              content={<CustomTooltip userLGA={userLGA} chartType="scatter" />}
+            />
+            <ReferenceLine
+              y={yMid}
+              style={{
+                fill: colours["primary-content"],
+              }}
+            />
+            <ReferenceLine
+              x={xMid}
+              style={{
+                fill: colours["primary-content"],
+              }}
+            />
             <Scatter
               name="Average Daily Rate vs Average Length of Stay"
               data={scatterData}
-              fill={fillColour}
+              shape={<CustomScatterDots />}
             />
           </ScatterChart>
         </ResponsiveContainer>
