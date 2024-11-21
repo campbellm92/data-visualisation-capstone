@@ -11,6 +11,7 @@ import { kAPI_URL } from "../../api/utils/constants";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import LLMResponse from "./LLMResponse";
 import { SelectLLMPrompt } from "../ui/Select";
+import { getLLMResponseFromServer } from "../../api/utils/getUtils";
 
 function handleSelectChange() {
   document.getElementById("prompt").value = "";
@@ -24,7 +25,6 @@ const AIAnalysis = ({ dataSet, llmResponse, setllmResponse }) => {
   }
 
   async function doAnalysis(e) {
-    const url = `${kAPI_URL}/ai/query_llm`;
     const working = document.getElementById("working");
     const analyseButton = document.getElementById("analyse-button");
     const customPromptField = document.getElementById("prompt");
@@ -41,29 +41,22 @@ const AIAnalysis = ({ dataSet, llmResponse, setllmResponse }) => {
     if (customPromptField.value.length > 0) promptField = customPromptField;
 
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          prompt: promptField.value + " " + JSON.stringify(dataSet),
-        }),
-      });
+      
+      const response = await getLLMResponseFromServer(promptField.value, dataSet);
+      
+      // if (!response.ok) {
+      //   throw new Error("Network response was not ok");
+      // }
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+      // const data = await response.json();
 
-      const data = await response.json();
+      // if (response.error) {
+      //   alert(response.message);
+      // } else {
+      //   console.log("Success:", data);
+      // }
 
-      if (response.error) {
-        alert(response.message);
-      } else {
-        console.log("Success:", data);
-      }
-
-      setllmResponse(data.response);
+      setllmResponse(response);
       working.style = "display:none";
       analyseButton.disabled = false;
     } catch (error) {
@@ -122,7 +115,7 @@ const AIAnalysis = ({ dataSet, llmResponse, setllmResponse }) => {
             <LLMResponse content={llmResponse} />
           </div>
         </label>
-        <div className="text-left" id="working" style={{ display: "none" }}>
+        <div className="text-center m-2" id="working" style={{ display: "none" }}>
           <LoadingSpinner />
         </div>
 

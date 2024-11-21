@@ -1,4 +1,5 @@
 import { numericDateToString, convertMonthsToSeasons } from "./dateUtils";
+import { kAPI_URL } from "./constants";
 
 // get a monthly average of the ADR value
 export function getDataMonthlyAverages(data, year, dataFields) {
@@ -108,6 +109,51 @@ export async function getUrlFromServer(url) {
       throw new Error(data.message || "Failed to fetch user data.");
     }
     return data;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+
+// function for retrieving url from server in fetch requests to data endpoint
+export async function getLLMResponseFromServer(prompt, dataSet) {
+
+  console.log("inside getLLMResponseFromServer");
+  const url = `${kAPI_URL}/ai/query_llm`;
+ //const token = localStorage.getItem("token");
+
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  // if (token) {
+  //   headers.Authorization = `Bearer ${token}`;
+  // }
+
+  try {
+
+    console.log("FETCHING " + url);
+    
+    const res = await fetch(url, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({
+        prompt: prompt + " " + JSON.stringify(dataSet),
+      })
+    });
+
+    
+    if (!res.ok) {
+      throw new Error("No response from server ");
+    }
+
+    const data = await res.json();
+
+    if (data.error) {
+      throw new Error(data.message || "Failed to fetch user data.");
+    }
+    return data.response;
   } catch (err) {
     console.log(err);
     throw err;

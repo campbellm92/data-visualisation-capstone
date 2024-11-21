@@ -30,8 +30,7 @@
 }
 
 .markdown-content {
-  margin-left: 0.4em;
-  margin-right: 0.4em;
+  padding: 1.0em;
 }
 
 .markdown-content h1 {

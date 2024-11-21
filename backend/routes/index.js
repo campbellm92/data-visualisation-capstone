@@ -10,11 +10,11 @@ const apiKey = process.env.LLM_API_KEY;
 const gResponseCache = new Array();
 
 function getResponseFromCache(url) {
-    return gResponseCache[url];
+  return gResponseCache[url];
 }
 
 function putResponseIntoCache(url, value) {
-    gResponseCache[url] = value;
+  gResponseCache[url] = value;
 }
 
 async function queryLLM(url, llm, prompt) {
@@ -33,39 +33,53 @@ async function queryLLM(url, llm, prompt) {
     ]
   };
 
-  return await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`
-    },
-    body: JSON.stringify(body)
-  })
-    .then(response => response.json())
-    .then(result => {
-      try {
-        if (result.choices) {
-          console.table(result.choices);//result.choices[0].message.content);
-          console.table(result.choices[0].message);//result.choices[0].message.content);
-          console.table(result.choices[0].message.content);//result.choices[0].message.content);
-        } else {
-          console.table(result);
 
-          if (result.error.code === 'invalid_api_key') {
-            throw Error('Error: Please contact your system administrator to have your API key configured.');
-          } else {
-            throw Error(result.error.message);
-          }
-        }
-      } catch (error) {
-        console.table(result);
-        console.log(`${error.message}`);
-        return error.message;
-      }
-      return (result.choices[0].message.content);
+  if (getResponseFromCache(prompt) === undefined) {
+
+    console.log("getting LLM response from server");
+
+    return await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify(body)
     })
-    .catch(error => {
-    });
+      .then(response => response.json())
+      .then(result => {
+        try {
+          if (result.choices) {
+            console.table(result.choices);//result.choices[0].message.content);
+            console.table(result.choices[0].message);//result.choices[0].message.content);
+            console.table(result.choices[0].message.content);//result.choices[0].message.content);
+          } else {
+            console.table(result);
+
+            if (result.error.code === 'invalid_api_key') {
+              throw Error('Error: Please contact your system administrator to have your API key configured.');
+            } else {
+              throw Error(result.error.message);
+            }
+          }
+        } catch (error) {
+          console.table(result);
+          console.log(`${error.message}`);
+          return error.message;
+        }
+
+        putResponseIntoCache(prompt, result.choices[0].message.content);
+        return (result.choices[0].message.content);
+      })
+      .catch(error => {
+      });
+
+  } else {
+
+    console.log("getting LLM response from cache");
+
+    return getResponseFromCache(prompt);
+  }
 
 }
 
