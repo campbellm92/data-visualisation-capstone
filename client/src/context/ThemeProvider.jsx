@@ -1,62 +1,86 @@
-// this could contain the logic for setting the theme based on LGA (Noosa, Whitsunday, etc)
-// if we decide to go down that path
-// if you're not sure what context is check this out https://legacy.reactjs.org/docs/context.html
-
-import { createContext, useState, useEffect, useContext } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  useMemo,
+  useCallback,
+} from "react";
 import { AuthContext } from "./AuthProvider";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom"; // Import useLocation
 
 export const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(null);
-  const [darkMode, setDarkMode] = useState(false);
-
+  const location = useLocation(); // Get the current pathname
   const { user, isLoggedIn, isAuthChecked } = useContext(AuthContext);
 
-  const location = useLocation();
+  // State for dark mode
+  const [darkMode, setDarkMode] = useState(
+    () => localStorage.getItem("darkMode") === "true"
+  );
 
-  useEffect(() => {
+  // Memoize the theme computation
+  const theme = useMemo(() => {
     if (location.pathname === "/") {
-      setTheme("publicTheme");
-    } else if (isAuthChecked) {
-      if (isLoggedIn && user && user.lga) {
-        const lga = user.lga.toLowerCase().replace(/\s+/g, "");
-
-        switch (lga) {
-          case "noosa":
-            setTheme("noosaTheme");
-            break;
-          case "goldcoast":
-            setTheme("goldCoastTheme");
-            break;
-          case "whitsunday":
-            setTheme("whitsundayTheme");
-            break;
-          case "cairns":
-            setTheme("cairnsTheme");
-            break;
-          default:
-            setTheme("publicTheme");
-            break;
-        }
-      } else {
-        setTheme("publicTheme");
-      }
+      // Always use "publicTheme" on the landing page
+      return "publicTheme";
     }
-  }, [user, isLoggedIn, isAuthChecked, location.pathname]);
 
+    if (!isAuthChecked) {
+      // While auth is not checked, keep the theme as "publicTheme"
+      return "publicTheme";
+    }
+
+    if (!isLoggedIn || !user?.lga) {
+      // Use "darkTheme" or "publicTheme" based on dark mode when not logged in
+      return darkMode ? "darkTheme" : "publicTheme";
+    }
+
+    // Apply user's LGA theme
+    const lga = user.lga.toLowerCase().replace(/\s+/g, "");
+    switch (lga) {
+      case "noosa":
+        return darkMode ? "noosaDarkTheme" : "noosaTheme";
+      case "goldcoast":
+        return darkMode ? "goldCoastDarkTheme" : "goldCoastTheme";
+      case "whitsunday":
+        return darkMode ? "whitsundayDarkTheme" : "whitsundayTheme";
+      case "cairns":
+        return darkMode ? "cairnsDarkTheme" : "cairnsTheme";
+      default:
+        return darkMode ? "darkTheme" : "publicTheme";
+    }
+  }, [
+    darkMode,
+    user?.lga,
+    isLoggedIn,
+    isAuthChecked,
+    location.pathname, // Include pathname as a dependency
+  ]);
+
+  // Update the data-theme attribute when the theme changes
   useEffect(() => {
-    const currentTheme = darkMode ? "darkTheme" : theme;
-    document.documentElement.setAttribute("data-theme", currentTheme);
-  }, [theme, darkMode]);
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
-  const toggleDarkMode = () => {
-    setDarkMode((prevMode) => !prevMode);
-  };
+  // Memoize the toggleDarkMode function
+  const toggleDarkMode = useCallback(() => {
+    setDarkMode((prevMode) => {
+      const newMode = !prevMode;
+      localStorage.setItem("darkMode", newMode);
+      return newMode;
+    });
+  }, []);
+
+  // Memoize the context value
+  const contextValue = useMemo(
+    () => ({ theme, darkMode, toggleDarkMode }),
+    [theme, darkMode, toggleDarkMode]
+  );
 
   return (
-    <ThemeContext.Provider value={{ theme, darkMode, toggleDarkMode }}>
+    <ThemeContext.Provider value={contextValue}>
       {children}
     </ThemeContext.Provider>
   );
