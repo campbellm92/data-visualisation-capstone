@@ -5,18 +5,15 @@ export default function DarkmodeToggler() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
   return (
     <label className="swap swap-rotate">
-      {/* this hidden checkbox controls the state */}
-      {/* CHANGE VALUE */}
       <input
         type="checkbox"
         className="theme-controller"
         checked={darkMode}
         onChange={toggleDarkMode}
       />
-      {/* removed value="noosaTheme" */}
       {/* sun icon */}
       <svg
-        className="swap-off size-6 fill-current text-primary-content"
+        className="swap-on size-6 fill-current text-primary-content"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >
@@ -25,7 +22,7 @@ export default function DarkmodeToggler() {
 
       {/* moon icon */}
       <svg
-        className="swap-on size-6 fill-current text-primary-content"
+        className="swap-off size-6 fill-current text-primary-content"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >
