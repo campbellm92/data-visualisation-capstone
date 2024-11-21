@@ -13,7 +13,7 @@ export function SelectWithBorder({ onChange, value, children }) {
 export function SelectWithBorderSmall({ onChange, value, children }) {
   return (
     <select
-      className="select select-bordered select-sm w-fit max-w-xs bg-base-300"
+      className="select select-bordered select-sm w-fit max-w-xs bg-base-300 text-primary-content"
       onChange={onChange}
       value={value}
     >
