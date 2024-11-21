@@ -1,5 +1,5 @@
 import { useState } from "react";
-import QuadrantScatterHome from "../../../components/charts/scattercharts/QuadrantScatterHome";
+import QuadrantScatterHome from "../../../components/charts/Scattercharts/QuadrantScatterHome";
 import { SelectWithBorderSmall } from "../../../components/ui/Selects";
 
 export default function DashboardQuadrantScatterSection() {
