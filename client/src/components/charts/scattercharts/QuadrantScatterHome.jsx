@@ -113,6 +113,7 @@ export default function QuadrantScatterHome({ year }) {
               type="number"
               dataKey="y"
               name="Average Length of Stay"
+              domain={[yMin, yMax]}
               unit=" days"
               style={{
                 fill: colours["primary-content"],
@@ -123,13 +124,13 @@ export default function QuadrantScatterHome({ year }) {
               content={<CustomTooltip userLGA={userLGA} chartType="scatter" />}
             />
             <ReferenceLine
-              y={yMid}
+              x={xMid}
               style={{
                 fill: colours["primary-content"],
               }}
             />
             <ReferenceLine
-              x={xMid}
+              y={yMid}
               style={{
                 fill: colours["primary-content"],
               }}
