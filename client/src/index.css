@@ -2,17 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-:root {
-  --tw-color-primary: #1D4ED8;
-  --tw-color-secondary: #9333EA;
+.watermark {
+  position: absolute;
+  bottom: 10px;
+  right: 0px;
+  width: 100px;
+  opacity: 0.4;
+  pointer-events: none; 
+  z-index: 10; 
 }
 
-/*Custom Css for modal*/
 .modal-box {
   height: auto;
-  overflow-y: visible; /* Ensure overflow is visible if needed */
+  overflow-y: visible;
   border: 0;
   box-shadow: none;
   position: relative;

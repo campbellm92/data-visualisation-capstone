@@ -71,3 +71,18 @@ export function daysBetweenDates(startDate, endDate) {
 export function convertToLabel(name) {
   return name.replace(' ', '_').toLowerCase();
 }
+
+
+export function calculateAreaUnderCurve(dataSet) {
+
+  let areaUnderCurve = 0;
+
+  for (let i = 0; i < dataSet.length - 1; i++) {
+    const avgHeight = (dataSet[i] + dataSet[i + 1]) / 2;
+    const baseWidth = 1;
+
+    areaUnderCurve += avgHeight * baseWidth;
+  }
+
+  return areaUnderCurve;
+}
