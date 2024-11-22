@@ -26,18 +26,16 @@ function DateScroller ({
     image.src = backgroundImage;
 
     image.onload = () => {
-      canvas.width = image.width;
-      canvas.height = image.height;
-      context.drawImage(image, 0, 0);
+      const canvas = canvasRef.current;
+      const rect = canvas.getBoundingClientRect();
+
+      let scale =  rect.width / 500.0;
+      canvas.width = image.width * scale;
+      canvas.height = image.height * scale;
+      context.drawImage(image, -((image.width - canvas.width) / 2.0), 0);
     };
 
-    // canvas.style.touchAction = "none";
-    // canvas.addEventListener("dragstart", (e) => e.preventDefault());
-
-    // return () => {
-    //   canvas.removeEventListener("dragstart", (e) => e.preventDefault());
-    // };
-  }, []);
+ }, [width]);
 
 
   function handleMouseDown(event) {
@@ -106,7 +104,7 @@ function DateScroller ({
       <div className="horizontal-text">TIME&rarr;</div>
       <div className="vertical-text">ZOOM&darr;</div>
       <div className="dateScrollerCursor" style={translate(coords)}>📍</div>
-      <canvas className="box-drop-shadow dateScroller"
+      <canvas className="dateScroller"
         ref={canvasRef} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onMouseLeave={handleMouseUp}
         onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}
       ></canvas>

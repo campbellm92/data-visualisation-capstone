@@ -1,7 +1,7 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import aiwatermark from "../../images/aiwatermark.png";
+import aiwatermark from "../../images/aiwatermark.png"; //icons8-ai.gif";//aiwatermark.png";
 
 
 const LLMResponse = ({ content }) => {
