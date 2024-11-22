@@ -7,6 +7,7 @@
 
 import GraphDetails from "../charts/GraphDetails";
 import GraphAverages from "../charts/GraphAverages";
+import GraphAreaUnderCurve from "../charts/GraphAreaUnderCurve";
 const kGraphWidth = "100%";
 const kGraphHeight = 350;
 
@@ -35,6 +36,7 @@ export default function GraphSet({
       </div>
       <div className="col-span-1">
         <div className="" style={{ height: kGraphHeight, width: kGraphWidth }}>
+          {/*GraphAreaUnderCurve*/}
           <GraphAverages
             useRechart={useRechart}
             title={avgTitle /*"Average % Occupancy"*/}

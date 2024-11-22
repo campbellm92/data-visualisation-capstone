@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { useState } from "react";
 import BarChartHome from "../../../components/charts/Barcharts/BarChartHome";
 import { SelectWithBorderSmall } from "../../../components/ui/Selects";
@@ -7,10 +8,12 @@ import LLMResponse from "../../../components/layout/LLMResponse";
 import Map from "../../../components/ui/Map";
 import LoadingSpinner from "../../../components/ui/LoadingSpinner";
 import { useFetchLLMResponse } from "../../../api/hooks/useFetchLLMResponse";
+import { AuthContext } from "../../../context/AuthProvider";
 
 export default function DashboardBarChartsSection() {
   const [year, setYear] = useState(2023);
-  const { loading, responseFromLLM, error } = useFetchLLMResponse("Please write 100 words describing the rental market in Noosa", []); // getLLMResponseFromServer("Why is water wet?", []);
+  const { user } = useContext(AuthContext);
+  const { loading, responseFromLLM, error } = useFetchLLMResponse(`Please write 100 words describing the rental market in ${user.lga}`, []); // getLLMResponseFromServer("Why is water wet?", []);
 
   return (
     <div className="barchart-section mb-5">
@@ -25,7 +28,7 @@ export default function DashboardBarChartsSection() {
 
       <div className="flex flex-wrap md:flex-nowrap items-center gap-4 mb-10">
         <div className="shadow-md border-1 rounded p-2 w-[430px] h-[325px]">
-          <Map location="Noosa"></Map>
+          <Map location={user.lga}></Map>
         </div>
         <div className="flex items-center">
           {!loading && !error ?
