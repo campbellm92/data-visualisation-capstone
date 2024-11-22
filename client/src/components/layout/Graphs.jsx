@@ -32,7 +32,7 @@ export default function Graphs() {
   const [startDate, setStartDate] = useState(kOriginDate);
   const { loading, dataSet, error } = useLocalisData(startDate, windowDays);
 
-  const [llmResponse, setllmResponse] = useState(kDefaultResponse);
+  const [llmResponse, setllmResponse] = useState('');
 
   const [goldCoastSelected, setGoldCoastSelected] = useState(true);
   const [noosaSelected, setNoosaSelected] = useState(true);
@@ -159,9 +159,11 @@ export default function Graphs() {
 
           {!loading && !error && dataSet ? (
             <div className="h-[80vh] overflow-scroll pr-3">
-              <div className="h-60 overflow-scroll shadow-md border-1 rounded mb-3 bg-base-300">
+              { llmResponse != '' ? 
+              <div className="h-auto max-h-56 overflow-scroll shadow-md border-1 rounded mb-3 p-1 bg-base-300">
                 <LLMResponse content={llmResponse} ></LLMResponse>
               </div>
+              : null }
               {dailyRateSelected ? (
                 <GraphSet
                   useRechart={useRechart}

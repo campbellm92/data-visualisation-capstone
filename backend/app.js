@@ -23,7 +23,7 @@ var app = express();
 
 // middleware
 app.use(require("./middleware/logOriginalUrl"));
-app.use(logger("dev"));
+//app.use(logger("dev"));
 app.use(helmet());
 
 const corsOptions = {
