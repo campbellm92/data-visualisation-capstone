@@ -12,7 +12,8 @@ const LLMResponse = ({ content }) => {
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
         </div>
       </div>
-      <img src={aiwatermark} className="watermark"></img>
+      {/*<img src={aiwatermark} className="watermark"></img>  see https://openai.com/brand/ */}
+      <p className="watermark">Written with ChatGPT</p>
     </div>
   );
 };

@@ -19,9 +19,6 @@ function DateScroller ({
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
-    context.fillStyle = "#3f3f3f";
-    context.fillRect(0, 0, canvas.width, canvas.height);
-
     const image = new Image();
     image.src = backgroundImage;
 
@@ -95,7 +92,6 @@ function DateScroller ({
 
   function translate(coords) {
     console.log(width);
-    //return { left: (coords.x + 15) *.95, top: (coords.y + 18) *.75};
     return { left: coords.x + 7, top: coords.y };
   }
 
