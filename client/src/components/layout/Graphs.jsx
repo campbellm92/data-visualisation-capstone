@@ -158,9 +158,9 @@ export default function Graphs() {
           </div>
 
           {!loading && !error && dataSet ? (
-            <div className="h-[80vh] overflow-scroll pr-3">
+            <div className="h-[80vh] pr-3">
               { llmResponse != '' ? 
-              <div className="h-auto max-h-56 overflow-scroll shadow-md border-1 rounded mb-3 p-1 bg-base-300">
+              <div className="h-[325px]  shadow-md border-1 rounded mb-3 p-1 bg-base-300">
                 <LLMResponse content={llmResponse} ></LLMResponse>
               </div>
               : null }

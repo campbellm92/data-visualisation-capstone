@@ -32,7 +32,7 @@ export default function DashboardBarChartsSection() {
         </div>
         <div className="flex items-center">
           {!loading && !error ?
-            <div className="overflow-scroll shadow-md border-1 rounded mb-3 bg-base-300 h-[325px]">
+            <div className="shadow-md border-1 rounded mb-3 bg-base-300 h-[325px]">
               <LLMResponse content={responseFromLLM} ></LLMResponse>
             </div> : <LoadingSpinner></LoadingSpinner>}
         </div>
