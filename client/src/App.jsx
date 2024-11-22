@@ -16,6 +16,7 @@ import LandingPage from "./pages/public-pages/LandingPage";
 import DashboardHome from "./pages/data-vis-pages/DashboardHome";
 import Welcome from "./pages/data-vis-pages/Welcome";
 import LGAPage from "./pages/data-vis-pages/LGAPage";
+import Guide from "./pages/data-vis-pages/Guide";
 
 function App() {
   return (
@@ -59,6 +60,16 @@ function App() {
               <ProtectedRoute>
                 <DashboardLayout>
                   <DashboardHome />
+                </DashboardLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/guide"
+            element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <Guide />
                 </DashboardLayout>
               </ProtectedRoute>
             }
