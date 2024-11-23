@@ -38,7 +38,7 @@ export default {
       },
       {
         noosaDarkTheme: {
-          primary: "#d63c6f",
+          primary: "#CD2B61",
           "primary-content": "#edebe7",
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",
@@ -136,7 +136,7 @@ export default {
       },
       {
         darkTheme: {
-          primary: "#c88441",
+          primary: "#925e2a",
           "primary-content": "#edebe7",
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",
