@@ -1,6 +1,6 @@
 export default function Guide() {
   return (
-    <div className="relative">
+    <div className="relative" tabIndex={0}>
       <div className="ml-12 mt-6">
         <h1 className="text-primary font-bold text-4xl">
           Localis Data Dashboard: A Quick Guide 🤓
