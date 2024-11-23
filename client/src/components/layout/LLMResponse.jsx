@@ -8,7 +8,7 @@ const LLMResponse = ({ content }) => {
   return (
     <div style={{ position: 'relative' }}>
       <div id="llm-response-with-size" className="h-[325px] overflow-scroll p-1 bg-base-300" tabIndex={0}>
-        <div id="llm-response" className="markdown-content">
+        <div id="llm-response" className="markdown-content text-primary-content">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
         </div>
       </div>
