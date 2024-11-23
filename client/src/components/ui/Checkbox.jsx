@@ -12,6 +12,7 @@ export default function Checkbox({ label, value, setValue }) {
           checked={value}
           className="checkbox-primary" /* checkbox checkbox-xl"*/
           onChange={handleChange}
+          aria-label={`Toggle ${value ? "on" : "off"} checkbox`}
         />
       </div>
       <div className="pl-2 col-span-4">
