@@ -79,7 +79,10 @@ const AIAnalysis = ({ dataSet, llmResponse, setllmResponse }) => {
             className="form-control text-primary-content"
           >
             <div className="label">
-              <span className="text-primary-content">Use a Default Prompt</span>
+              <span className="font-bold text-primary-content">Generate an AI Analysis</span>
+            </div>
+            <div className="label">
+              <span className="text-primary-content">By using a Default Prompt</span>
             </div>
             <SelectLLMPrompt
               id="defaultLLMPrompt"
@@ -130,18 +133,6 @@ const AIAnalysis = ({ dataSet, llmResponse, setllmResponse }) => {
           textColor={"text-secondary-content"}
         >
           Analyse
-        </ButtonMediumFullWide>
-        <div className="mb-4"></div>
-        <ButtonMediumFullWide
-          id="report-button"
-          onClick={(e) => {
-            generateReport(e);
-            return false;
-          }}
-          disabled={true}
-          textColor={"text-secondary-content"}
-        >
-          Download Report
         </ButtonMediumFullWide>
       </div>
       {/*</dialog>*/}

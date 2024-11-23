@@ -10,7 +10,7 @@ export default function Checkbox({ label, value, setValue }) {
           id={label}
           type="checkbox"
           checked={value}
-          className="checkbox checkbox-xl"
+          className="checkbox-primary" /* checkbox checkbox-xl"*/
           onChange={handleChange}
         />
       </div>

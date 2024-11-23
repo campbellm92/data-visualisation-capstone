@@ -7,8 +7,8 @@ import aiwatermark from "../../images/aiwatermark.png"; //icons8-ai.gif";//aiwat
 const LLMResponse = ({ content }) => {
   return (
     <div style={{ position: 'relative' }}>
-      <div className="h-[325px] overflow-scroll p-1 bg-base-300">
-        <div className="markdown-content">
+      <div id="llm-response-with-size" className="h-[325px] overflow-scroll p-1 bg-base-300">
+        <div id="llm-response" className="markdown-content">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
         </div>
       </div>

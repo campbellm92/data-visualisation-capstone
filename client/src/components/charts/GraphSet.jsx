@@ -12,6 +12,7 @@ const kGraphWidth = "100%";
 const kGraphHeight = 350;
 
 export default function GraphSet({
+  id,
   useRechart,
   title,
   avgTitle,
@@ -21,7 +22,7 @@ export default function GraphSet({
   scale,
 }) {
   return (
-    <div className="grid grid-cols-5 gap-4 mb-4 rounded-md p-4 bg-base-300 shadow-md">
+    <div id={id} className="grid grid-cols-5 gap-4 mb-4 rounded-md p-4 bg-base-300 shadow-md">
       <div className="col-span-4">
         <div className="" style={{ height: kGraphHeight, width: kGraphWidth }}>
           <GraphDetails
