@@ -10,6 +10,7 @@ export default function DarkmodeToggler() {
         className="theme-controller"
         checked={darkMode}
         onChange={toggleDarkMode}
+        aria-label="Toggle dark/light mode"
       />
       {/* sun icon */}
       <svg
