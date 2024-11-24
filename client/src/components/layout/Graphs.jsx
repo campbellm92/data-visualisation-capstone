@@ -5,124 +5,21 @@
 //
 //
 
-import GraphDetails from "../charts/GraphDetails";
-import GraphAverages from "../charts/GraphAverages";
 import GraphSet from "../charts/GraphSet";
 import { useLocalisData } from "../../api/hooks/useLocalisData";
 import DateScroller from "../ui/DateScroller";
 import { useState } from "react";
-import { NumberSliderMedium } from "../ui/Sliders";
 import Checkbox from "../ui/Checkbox";
 import { kOriginDate, kDefaultResponse } from "../../api/utils/constants";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import { ButtonMediumFullWide } from "../ui/Buttons";
 import AIAnalysis from "./AIAnalysis";
 import LLMResponse from "./LLMResponse";
-import domtoimage from 'dom-to-image';
-import { jsPDF } from 'jspdf'
-
-import Map from "../ui/Map";
+import { generatePDFFrom } from "../../api/utils/utils";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const kGraphWidth = "100%";
-const kGraphHeight = 350;
-
-
-const captureAsImage = async (elementId) => {
-  const element = document.getElementById(elementId);
-  return await domtoimage.toPng(element);
-};
-
-async function generateReport() {
-
-  /*
-  var doc = new jsPDF({
-    orientation: 'p',
-    unit: 'pt',
-    format: 'letter'
-  });
-  
-  
-  var field = "<b>html test </b>";
-  doc.text(10, 10, "test");
-  //add first html
-  await doc.html(field, {
-    callback: function (doc) {
-      return doc;
-    },
-    width: 210,
-    windowWidth: 210, 
-        html2canvas: {
-            backgroundColor: 'null',
-            width: 210, 
-            height: 150
-        },
-        backgroundColor: 'null', 
-    x: 10,
-    y: 50,
-    autoPaging: 'text'
-  });
-  window.open(doc.output('bloburl'));
-
-*/
-
-  const pdf = new jsPDF();
-  let yOffset = 0;
-  const graphHeight = 70;
-  const graphVMargin = 10;
-  const xMargin = 15;
-
-  //llm-respone
-  //daily-rate
-  //length-of-stay
-  //average-occupancy
-  //average-booking-window
-
-  if (document.getElementById('llm-response-orig')) {
-    const llmImage = await captureAsImage('llm-response-orig');
-    pdf.addImage(llmImage, 'PNG', xMargin, 10, 180, 60 );
-    pdf.addPage();
-  }
-
-  if (document.getElementById('daily-rate')) {
-    const dailyRateImage = await captureAsImage('daily-rate');
-    pdf.addImage(dailyRateImage, 'PNG', xMargin, 10 + yOffset, 180, graphHeight - graphVMargin);
-    yOffset += graphHeight;
-  }
-
-  if (document.getElementById('length-of-stay')) {
-    const lengthOfStayImage = await captureAsImage('length-of-stay');
-    pdf.addImage(lengthOfStayImage, 'PNG', xMargin, 10 + yOffset, 180, graphHeight - graphVMargin);
-    yOffset += graphHeight;
-  }
-
-  if (document.getElementById('average-occupancy')) {
-    const avgOccupancyImage = await captureAsImage('average-occupancy');
-    pdf.addImage(avgOccupancyImage, 'PNG', xMargin, 10 + yOffset, 180, graphHeight - graphVMargin);
-    yOffset += graphHeight;
-  }
-
-  if (document.getElementById('average-booking-window')) {
-    const avgBookingWindowImage = await captureAsImage('average-booking-window');
-    pdf.addImage(avgBookingWindowImage, 'PNG', xMargin, 10 + yOffset, 180, graphHeight - graphVMargin);
-    yOffset += graphHeight;
-  }
-  //console.log(document.getElementById('llm-response'));
-
-  //pdf.html('<p>hello world of pdf</p>');//document.getElementById('llm-response'));
-
-  // Add new page
-  //pdf.addPage();
-
-  // Capture Markdown
-  //const markdownImage = await captureAsImage('markdown-container');
-  //pdf.addImage(markdownImage, 'PNG', 10, 10, 180, 90);
-
-  // Save the PDF
-  pdf.save('LocalisDataAnalysisReport.pdf');
-
-  window.open(pdf.output('bloburl'));
-
-}
 
 export default function Graphs() {
   const useRechart = true;
@@ -143,6 +40,7 @@ export default function Graphs() {
   const [lengthOfStaySelected, setLengthOfStaySelected] = useState(false);
   const [occupancySelected, setOccupancySelected] = useState(false);
   const [bookingWindowSelected, setBookingWindowSelected] = useState(false);
+  const [aiAnalysisSelected, setAiAnalysisSelected] = useState(false);
 
   const LGAs = new Array();
 
@@ -225,12 +123,15 @@ export default function Graphs() {
                   })}
                 llmResponse={llmResponse}
                 setllmResponse={setllmResponse}
+                setAiAnalysisSelected={setAiAnalysisSelected}
               />
               <div className="mb-6"></div>
               <ButtonMediumFullWide
                 id="report-button"
                 onClick={(e) => {
-                  generateReport(e);
+                  generatePDFFrom(['llm-response', 'daily-rate', 'length-of-stay', 'average-occupancy', 'average-booking-window'],
+                    'LocalisDataAnalysisReport.pdf',
+                    true);
                   return false;
                 }}
                 disabled={false}
@@ -274,13 +175,26 @@ export default function Graphs() {
                 setValue={setBookingWindowSelected}
               />
             </div>
+            { llmResponse !== '' ? 
+            <div className="p-1">
+              <Checkbox
+                label="AI Analysis"
+                value={aiAnalysisSelected}
+                setValue={setAiAnalysisSelected}
+              />
+            </div> : null }
           </div>
 
           {!loading && !error && dataSet ? (
             <div id="report-container" className="h-[80vh] pr-3">
-              {llmResponse != '' ?
-                <div id="llm-response-orig" className="h-[325px]  shadow-md border-1 rounded mb-3 p-1 bg-base-300">
-                  <LLMResponse content={llmResponse} ></LLMResponse>
+              {llmResponse !== '' && aiAnalysisSelected ?
+                <div>
+                  {/*<div className="h-[325px] shadow-md border-1 rounded mb-3 p-1 bg-base-300">
+                    <LLMResponse content={llmResponse} ></LLMResponse>
+                  </div>*/}
+                  <div id="llm-response" className="shadow-md border-1 rounded mb-3 p-1 bg-base-300">
+                    <LLMResponse content={llmResponse} ></LLMResponse>
+                  </div>
                 </div>
                 : null}
               {dailyRateSelected ? (
