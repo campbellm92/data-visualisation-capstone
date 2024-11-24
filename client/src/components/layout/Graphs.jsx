@@ -142,9 +142,9 @@ export default function Graphs() {
             </div>
           ) : null}
         </div>
-        <div className="p-4 lg:col-span-7 xl:col-span-10 sm:ml-0 md:ml-4">
+        <div className="p-4 lg:col-span-7 xl:col-span-10 sm:ml-0 md:ml-4" /* max-w-[1440px]"*/>
           <div className="label">
-            <span className="font-bold text-primary-content">Select Metrics</span>
+            <span className="font-bold text-primary-content">Select Metrics To Report</span>
           </div>
           <div className="grid grid-cols-5 gap-4 mb-4 shadow-md border-1 rounded bg-base-300">
             <div className="p-1">

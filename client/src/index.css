@@ -4,12 +4,13 @@
 
 .watermark {
   position: absolute;
-  bottom: 5px;
-  right: -5px;
+  bottom: 0px;
+  right: 4em;
   width: 100px;
   opacity: 0.4;
   pointer-events: none; 
   z-index: 10; 
+  white-space: nowrap;
 }
 
 .modal-box {
@@ -39,28 +40,24 @@
   margin-top: 1em;
   font-size: 1.6em;
   font-weight: 600;
-  color: #333;
 }
 
 .markdown-content h2 {
   margin-top: 1em;
   font-size: 1.4em;
   font-weight: 600;
-  color: #333;
 }
 
 .markdown-content h3 {
   margin-top: 1em;
   font-size: 1.2em;
   font-weight: 600;
-  color: #333;
 }
 
 .markdown-content h4 {
   margin-top: 1em;
   font-size: 1em;
   font-weight: 600;
-  color: #333;
 }
 
 .markdown-content p {
