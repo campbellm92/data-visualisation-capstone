@@ -52,7 +52,7 @@ export default {
       },
       {
         goldCoastTheme: {
-          primary: "#c88441",
+          primary: "#8c5d2d",
           "primary-content": "#0f172a",
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",
@@ -66,7 +66,7 @@ export default {
       },
       {
         goldCoastDarkTheme: {
-          primary: "#f59e0b",
+          primary: "#8c5d2d",
           "primary-content": "#edebe7",
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",
@@ -122,7 +122,7 @@ export default {
       },
       {
         cairnsDarkTheme: {
-          primary: "#16a34a",
+          primary: "#15803d",
           "primary-content": "#edebe7",
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",
