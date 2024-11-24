@@ -89,6 +89,12 @@ export async function generatePDFFrom(htmlElements, outputFilename, display) {
 
         scale = (pageHeight - (yMargin * 2)) / height;
         scalingForHeight = true;
+
+        let sanity = 20;
+
+        while ( width * scale > pageWidth && --sanity > 0 && scale > 0) {
+          scale -= .05;
+        }
       }
 
       console.log(`GFC scale = ${scale}`);
