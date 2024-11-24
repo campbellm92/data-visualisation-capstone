@@ -16,37 +16,6 @@ async function captureAsImage (elementId) {
 
 export async function generatePDFFrom(htmlElements, outputFilename, display) {
 
-  /*
-  var doc = new jsPDF({
-    orientation: 'p',
-    unit: 'pt',
-    format: 'letter'
-  });
-  
-  
-  var field = "<b>html test </b>";
-  doc.text(10, 10, "test");
-  //add first html
-  await doc.html(field, {
-    callback: function (doc) {
-      return doc;
-    },
-    width: 210,
-    windowWidth: 210, 
-        html2canvas: {
-            backgroundColor: 'null',
-            width: 210, 
-            height: 150
-        },
-        backgroundColor: 'null', 
-    x: 10,
-    y: 50,
-    autoPaging: 'text'
-  });
-  window.open(doc.output('bloburl'));
-
-*/
-
   const pdf = new jsPDF({
     orientation: 'p',
     unit: 'px',
@@ -72,32 +41,9 @@ export async function generatePDFFrom(htmlElements, outputFilename, display) {
       const elementImage = await captureAsImage(element);
       let { width, height } = document.getElementById(element).getBoundingClientRect();
 
-      let tmp = width;
-
-      // if (element === 'llm-response-orig') {
-      //   width = height;
-      //   height = tmp;
-      // }
-
-      console.log(`GFC - page (${pageWidth} x ${pageHeight}) image (${width} x ${height}) `);
-      if ( width >= height) {
-
-        scale = (pageWidth - (xMargin * 2)) / width;
-        scalingForHeight = false;
-
-      } else {
-
-        scale = (pageHeight - (yMargin * 2)) / height;
-        scalingForHeight = true;
-
-        let sanity = 20;
-
-        while ( width * scale > pageWidth && --sanity > 0 && scale > 0) {
-          scale -= .05;
-        }
-      }
-
-      console.log(`GFC scale = ${scale}`);
+      scale = Math.min(
+              (pageWidth - (xMargin * 2)) / width,
+              (pageHeight - (yMargin * 2)) / height);
 
       if (yOffset + ((height * scale) + yMargin) >= pageHeight - yMargin * 2 && yOffset > yMargin) {
 
@@ -106,30 +52,12 @@ export async function generatePDFFrom(htmlElements, outputFilename, display) {
 
       }
 
-      // // if we are on a new page and the element is taller than the page.
-      // if (yOffset + ((height * scale) + yMargin) >= (pageHeight - yMargin * 2) && yOffset === yMargin) {
-
-        // scale the image down by height
-        //scale = (pageHeight - yMargin * 2) / height;
-
-     // } 
-
-      pdf.addImage(elementImage, 'PNG', scalingForHeight ? (pageWidth - (width * scale)) / 2.0 : xMargin, yOffset, width * scale, height * scale);
+      pdf.addImage(elementImage, 'PNG', width < height ? (pageWidth - (width * scale)) / 2.0 : xMargin, yOffset, width * scale, height * scale);
       yOffset += ((height * scale) + yGap);
       
     }
   
   }
-  //console.log(document.getElementById('llm-response'));
-
-  //pdf.html('<p>hello world of pdf</p>');//document.getElementById('llm-response'));
-
-  // Add new page
-  //pdf.addPage();
-
-  // Capture Markdown
-  //const markdownImage = await captureAsImage('markdown-container');
-  //pdf.addImage(markdownImage, 'PNG', 10, 10, 180, 90);
 
   // Save the PDF
   pdf.save(outputFilename);
