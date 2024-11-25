@@ -53,18 +53,18 @@ export default function Graphs() {
     <div>
       <div className="pb-5">
         <h1 className="font-light text-xl text-primary-content">
-          Cross LGA Data Mining Report
+          Interactive AI Analysis of Cross LGA Data
         </h1>
       </div>
       <div className="mx-auto p-4">
 
         {/*     <div className="container mx-auto p-4 box-drop-shadow"> */}
 
-        <div className="grid md:grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
+        <div className="grid md:grid-cols-1 lg:grid-cols-12 gap-0 mb-4">
           <div className="p-4 lg:col-span-5 xl:col-span-2 max-w-96 md:min-w-52">
             <div className="shadow-md text-primary-content font-light bg-base-300 mb-4 border-1 rounded p-1">
               <div className="label">
-                <span className="font-bold text-primary-content">Date Scroller</span>
+                <span className="font-bold text-primary-content ml-2">Date Scroller</span>
               </div>
               <div className="drop-shadow mt-2">
                 <div className="p-1">
@@ -150,10 +150,11 @@ export default function Graphs() {
             ) : null}
           </div>
           <div className="p-4 lg:col-span-7 xl:col-span-10 sm:ml-0 md:ml-4" /* max-w-[1440px]"*/>
-            <div className="label">
-              <span className="font-bold text-primary-content">Select Metrics To Report</span>
-            </div>
+
             <div className="grid grid-cols-5 gap-4 mb-4 shadow-md border-1 rounded bg-base-300">
+            <div className="label col-span-5 mb-0">
+              <span className="font-bold text-primary-content -mb-7 ml-4">Select Metrics To Report</span>
+            </div>
               <div className="p-1">
                 <Checkbox
                   label="Daily Rate"
