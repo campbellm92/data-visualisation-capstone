@@ -7,6 +7,7 @@ const Icons = {
       strokeWidth={1.5}
       stroke="currentColor"
       className="size-6 text-primary-content"
+      aria-label="Expand/Collapse Menu"
     >
       <path
         strokeLinecap="round"
@@ -23,6 +24,7 @@ const Icons = {
       strokeWidth={1.5}
       stroke="currentColor"
       className="size-6 text-primary-content"
+      aria-label="Home"
     >
       <path
         strokeLinecap="round"
@@ -39,6 +41,7 @@ const Icons = {
       strokeWidth="1.5"
       stroke="currentColor"
       className="size-6 text-primary-content"
+      aria-label="User Profile"
     >
       <path
         strokeLinecap="round"
@@ -55,6 +58,7 @@ const Icons = {
       strokeWidth={1.5}
       stroke="currentColor"
       className="size-6 text-primary-content"
+      aria-label="Calender"
     >
       <path
         strokeLinecap="round"
@@ -71,6 +75,7 @@ const Icons = {
       strokeWidth={1.5}
       stroke="currentColor"
       className="size-6 text-primary-content"
+      aria-label="Data Stack"
     >
       <path
         strokeLinecap="round"
@@ -87,6 +92,7 @@ const Icons = {
       strokeWidth={1.5}
       stroke="currentColor"
       className="size-6 text-primary-content"
+      aria-label="Grants"
     >
       <path
         strokeLinecap="round"
@@ -103,6 +109,7 @@ const Icons = {
       strokeWidth={1.5}
       stroke="currentColor"
       className="size-6 text-primary-content"
+      aria-label="Pie Chart"
     >
       <path
         strokeLinecap="round"
@@ -124,6 +131,7 @@ const Icons = {
       strokeWidth={1.5}
       stroke="currentColor"
       className="size-6 text-primary-content"
+      aria-label="Bar Chart"
     >
       <path
         strokeLinecap="round"
@@ -140,6 +148,7 @@ const Icons = {
       strokeWidth={1.5}
       stroke="currentColor"
       className="size-6 text-primary-content"
+      aria-label="Artificial Intelligence Analysis"
     >
       <path
         strokeLinecap="round"
@@ -156,6 +165,7 @@ const Icons = {
       strokeWidth={1.5}
       stroke="currentColor"
       className="size-6 text-primary-content"
+      aria-label="Settings"
     >
       <path
         strokeLinecap="round"
@@ -176,7 +186,7 @@ const Icons = {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="size-6 text-primary-content"
+      className="size-6"
     >
       <path
         strokeLinecap="round"

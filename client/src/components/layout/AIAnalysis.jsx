@@ -17,14 +17,14 @@ function handleSelectChange() {
   document.getElementById("prompt").value = "";
 }
 
-const AIAnalysis = ({ dataSet, llmResponse, setllmResponse }) => {
+const AIAnalysis = ({ dataSet, llmResponse, setllmResponse, setAiAnalysisSelected }) => {
 
   function closeForm() {
     setllmResponse(kDefaultResponse);
     document.getElementById("analyse_modal").close();
   }
 
-  async function doAnalysis(e) {
+  async function doAnalysis(e, setAiAnalysisSelected) {
     const working = document.getElementById("working");
     const analyseButton = document.getElementById("analyse-button");
     const customPromptField = document.getElementById("prompt");
@@ -66,6 +66,8 @@ const AIAnalysis = ({ dataSet, llmResponse, setllmResponse }) => {
       working.style = "display:none";
       analyseButton.disabled = false;
     }
+
+    setAiAnalysisSelected(true);
   }
 
   return (
@@ -127,7 +129,7 @@ const AIAnalysis = ({ dataSet, llmResponse, setllmResponse }) => {
         <ButtonMediumFullWide
           id="analyse-button"
           onClick={(e) => {
-            doAnalysis(e);
+            doAnalysis(e, setAiAnalysisSelected);
             return false;
           }}
           textColor={"text-secondary-content"}

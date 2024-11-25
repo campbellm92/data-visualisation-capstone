@@ -1,8 +1,8 @@
 export default function Guide() {
   return (
-    <div className="relative">
+    <div className="relative" tabIndex={0}>
       <div className="ml-12 mt-6">
-        <h1 className="text-primary font-bold text-4xl">
+        <h1 className="text-primary text-primary-content font-bold text-4xl">
           Localis Data Dashboard: A Quick Guide 🤓
         </h1>
       </div>
@@ -13,7 +13,7 @@ export default function Guide() {
             your local area. The following guide will run you through how to
             understand our data and how you can get the most out of this app.
           </p>
-          <h1 className="text-3xl font-semibold text-primary mt-10" id="adr">
+          <h1 className="text-3xl font-semibold text-primary-content mt-10" id="adr">
             The Data
           </h1>
           <h2 className="text-xl mt-6 underline decoration-primary text-primary-content">
@@ -68,7 +68,7 @@ export default function Guide() {
           <div className="flex w-full flex-col">
             <div className="divider divider-secondary"></div>
           </div>
-          <h1 className="text-3xl font-semibold text-primary mt-4" id="adr">
+          <h1 className="text-3xl font-semibold text-primary-content mt-4" id="adr">
             How to use this app
           </h1>
           <p className="mt-3 text-primary-content">

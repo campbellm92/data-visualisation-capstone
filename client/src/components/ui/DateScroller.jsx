@@ -30,6 +30,9 @@ function DateScroller ({
       canvas.width = image.width * scale;
       canvas.height = image.height * scale;
       context.drawImage(image, -((image.width - canvas.width) / 2.0), 0);
+
+      setCoords({ x: Math.min(coords.x, rect.width), y: Math.min(coords.y, rect.height) });
+
     };
 
  }, [width]);

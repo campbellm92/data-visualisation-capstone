@@ -28,7 +28,7 @@ async function queryLLM(url, llm, prompt) {
       },
       {
         'role': 'user',
-        'content': prompt
+        'content': 'Always in a response of less than 400 words - ' + prompt
       }
     ]
   };

@@ -1,9 +1,70 @@
 //
 //  IFQ717 Web Development Capstone
 //
-//  api.js - Main app API function definitions
+//  api.js - Main app API helper function definitions by Gary Cazzulino
 //
 //
+
+import domtoimage from 'dom-to-image';
+import { jsPDF } from 'jspdf'
+
+
+async function captureAsImage (elementId) {
+  const element = document.getElementById(elementId);
+  return await domtoimage.toPng(element);
+}
+
+export async function generatePDFFrom(htmlElements, outputFilename, display) {
+
+  const pdf = new jsPDF({
+    orientation: 'p',
+    unit: 'px',
+    format: 'a4'
+  });
+
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+
+  const yMargin = 20;
+  const yGap = 10;
+  const xMargin = 30;
+  let scale = 1.0;
+  let yOffset = yMargin;
+
+  for ( let i = 0; i < htmlElements.length; i++) {
+
+    let scalingForHeight = false;
+    let element = htmlElements[i];
+
+    if (document.getElementById(element)) {
+
+      const elementImage = await captureAsImage(element);
+      let { width, height } = document.getElementById(element).getBoundingClientRect();
+
+      scale = Math.min(
+              (pageWidth - (xMargin * 2)) / width,
+              (pageHeight - (yMargin * 2)) / height);
+
+      if (yOffset + ((height * scale) + yMargin) >= pageHeight - yMargin * 2 && yOffset > yMargin) {
+
+        yOffset = yMargin;
+        pdf.addPage();
+
+      }
+
+      pdf.addImage(elementImage, 'PNG', width < height ? (pageWidth - (width * scale)) / 2.0 : xMargin, yOffset, width * scale, height * scale);
+      yOffset += ((height * scale) + yGap);
+      
+    }
+  
+  }
+
+  // Save the PDF
+  pdf.save(outputFilename);
+
+  if (display) window.open(pdf.output('bloburl'));
+
+}
 
 export function average(arr) {
   return Math.trunc((arr.reduce((p, c) => p + c, 0) / arr.length) * 10.0) / 10.0;

@@ -31,7 +31,7 @@ export default function DashboardSidebar({ isCollapsed }) {
         </div>
       </div>
 
-      <nav className="mt-4">
+      <nav className="mt-4" aria-label="Main Navigation">
         <ul>
           {sidebarItems.map((item) => (
             <SidebarItem
