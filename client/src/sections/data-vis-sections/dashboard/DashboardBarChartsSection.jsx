@@ -1,42 +1,67 @@
-import { useContext } from "react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import BarChartHome from "../../../components/charts/Barcharts/BarChartHome";
 import { SelectWithBorderSmall } from "../../../components/ui/Selects";
 import { fields } from "../../../api/utils/constants";
-import GraphInfoIcon from "../../../components/ui/GraphInfoIcon";
+// import GraphInfoIcon from "../../../components/ui/GraphInfoIcon";
 import LLMResponse from "../../../components/layout/LLMResponse";
-import Map from "../../../components/ui/Map";
+// import Map from "../../../components/ui/Map";
 import LoadingSpinner from "../../../components/ui/LoadingSpinner";
-import { useFetchLLMResponse } from "../../../api/hooks/useFetchLLMResponse";
-import { AuthContext } from "../../../context/AuthProvider";
+import { ButtonOpenAIAnalysisModal } from "../../../components/ui/Buttons";
+// import { useFetchLLMResponse } from "../../../api/hooks/useFetchLLMResponse";
+// import { AuthContext } from "../../../context/AuthProvider";
+import { AIAnalysisModal } from "../../../components/layout/AIAnalysisModal";
+import { AiAnalysisContext } from "../../../context/AiAnalysisProvider";
 
 export default function DashboardBarChartsSection() {
   const [year, setYear] = useState(2023);
-  const { user } = useContext(AuthContext);
-  const { loading, responseFromLLM, error } = useFetchLLMResponse(`Please write 100 words describing the rental market in ${user.lga}`, []); // getLLMResponseFromServer("Why is water wet?", []);
+  const { setYear: setAnalysisYear } = useContext(AiAnalysisContext);
+  // const { user } = useContext(AuthContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // const { loading, responseFromLLM, error } = useFetchLLMResponse(
+  //   `Please write 100 words describing the rental market in ${user.lga}`,
+  //   []
+  // ); // getLLMResponseFromServer("Why is water wet?", []);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+    // Open the modal using your preferred method, e.g., setting a ref or using a modal library
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="barchart-section mb-5">
-      <div className="pb-5 flex justify-end gap-2">
+      <div className="pb-5 flex justify-end gap-2 items-center">
+        <ButtonOpenAIAnalysisModal onClick={openModal} />
         <SelectWithBorderSmall
-          onChange={(e) => setYear(Number(e.target.value))}
+          onChange={(e) => {
+            const selectedYear = Number(e.target.value);
+            setYear(selectedYear);
+            setAnalysisYear(selectedYear);
+          }}
         >
           <option value="2023">2023</option>
           <option value="2024">2024</option>
         </SelectWithBorderSmall>
       </div>
 
-      <div className="flex flex-wrap md:flex-nowrap items-center gap-4 mb-10">
+      {/* <div className="flex flex-wrap md:flex-nowrap items-center gap-4 mb-10">
         <div className="shadow-md border-1 rounded p-2 w-[430px] h-[325px]">
           <Map location={user.lga}></Map>
         </div>
         <div className="flex items-center">
-          {!loading && !error ?
+          {!loading && !error ? (
             <div className="shadow-md border-1 rounded mb-3 bg-base-300 h-[325px]">
-              <LLMResponse content={responseFromLLM} ></LLMResponse>
-            </div> : <LoadingSpinner></LoadingSpinner>}
+              <LLMResponse content={responseFromLLM}></LLMResponse>
+            </div>
+          ) : (
+            <LoadingSpinner></LoadingSpinner>
+          )}
         </div>
-      </div>
+      </div> */}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {fields.map((field) => (
@@ -45,7 +70,7 @@ export default function DashboardBarChartsSection() {
             className="relative p-4 bg-base-300 rounded-md shadow-md"
           >
             <BarChartHome year={year} dataField={field} />
-            {field && (
+            {/* {field && (
               <div className="absolute top-2 right-2 pointer-events-auto">
                 <GraphInfoIcon
                   info={
@@ -53,10 +78,17 @@ export default function DashboardBarChartsSection() {
                   }
                 />
               </div>
-            )}
+            )} */}
           </div>
         ))}
       </div>
+
+      {isModalOpen && (
+        <AIAnalysisModal
+          closeModal={closeModal}
+          // Pass other necessary props
+        />
+      )}
     </div>
   );
 }
