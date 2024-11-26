@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthProvider";
 import { ThemeProvider } from "./context/ThemeProvider";
+import { AiAnalysisProvider } from "./context/AiAnalysisProvider";
 import {
   BrowserRouter as Router,
   Routes,
@@ -22,10 +23,7 @@ function App() {
   return (
     <Router>
       <ThemeProvider>
-        {/* navbar renders everywhere */}
-        {/* <Navbar /> */}
         <Routes>
-          {/* landing page code now in pages > LandingPage.jsx */}
           <Route
             path="/"
             element={
@@ -34,6 +32,7 @@ function App() {
               </PublicLayout>
             }
           />
+
           <Route
             path="/welcome"
             element={
@@ -59,7 +58,9 @@ function App() {
             element={
               <ProtectedRoute>
                 <DashboardLayout>
-                  <DashboardHome />
+                  <AiAnalysisProvider>
+                    <DashboardHome />
+                  </AiAnalysisProvider>
                 </DashboardLayout>
               </ProtectedRoute>
             }
