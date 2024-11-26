@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import { getLLMResponseFromServer } from "../api/utils/getUtils";
 
-const AiAnalysisContext = createContext();
+export const AiAnalysisContext = createContext();
 
 export function AiAnalysisProvider({ children }) {
   const [year, setYear] = useState(2023);
@@ -11,9 +11,9 @@ export function AiAnalysisProvider({ children }) {
   const [defaultPrompt, setDefaultPrompt] = useState("");
   const [LLMResponse, setLLMResponse] = useState("");
 
-  async function doAnalysis(dataSet) {
-    dataSet.preventDefault();
-    dataSet.stopPropagation();
+  async function doAnalysis(e, dataSet) {
+    e.preventDefault();
+    e.stopPropagation();
     setLLMResponse("");
     setIsLoading(true);
     setIsButtonDisabled(true);
@@ -33,6 +33,11 @@ export function AiAnalysisProvider({ children }) {
       setIsButtonDisabled(false);
     }
   }
+
+  const handleSelectChange = () => {
+    setCustomPrompt("");
+  };
+
   const closeForm = () => {
     setLLMResponse("");
     setCustomPrompt("");
@@ -51,6 +56,7 @@ export function AiAnalysisProvider({ children }) {
         setDefaultPrompt,
         LLMResponse,
         doAnalysis,
+        handleSelectChange,
         closeForm,
       }}
     >
