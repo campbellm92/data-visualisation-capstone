@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useChartDataConfig } from "../../../api/hooks/useChartDataConfig";
 import BarChartHome from "../../../components/charts/Barcharts/BarChartHome";
 import { SelectWithBorderSmall } from "../../../components/ui/Selects";
 import { fields } from "../../../api/utils/constants";
@@ -17,6 +18,13 @@ export default function DashboardBarChartsSection() {
   const { setYear: setAnalysisYear } = useContext(AiAnalysisContext);
   // const { user } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { loading, data, error, user } = useChartDataConfig({
+    endpoint: "/combined_data",
+    year,
+    dataFields: fields,
+    chartType: "bar",
+  });
 
   // const { loading, responseFromLLM, error } = useFetchLLMResponse(
   //   `Please write 100 words describing the rental market in ${user.lga}`,
@@ -69,7 +77,13 @@ export default function DashboardBarChartsSection() {
             key={field}
             className="relative p-4 bg-base-300 rounded-md shadow-md"
           >
-            <BarChartHome year={year} dataField={field} />
+            <BarChartHome
+              year={year}
+              dataField={field}
+              data={data}
+              loading={loading}
+              user={user}
+            />
             {/* {field && (
               <div className="absolute top-2 right-2 pointer-events-auto">
                 <GraphInfoIcon
@@ -86,6 +100,9 @@ export default function DashboardBarChartsSection() {
       {isModalOpen && (
         <AIAnalysisModal
           closeModal={closeModal}
+          data={data}
+          user={user}
+          year={year}
           // Pass other necessary props
         />
       )}
