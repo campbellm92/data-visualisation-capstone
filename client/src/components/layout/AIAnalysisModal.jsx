@@ -1,14 +1,21 @@
 import { useContext } from "react";
 import { AiAnalysisContext } from "../../context/AiAnalysisProvider";
+import BarChartHome from "../charts/Barcharts/BarChartHome";
 import { ButtonOutline, ButtonSmall, CloseButton } from "../ui/Buttons";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import { SelectLLMPrompt } from "../ui/Select";
 import Draggable from "react-draggable";
 // import { getLLMResponseFromServer } from "../../api/utils/getUtils";
 
-export function AIAnalysisModal({ closeModal, data, user, year }) {
+export function AIAnalysisModal({
+  closeModal,
+  data,
+  user,
+  year,
+  fields,
+  loading,
+}) {
   const {
-    loading,
     isButtonDisabled,
     customPrompt,
     setCustomPrompt,
@@ -33,22 +40,22 @@ export function AIAnalysisModal({ closeModal, data, user, year }) {
           open
         >
           <div className="shadow-md border-1 rounded p-6 relative shadow-lg bg-base-300 bg-opacity-95">
-            <div className="flex justify-end">
-              <CloseButton onClick={closeModal} />
-            </div>
             <form id="prompt-form" method="dialog" onSubmit={handleDoAnalysis}>
               <label
                 id="prompt-label"
                 className="form-control text-primary-content"
               >
                 <div className="label">
-                  <span className="font-bold text-primary-content pb-4">
-                    Generate an AI analysis of this data...
+                  <span className="font-bold text-primary-content pb-4 underline decoration-primary">
+                    Instant AI data report
                   </span>
+                  <div className="flex justify-end">
+                    <CloseButton onClick={closeModal} />
+                  </div>
                 </div>
                 <div className="label">
                   <span className="text-primary-content pb-2">
-                    by using a default prompt:
+                    Use a default prompt:
                   </span>
                 </div>
                 <div className="pb-4">
@@ -65,7 +72,7 @@ export function AIAnalysisModal({ closeModal, data, user, year }) {
               >
                 <div className="label">
                   <span className="text-primary-content pb-2">
-                    or writing a custom prompt:
+                    Write a custom prompt:
                   </span>
                 </div>
                 <div className="pb-4">
@@ -96,11 +103,30 @@ export function AIAnalysisModal({ closeModal, data, user, year }) {
             </div>
             {responseContent && (
               <div className="mb-5">
-                <div className="text-primary font-semibold mb-4 p-2">
+                <div className="text-primary font-semibold mb-4 p-2 overflow-scroll">
                   AI-Generated Report:
                 </div>
-                <div className="overflow-scroll bg-base-200 min-h-30 text-primary-content p-4 rounded-md">
-                  {responseContent}
+                <div className="overflow-scroll max-h-80">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-6">
+                    {fields.map((field) => (
+                      <div
+                        key={field}
+                        className="relative p-4 bg-base-200 rounded-md shadow-md"
+                      >
+                        <BarChartHome
+                          year={year}
+                          dataField={field}
+                          data={data}
+                          loading={loading}
+                          user={user}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="bg-base-200 min-h-30 text-primary-content p-4 rounded-md">
+                    {responseContent}
+                  </div>
                   <div className="flex justify-end pt-6 gap-4">
                     <ButtonSmall>Save Report</ButtonSmall>
                     <ButtonSmall>Download Report</ButtonSmall>
