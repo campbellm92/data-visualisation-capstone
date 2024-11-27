@@ -103,7 +103,8 @@ export default function DashboardBarChartsSection() {
           data={data}
           user={user}
           year={year}
-          // Pass other necessary props
+          fields={fields}
+          loading={loading}
         />
       )}
     </div>
