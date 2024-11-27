@@ -1,15 +1,13 @@
 import { useContext } from "react";
 import { AiAnalysisContext } from "../../context/AiAnalysisProvider";
-import { ButtonMediumFullWide } from "../ui/Buttons";
-import { CloseButton } from "../ui/Buttons";
+import { ButtonOutline, ButtonSmall, CloseButton } from "../ui/Buttons";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import { SelectLLMPrompt } from "../ui/Select";
 import Draggable from "react-draggable";
 // import { getLLMResponseFromServer } from "../../api/utils/getUtils";
 
-export function AIAnalysisModal({ closeModal }) {
+export function AIAnalysisModal({ closeModal, data, user, year }) {
   const {
-    year,
     loading,
     isButtonDisabled,
     customPrompt,
@@ -22,18 +20,22 @@ export function AIAnalysisModal({ closeModal }) {
   } = useContext(AiAnalysisContext);
 
   const handleDoAnalysis = (e) => {
-    doAnalysis(e, dataSet);
+    e.preventDefault();
+    doAnalysis(e, data, user, year);
   };
 
   return (
     <div>
       <Draggable>
-        <dialog id="analyse_modal" className="modal w-full" open>
+        <dialog
+          id="analyse_modal"
+          className="modal w-full max-w-4xl mx-auto p-4 fixed bottom-1/2 right-1/8 transform -translate-x-1/2 -translate-y-1/2"
+          open
+        >
           <div className="shadow-md border-1 rounded p-6 relative shadow-lg bg-base-300 bg-opacity-95">
             <div className="flex justify-end">
               <CloseButton onClick={closeModal} />
             </div>
-
             <form id="prompt-form" method="dialog" onSubmit={handleDoAnalysis}>
               <label
                 id="prompt-label"
@@ -76,33 +78,37 @@ export function AIAnalysisModal({ closeModal }) {
                 </div>
               </label>
             </form>
-
             {loading && (
               <div className="text-center m-2">
                 <LoadingSpinner />
               </div>
             )}
-
-            <ButtonMediumFullWide
-              onClick={handleDoAnalysis}
-              disabled={isButtonDisabled}
-              className={
-                isButtonDisabled ? "opacity-50 cursor-not-allowed" : ""
-              }
-              textColor="text-secondary-content"
-            >
-              Analyse
-            </ButtonMediumFullWide>
-          </div>
-
-          {responseContent && (
-            <label id="response-label" className="form-control mb-5">
-              <div className="label">
-                <span className="text-primary-content">LLM Response</span>
+            <div className="flex justify-end">
+              <ButtonOutline
+                onClick={handleDoAnalysis}
+                disabled={isButtonDisabled}
+                className={
+                  isButtonDisabled ? "opacity-50 cursor-not-allowed" : ""
+                }
+              >
+                Analyse
+              </ButtonOutline>
+            </div>
+            {responseContent && (
+              <div className="mb-5">
+                <div className="text-primary font-semibold mb-4 p-2">
+                  AI-Generated Report:
+                </div>
+                <div className="overflow-scroll bg-base-200 min-h-30 text-primary-content p-4 rounded-md">
+                  {responseContent}
+                  <div className="flex justify-end pt-6 gap-4">
+                    <ButtonSmall>Save Report</ButtonSmall>
+                    <ButtonSmall>Download Report</ButtonSmall>
+                  </div>
+                </div>
               </div>
-              <div className="shadow-lg overflow-scroll bg-base-300 min-h-30 max-h-40"></div>
-            </label>
-          )}
+            )}
+          </div>
         </dialog>
       </Draggable>
     </div>
