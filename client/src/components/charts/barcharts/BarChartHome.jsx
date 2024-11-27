@@ -16,13 +16,13 @@ import { lgaColours } from "../../../api/utils/graphColourConfig";
 import { useChartDataConfig } from "../../../api/hooks/useChartDataConfig";
 import CustomTooltip from "../CustomTooltips/CustomTooltip";
 
-export default function BarChartHome({ year, dataField }) {
-  const { loading, data, error, user } = useChartDataConfig({
-    endpoint: "/combined_data",
-    year,
-    dataFields: [dataField],
-    chartType: "bar",
-  });
+export default function BarChartHome({ year, dataField, data, loading, user }) {
+  // const { loading, data, error, user } = useChartDataConfig({
+  //   endpoint: "/combined_data",
+  //   year,
+  //   dataFields: [dataField],
+  //   chartType: "bar",
+  // });
 
   const { darkMode } = useContext(ThemeContext);
 
