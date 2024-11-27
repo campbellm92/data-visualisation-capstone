@@ -11,17 +11,16 @@ export function AiAnalysisProvider({ children }) {
   const [defaultPrompt, setDefaultPrompt] = useState("");
   const [LLMResponse, setLLMResponse] = useState("");
 
-  async function doAnalysis(e, dataSet) {
+  async function doAnalysis(e, data, user, year) {
     e.preventDefault();
     e.stopPropagation();
-    setLLMResponse("");
     setIsLoading(true);
     setIsButtonDisabled(true);
 
     const promptField = customPrompt || defaultPrompt;
 
     try {
-      const response = await getLLMResponseFromServer(promptField, dataSet);
+      const response = await getLLMResponseFromServer(promptField);
       setLLMResponse(response);
     } catch (error) {
       setLLMResponse(
