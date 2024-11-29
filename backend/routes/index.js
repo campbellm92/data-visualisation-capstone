@@ -195,6 +195,45 @@ router.get("/api/combined_data/:LGAName", function (req, res, next) {
 });
 
 
+router.get("/api/spend_data", function (req, res, next) {
+
+  console.log("LGA " + req.query.LGAName);
+  console.log("Start " + req.query.start);
+  console.log("End " + req.query.end);
+
+  if (getResponseFromCache(req.url) === undefined) {
+    console.log("not hitting cache");
+    req.db
+      .from("spend_data")
+      .select("week_commencing", "lga_name", "category", "spend", "cards_seen", "no_txns")
+      .modify((qb) => {
+        if (req.query.LGAName !== undefined) {
+          qb.where("lga_name", "=", req.query.LGAName)
+        }
+        if (req.query.start !== undefined) {
+          qb.where("week_commencing", ">=", req.query.start)
+        }
+        if (req.query.end !== undefined) {
+          qb.where("week_commencing", "<=", req.query.end)
+        }
+      })
+      .orderBy('week_commencing', 'lga_name')
+      .then((rows) => {
+        console.log(rows);
+        putResponseIntoCache(req.url, rows);
+        res.json({ Error: false, Message: "Success1", combined_data: rows });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.json({ Error: true, Message: "Error2 - " + err.sqlMessage });
+      });
+  } else {
+    console.log("YES hitting cache");
+    res.json({ Error: false, Message: "Success3", combined_data: getResponseFromCache(req.url) });
+  }
+});
+
+
 /* original module examples below
 
 router.post('/api/update', authorization, (req, res) => {
