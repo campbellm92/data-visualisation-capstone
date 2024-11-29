@@ -1,4 +1,5 @@
 import { useRef, useState, useContext } from "react";
+import { Link} from "react-router-dom";
 import useClickOutside from "../../hooks/useClickOutside";
 import DarkmodeToggler from "../ui/DarkModeToggler";
 import Icons from "./DashboardIcons";
@@ -14,6 +15,11 @@ export default function DashboardNav({ toggleSidebar }) {
   const toggleDropdown = () => setDropdownIsOpen(!dropdownIsOpen);
 
   useClickOutside(dropdownRef, () => setDropdownIsOpen(false), dropdownIsOpen);
+
+  // Close dropdown when "Settings" is clicked
+  const handleSettingsClick = () => {
+    setDropdownIsOpen(false); // Close the dropdown
+  };
 
   return (
     <header className="w-full bg-base-300 p-4 top-0 z-10 border-b-2 border-base-200">
@@ -34,11 +40,17 @@ export default function DashboardNav({ toggleSidebar }) {
               className="absolute right-2 top-14 mt-4 w-32 bg-base-300 shadow-md rounded-md z-10"
             >
               <ul className="py-2">
-                <li className="px-4 py-2 hover:bg-base-200 text-primary-content cursor-pointer">
+                {/* <li className="px-4 py-2 hover:bg-base-200 text-primary-content cursor-pointer">
                   Profile
-                </li>
-                <li className="px-4 py-2 hover:bg-base-200 text-primary-content cursor-pointer">
-                  Settings
+                </li> */}
+                <li>
+                  <Link
+                    to="/settings"
+                    onClick={handleSettingsClick} // Close the dropdown
+                    className="px-4 py-2 hover:bg-base-200 text-primary-content cursor-pointer"
+                  >
+                    Settings
+                  </Link>
                 </li>
                 <li
                   className="px-4 py-2 hover:bg-base-200 font-bold  text-primary cursor-pointer"
