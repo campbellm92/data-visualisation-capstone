@@ -10,6 +10,7 @@ const InputField = ({
   errorMessage,
   options,
   onKeyDown,
+  className,
 }) => {
   return (
     <div className="form-control">
@@ -19,7 +20,7 @@ const InputField = ({
       {/* If type is select, render select field, else render input field */}
       {type === "select" ? (
         <select
-          className="input input-bordered"
+          className={`input input-bordered ${className}`}
           aria-label="Select Local Area"
           value={value}
           onChange={onChange}
@@ -40,7 +41,7 @@ const InputField = ({
         <input
           type={type}
           placeholder={placeholder}
-          className="input input-bordered"
+          className={`input input-bordered ${className}`}
           value={value}
           onChange={onChange}
           onBlur={onBlur}
