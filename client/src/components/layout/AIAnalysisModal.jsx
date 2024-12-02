@@ -1,9 +1,15 @@
 import { useContext } from "react";
 import { AiAnalysisContext } from "../../context/AiAnalysisProvider";
 import BarChartHome from "../charts/Barcharts/BarChartHome";
-import { ButtonOutline, ButtonSmall, CloseButton } from "../ui/Buttons";
+import {
+  ButtonOutline,
+  ButtonSmallSecondary,
+  CloseButton,
+} from "../ui/Buttons";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import { SelectLLMPrompt } from "../ui/Select";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import Draggable from "react-draggable";
 // import { getLLMResponseFromServer } from "../../api/utils/getUtils";
 
@@ -28,6 +34,7 @@ export function AIAnalysisModal({
 
   const handleDoAnalysis = (e) => {
     e.preventDefault();
+    console.log("handleDoAnalysis called");
     doAnalysis(e, data, user, year);
   };
 
@@ -40,72 +47,84 @@ export function AIAnalysisModal({
           open
         >
           <div className="shadow-md border-1 rounded p-6 relative shadow-lg bg-base-300 bg-opacity-95">
-            <form id="prompt-form" method="dialog" onSubmit={handleDoAnalysis}>
-              <label
-                id="prompt-label"
-                className="form-control text-primary-content"
+            {!responseContent && (
+              <form
+                id="prompt-form"
+                method="dialog"
+                onSubmit={handleDoAnalysis}
               >
-                <div className="label">
-                  <span className="font-bold text-primary-content pb-4 underline decoration-primary">
-                    Instant AI data report
-                  </span>
-                  <div className="flex justify-end">
-                    <CloseButton onClick={closeModal} />
+                <label
+                  id="prompt-label"
+                  className="form-control text-primary-content"
+                >
+                  <div className="label">
+                    <span className="font-bold text-primary-content pb-4 underline decoration-primary">
+                      Instant AI data report
+                    </span>
+                    <div className="flex justify-end">
+                      <CloseButton onClick={closeModal} />
+                    </div>
                   </div>
+                  <div className="label">
+                    <span className="text-primary-content pb-2">
+                      Use a default prompt:
+                    </span>
+                  </div>
+                  <div className="pb-4">
+                    <SelectLLMPrompt
+                      handleSelectChange={handleSelectChange}
+                      value={defaultPrompt}
+                      onChange={(e) => setDefaultPrompt(e.target.value)}
+                    />
+                  </div>
+                </label>
+                <label
+                  id="prompt-label"
+                  className="form-control text-primary-content"
+                >
+                  <div className="label">
+                    <span className="text-primary-content pb-2">
+                      Write a custom prompt:
+                    </span>
+                  </div>
+                  <div className="pb-4">
+                    <textarea
+                      value={customPrompt}
+                      onChange={(e) => setCustomPrompt(e.target.value)}
+                      className="textarea textarea-bordered h-24 w-full text-primary-content shadow-lg bg-base-300 max-h-40"
+                      placeholder="Write your custom prompt here."
+                    ></textarea>
+                  </div>
+                </label>
+                <div className="flex justify-end">
+                  <ButtonOutline
+                    onClick={handleDoAnalysis}
+                    disabled={isButtonDisabled}
+                    className={
+                      isButtonDisabled ? "opacity-50 cursor-not-allowed" : ""
+                    }
+                  >
+                    Analyse
+                  </ButtonOutline>
                 </div>
-                <div className="label">
-                  <span className="text-primary-content pb-2">
-                    Use a default prompt:
-                  </span>
-                </div>
-                <div className="pb-4">
-                  <SelectLLMPrompt
-                    handleSelectChange={handleSelectChange}
-                    value={defaultPrompt}
-                    onChange={(e) => setDefaultPrompt(e.target.value)}
-                  />
-                </div>
-              </label>
-              <label
-                id="prompt-label"
-                className="form-control text-primary-content"
-              >
-                <div className="label">
-                  <span className="text-primary-content pb-2">
-                    Write a custom prompt:
-                  </span>
-                </div>
-                <div className="pb-4">
-                  <textarea
-                    value={customPrompt}
-                    onChange={(e) => setCustomPrompt(e.target.value)}
-                    className="textarea textarea-bordered h-24 w-full text-primary-content shadow-lg bg-base-300 max-h-40"
-                    placeholder="Write your custom prompt here."
-                  ></textarea>
-                </div>
-              </label>
-            </form>
+              </form>
+            )}
+
             {loading && (
               <div className="text-center m-2">
                 <LoadingSpinner />
               </div>
             )}
-            <div className="flex justify-end">
-              <ButtonOutline
-                onClick={handleDoAnalysis}
-                disabled={isButtonDisabled}
-                className={
-                  isButtonDisabled ? "opacity-50 cursor-not-allowed" : ""
-                }
-              >
-                Analyse
-              </ButtonOutline>
-            </div>
+
             {responseContent && (
               <div className="mb-5">
+                <div className="flex justify-end">
+                  <CloseButton onClick={closeModal} />
+                </div>
                 <div className="text-primary font-semibold mb-4 p-2 overflow-scroll">
                   AI-Generated Report:
                 </div>
+
                 <div className="overflow-scroll max-h-80">
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-6">
                     {fields.map((field) => (
@@ -125,11 +144,13 @@ export function AIAnalysisModal({
                   </div>
 
                   <div className="bg-base-200 min-h-30 text-primary-content p-4 rounded-md">
-                    {responseContent}
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {responseContent}
+                    </ReactMarkdown>
                   </div>
                   <div className="flex justify-end pt-6 gap-4">
-                    <ButtonSmall>Save Report</ButtonSmall>
-                    <ButtonSmall>Download Report</ButtonSmall>
+                    <ButtonSmallSecondary>Save Report</ButtonSmallSecondary>
+                    <ButtonSmallSecondary>Download Report</ButtonSmallSecondary>
                   </div>
                 </div>
               </div>
