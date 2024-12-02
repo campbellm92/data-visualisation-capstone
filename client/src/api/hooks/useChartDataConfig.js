@@ -12,8 +12,8 @@ function processBarChartData(data, userLGA, year, dataFields) {
   return getDataMonthlyAverages(filteredData, year, dataFields);
 }
 
-// function for processing X chart data:
-
+// function for processing scatter chart data:
+// note: this is a regular scatter chart, not a quadrant. Quadrant may be implemented at some point
 function processQuadrantScatterChartData(data, userLGA, year, dataFields) {
   const filteredData = data.filter(
     (item) =>
