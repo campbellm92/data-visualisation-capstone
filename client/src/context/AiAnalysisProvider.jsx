@@ -14,19 +14,29 @@ export function AiAnalysisProvider({ children }) {
   async function doAnalysis(e, data, user, year) {
     e.preventDefault();
     e.stopPropagation();
+    console.log("Data passed to doAnalysis:", data);
+    console.log("User passed to doAnalysis:", user);
+    console.log("Year passed to doAnalysis:", year);
     setIsLoading(true);
     setIsButtonDisabled(true);
 
-    const promptField = customPrompt || defaultPrompt;
+    const promptField =
+      (customPrompt || defaultPrompt) + `\n\nData: ${JSON.stringify(data)}`;
+
+    console.log("Prompt sent to server:", promptField);
+
+    if (!promptField) {
+      console.error("No prompt provided.");
+      setLLMResponse("Please provide a valid prompt.");
+      return;
+    }
 
     try {
       const response = await getLLMResponseFromServer(promptField);
       setLLMResponse(response);
     } catch (error) {
-      setLLMResponse(
-        "Too much data selected. Please select less data and try again. Version 2 will fix this issue.",
-        error
-      );
+      console.error("Error in doAnalysis:", error);
+      setLLMResponse("An error occurred: " + error.message);
     } finally {
       setIsLoading(false);
       setIsButtonDisabled(false);
