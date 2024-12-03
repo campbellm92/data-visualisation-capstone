@@ -1,16 +1,19 @@
 import { useContext } from "react";
-import { AiAnalysisContext } from "../../context/AiAnalysisProvider";
-import BarChartHome from "../charts/Barcharts/BarChartHome";
+import { AiAnalysisContext } from "../../../context/AiAnalysisProvider";
+// import BarChartHome from "../../charts/Barcharts/BarChartHome";
+import ChartRenderer from "./ChartRenderer";
 import {
   ButtonOutline,
   ButtonSmallSecondary,
   CloseButton,
-} from "../ui/Buttons";
-import LoadingSpinner from "../ui/LoadingSpinner";
-import { SelectLLMPrompt } from "../ui/Select";
+} from "../../ui/Buttons";
+import LoadingSpinner from "../../ui/LoadingSpinner";
+import { SelectLLMPrompt } from "../../ui/Select";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Draggable from "react-draggable";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import AiReportDocument from "../../pdf/AiReportDocument";
 // import { getLLMResponseFromServer } from "../../api/utils/getUtils";
 
 export function AIAnalysisModal({
@@ -20,6 +23,7 @@ export function AIAnalysisModal({
   year,
   fields,
   loading,
+  chartType,
 }) {
   const {
     isButtonDisabled,
@@ -35,7 +39,7 @@ export function AIAnalysisModal({
   const handleDoAnalysis = (e) => {
     e.preventDefault();
     console.log("handleDoAnalysis called");
-    doAnalysis(e, data, user, year);
+    doAnalysis(e, data, user, year, chartType);
   };
 
   return (
@@ -132,7 +136,8 @@ export function AIAnalysisModal({
                         key={field}
                         className="relative p-4 bg-base-200 rounded-md shadow-md"
                       >
-                        <BarChartHome
+                        <ChartRenderer
+                          chartType={chartType}
                           year={year}
                           dataField={field}
                           data={data}
@@ -150,7 +155,23 @@ export function AIAnalysisModal({
                   </div>
                   <div className="flex justify-end pt-6 gap-4">
                     <ButtonSmallSecondary>Save Report</ButtonSmallSecondary>
-                    <ButtonSmallSecondary>Download Report</ButtonSmallSecondary>
+                    <PDFDownloadLink
+                      document={
+                        <AiReportDocument
+                          data={data}
+                          fields={fields}
+                          year={year}
+                          user={user}
+                          responseContent={responseContent}
+                        />
+                      }
+                      fileName={`AI_Report_${year}.pdf`}
+                      className="btn btn-primary"
+                    >
+                      {({ loading }) =>
+                        loading ? "Preparing Document..." : "Download Report"
+                      }
+                    </PDFDownloadLink>
                   </div>
                 </div>
               </div>
