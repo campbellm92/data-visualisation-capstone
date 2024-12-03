@@ -6,7 +6,7 @@ import { fields } from "../../../api/utils/constants";
 // import GraphInfoIcon from "../../../components/ui/GraphInfoIcon";
 import LoadingSpinner from "../../../components/ui/LoadingSpinner";
 import { ButtonOpenAIAnalysisModal } from "../../../components/ui/Buttons";
-import { AIAnalysisModal } from "../../../components/layout/AIAnalysisModal";
+import { AIAnalysisModal } from "../../../components/layout/analysis/AIAnalysisModal";
 import { AiAnalysisContext } from "../../../context/AiAnalysisProvider";
 
 export default function DashboardBarChartsSection() {
