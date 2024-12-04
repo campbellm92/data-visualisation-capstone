@@ -222,7 +222,7 @@ router.get("/api/spend_data", function (req, res, next) {
   console.log("End " + req.query.end);
 
   if (getResponseFromCache(req.url) === undefined) {
-    console.log("not hitting cache");
+    //console.log("not hitting cache");
     req.db
       .from("spend_data")
       .select(
@@ -246,21 +246,16 @@ router.get("/api/spend_data", function (req, res, next) {
       })
       .orderBy("week_commencing", "lga_name")
       .then((rows) => {
-        console.log(rows);
+        //console.log(rows);
         putResponseIntoCache(req.url, rows);
-        res.json({ Error: false, Message: "Success1", combined_data: rows });
+        res.json({ Error: false, Message: "Success", combined_data: rows });
       })
       .catch((err) => {
         console.log(err);
-        res.json({ Error: true, Message: "Error2 - " + err.sqlMessage });
+        res.json({ Error: true, Message: "Error - " + err.sqlMessage });
       });
   } else {
-    console.log("YES hitting cache");
-    res.json({
-      Error: false,
-      Message: "Success3",
-      combined_data: getResponseFromCache(req.url),
-    });
+    res.json({ Error: false, Message: "Success", combined_data: getResponseFromCache(req.url) });
   }
 });
 

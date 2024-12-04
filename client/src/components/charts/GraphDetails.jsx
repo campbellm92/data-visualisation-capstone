@@ -17,6 +17,9 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { useGesture } from '@use-gesture/react';
+import { useState } from 'react';
+import { addDaysToDate } from "../../api/utils/utils";
 
 function denormalizeDataSet(dataSet, field, scale) {
   let prevSampleDate = "";
@@ -42,14 +45,56 @@ function denormalizeDataSet(dataSet, field, scale) {
 
 export default function GraphDetails({
   dataSet,
+  startDate,
+  setStartDate,
+  totalDateRange,
+  windowDays,
+  setWindowDays,
   title,
   field,
   scale,
   useRechart,
   LGAs,
 }) {
+
+  let prevDragDx = 0;
+  let prevDragDy = 0;
+
+  const kYZoomScale = 1.5;
+
+  const bind = useGesture({
+    onDrag: ({ delta: [dx, dy] }) => {
+
+      console.log(`startDate=${startDate} totalDateRange.startDate = ${totalDateRange.startDate}`);
+
+      let nextStartDate = addDaysToDate(startDate, -(dx - prevDragDx));
+      let nextWindowDays = windowDays + ((dy - prevDragDy) * kYZoomScale);
+
+      if (nextWindowDays < 7) nextWindowDays = 7;
+
+      else if (nextWindowDays > 365) nextWindowDays = 365;
+
+      if (nextStartDate < totalDateRange.firstDate) {
+        nextStartDate = totalDateRange.firstDate;
+
+      } else if (nextStartDate > addDaysToDate(totalDateRange.lastDate, -windowDays/*-14*/)) {
+
+        nextStartDate = addDaysToDate(totalDateRange.lastDate, /*-14*/-windowDays);
+
+      } else {
+        setWindowDays(nextWindowDays);
+        setStartDate(nextStartDate);
+        prevDragDx = dx;
+        prevDragDy = dy;
+  
+      }
+    },
+  });
+
   if (useRechart) {
     const data = denormalizeDataSet(dataSet, field, scale);
+
+
     // dataSet/*.filter(sample => sample.lga_name === 'Gold Coast')*/.map(sample => {
     //     return {
     //       "sample_date": sample.sample_date.substring(0, 10),
@@ -63,8 +108,8 @@ export default function GraphDetails({
     // console.table(LGAs);
 
     return (
-      <div style={{ width: "100%", height: "90%" }}>
-        <ResponsiveContainer>
+      <div {...bind()} style={{ width: "100%", height: "90%", userSelect: 'none', touchAction: 'none', margin: 50 }}>
+        <ResponsiveContainer style={{}}>
           <h2
             className="text-primary-content font-light pb-3"
             style={{ textAlign: "center" }}
@@ -72,7 +117,7 @@ export default function GraphDetails({
             {title}
           </h2>
 
-          <LineChart
+          <LineChart style={{ cursor: 'grab' }}
             data={data}
             margin={{
               top: 10,
@@ -83,7 +128,7 @@ export default function GraphDetails({
           >
             <XAxis dataKey="sample_date" />
             <YAxis />
-            <Tooltip />
+            {/*<Tooltip />*/}
             <Legend />
             {LGAs.map((LGA) => {
               return (
@@ -151,55 +196,55 @@ export default function GraphDetails({
       series: [
         LGAs.find((LGA) => LGA === "Noosa")
           ? {
-              type: "line",
-              xKey: "noosa_sample_date",
-              yKey: "noosa_value",
-              yName: "Noosa",
-              interpolation: { type: kGraphLineStyle },
-              strokeWidth: 1,
-              marker: {
-                enabled: false,
-              },
-            }
+            type: "line",
+            xKey: "noosa_sample_date",
+            yKey: "noosa_value",
+            yName: "Noosa",
+            interpolation: { type: kGraphLineStyle },
+            strokeWidth: 1,
+            marker: {
+              enabled: false,
+            },
+          }
           : {},
         LGAs.find((LGA) => LGA === "Gold Coast")
           ? {
-              type: "line",
-              xKey: "gold_coast_sample_date",
-              yKey: "gold_coast_value",
-              yName: "Gold Coast",
-              interpolation: { type: kGraphLineStyle },
-              strokeWidth: 1,
-              marker: {
-                enabled: false,
-              },
-            }
+            type: "line",
+            xKey: "gold_coast_sample_date",
+            yKey: "gold_coast_value",
+            yName: "Gold Coast",
+            interpolation: { type: kGraphLineStyle },
+            strokeWidth: 1,
+            marker: {
+              enabled: false,
+            },
+          }
           : {},
         LGAs.find((LGA) => LGA === "Whitsunday")
           ? {
-              type: "line",
-              xKey: "whitsunday_sample_date",
-              yKey: "whitsunday_value",
-              yName: "Whitsunday",
-              interpolation: { type: kGraphLineStyle },
-              strokeWidth: 1,
-              marker: {
-                enabled: false,
-              },
-            }
+            type: "line",
+            xKey: "whitsunday_sample_date",
+            yKey: "whitsunday_value",
+            yName: "Whitsunday",
+            interpolation: { type: kGraphLineStyle },
+            strokeWidth: 1,
+            marker: {
+              enabled: false,
+            },
+          }
           : {},
         LGAs.find((LGA) => LGA === "Cairns")
           ? {
-              type: "line",
-              xKey: "cairns_sample_date",
-              yKey: "cairns_value",
-              yName: "Cairns",
-              interpolation: { type: kGraphLineStyle },
-              strokeWidth: 1,
-              marker: {
-                enabled: false,
-              },
-            }
+            type: "line",
+            xKey: "cairns_sample_date",
+            yKey: "cairns_value",
+            yName: "Cairns",
+            interpolation: { type: kGraphLineStyle },
+            strokeWidth: 1,
+            marker: {
+              enabled: false,
+            },
+          }
           : {},
       ],
       axes: [

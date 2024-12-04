@@ -78,7 +78,7 @@
 
 .horizontal-text {
   font-size: .8em;
-  color: lightgreen;
+  color: lightgray;
   position: absolute;
   top: -0.6em;
   left: -0.2em;
@@ -92,7 +92,7 @@
   writing-mode: vertical-rl;
   text-orientation: upright;
   font-size: .8em;
-  color: lightgreen;
+  color: lightGray;
   position: absolute;
   left: -0.5em;
   padding: 1px;
@@ -119,4 +119,11 @@
 .dateScrollerCursor {
   position: absolute;
   pointer-events: none;
+}
+
+.grab-cursor {
+  cursor: grab; 
+}
+.grab-cursor:active {
+  cursor: grabbing; 
 }

@@ -14,6 +14,9 @@ import { getUrlFromCache, getUrlFromServer } from "../utils/utils";
 export function useLocalisData(startDate, windowDays) {
   const [loading, setLoading] = useState(false);
   const [dataSet, setDataSet] = useState();
+  const [firstDate, setFirstDate] = useState();
+  const [lastDate, setLastDate] = useState();
+
   const [error, setError] = useState(null);
   const [cache, setCache] = useState({});
   const startDateDate = new Date(startDate);
@@ -27,8 +30,12 @@ export function useLocalisData(startDate, windowDays) {
 
     if (getUrlFromCache(cache, url)) {
       setLoading(false);
+      let dataFromCache = getUrlFromCache(cache, url);
+      setFirstDate(dataFromCache[0].sample_date);
+      setLastDate(dataFromCache[dataFromCache.length - 1].sample_date);
+
       setDataSet(
-        getUrlFromCache(cache, url).filter((sample) => {
+        dataFromCache.filter((sample) => {
           const sampleDateDate = new Date(sample.sample_date);
 
           return (
@@ -41,6 +48,8 @@ export function useLocalisData(startDate, windowDays) {
       setLoading(true);
       getUrlFromServer(url, false)
         .then((dataSet) => {
+          setFirstDate(dataSet[0].sample_date);
+          setLastDate(dataSet[dataSet.length - 1].sample_date);
           setCache((prevCache) => ({ ...prevCache, [url]: dataSet }));
           setDataSet(
             getUrlFromCache(cache, url).filter((sample) => {
@@ -66,5 +75,6 @@ export function useLocalisData(startDate, windowDays) {
     loading: loading,
     dataSet: dataSet,
     error: error,
+    totalDateRange: { firstDate, lastDate }
   };
 }
