@@ -13,7 +13,7 @@ export function numericDateToString(date) {
 //output: January 2023
 
 // convert numeric dates to season names (Summer, Autumn, etc)
-// function not in use
+// function not in use / not currently working
 export function convertMonthsToSeasons(month, year) {
   let seasonYear = year;
   switch (month) {
