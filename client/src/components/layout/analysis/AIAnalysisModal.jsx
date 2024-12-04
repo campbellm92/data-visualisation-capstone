@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { AiAnalysisContext } from "../../../context/AiAnalysisProvider";
-// import BarChartHome from "../../charts/Barcharts/BarChartHome";
 import ChartRenderer from "./ChartRenderer";
 import {
   ButtonOutline,
@@ -130,23 +129,36 @@ export function AIAnalysisModal({
                 </div>
 
                 <div className="overflow-scroll max-h-80">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-6">
-                    {fields.map((field) => (
-                      <div
-                        key={field}
-                        className="relative p-4 bg-base-200 rounded-md shadow-md"
-                      >
-                        <ChartRenderer
-                          chartType={chartType}
-                          year={year}
-                          dataField={field}
-                          data={data}
-                          loading={loading}
-                          user={user}
-                        />
-                      </div>
-                    ))}
-                  </div>
+                  {chartType === "scatter" ? (
+                    <div className>
+                      <ChartRenderer
+                        chartType={chartType}
+                        year={year}
+                        dataField={fields}
+                        data={data}
+                        loading={loading}
+                        user={user}
+                      />
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-6">
+                      {fields.map((field) => (
+                        <div
+                          key={field}
+                          className="relative p-4 bg-base-200 rounded-md shadow-md"
+                        >
+                          <ChartRenderer
+                            chartType={chartType}
+                            year={year}
+                            dataField={field}
+                            data={data}
+                            loading={loading}
+                            user={user}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
                   <div className="bg-base-200 min-h-30 text-primary-content p-4 rounded-md">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>

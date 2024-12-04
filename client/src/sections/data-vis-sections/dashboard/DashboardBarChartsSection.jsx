@@ -105,6 +105,7 @@ export default function DashboardBarChartsSection() {
           year={year}
           fields={fields}
           loading={loading}
+          chartType="bar"
         />
       )}
     </div>
