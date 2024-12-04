@@ -1,3 +1,7 @@
+/* 
+Custom tooltips for graphs. Can be further added to in the return statement with the chartType prop
+*/
+
 import { lgaColours } from "../../../api/utils/graphColourConfig";
 
 export default function CustomTooltip({
@@ -24,6 +28,7 @@ export default function CustomTooltip({
           borderRadius: "5px",
           boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
         }}
+        // add different charts as required below
       >
         {chartType === "bar" && (
           <>
