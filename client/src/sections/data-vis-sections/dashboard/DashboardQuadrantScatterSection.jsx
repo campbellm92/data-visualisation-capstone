@@ -1,5 +1,5 @@
 /*
-Where the scatter chart is rendered.
+Scatter charts are rendered here in a section by themselves on the DashboardHome page/endpoint.
 Contains the chart configuration logic (useChartDataConfig) and state for setting the year, and opening and closing the modal.
 Data and other configuration passed down to AI Analysis modal as props.
 */

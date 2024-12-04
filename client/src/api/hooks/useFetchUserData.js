@@ -1,3 +1,5 @@
+// hook for fetching user data
+
 import { useState, useEffect } from "react";
 import { getUrlFromCache, getUrlFromServer } from "../utils/utils";
 

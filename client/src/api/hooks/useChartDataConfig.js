@@ -1,3 +1,9 @@
+/*
+Contains graph configuration logic that ties in:
+- fetching logic from useFetchLocalisData
+- filtering logic for filtering data by monthly average
+*/
+
 import { useContext, useMemo } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { useFetchLocalisData } from "./useFetchLocalisData";
