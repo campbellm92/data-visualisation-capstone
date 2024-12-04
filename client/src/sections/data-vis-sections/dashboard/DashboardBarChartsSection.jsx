@@ -97,7 +97,7 @@ export default function DashboardBarChartsSection() {
         ))}
       </div>
 
-      {isModalOpen && (
+      {isModalOpen && data && (
         <AIAnalysisModal
           closeModal={closeModal}
           data={data}
