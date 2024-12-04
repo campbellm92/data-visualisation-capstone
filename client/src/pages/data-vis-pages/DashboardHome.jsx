@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import DashboardBarChartsSection from "../../sections/data-vis-sections/dashboard/DashboardBarChartsSection";
 import DashboardQuadrantScatterSection from "../../sections/data-vis-sections/dashboard/DashboardQuadrantScatterSection";
+import Map from "../../components/ui/Map";
 
 export default function DashboardHome() {
   const { user } = useContext(AuthContext);
@@ -9,13 +10,24 @@ export default function DashboardHome() {
 
   return (
     <div>
-      <div className="pb-5">
-        <h1 className="font-light text-xl text-primary-content">
-          Overview for{" "}
-          <span className="font-bold text-primary-content underline underline-offset-2 decoration-primary decoration-4">
-            {userLGA}
-          </span>
-        </h1>
+      <div className="pb-5 md:p-8">
+        <div className="grid gap-6 lg:grid-cols-2 items-start pb-8">
+          <div>
+            <h1 className="font-light text-xl sm:text-2xl lg:text-3xl text-primary-content mb-4 lg:mb-0 pb-4">
+              Overview for{" "}
+              <span className="font-bold text-primary-content underline underline-offset-2 decoration-primary decoration-4">
+                {userLGA}
+              </span>
+            </h1>
+            <p className="text-base sm:text-lg text-primary-content">
+              Detailed overview of the latest data and insights for your area.
+              Explore charts and maps below to analyse trends and patterns.
+            </p>
+          </div>
+          <div className="flex justify-center lg:justify-end mt-4 lg:mt-0">
+            <Map location={userLGA} />
+          </div>
+        </div>
       </div>
       <DashboardBarChartsSection />
       <DashboardQuadrantScatterSection />
