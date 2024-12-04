@@ -93,9 +93,10 @@ const Settings = () => {
             {/* Input field for first name */}
             <InputField
               label="First Name"
+              labelClassName={"text-primary-content"}
               type="text"
               placeholder="First Name"
-              className="lg:w-1/2 md:w-1/2 sm:w-full"
+              className="lg:w-1/2 md:w-[400px] w-[400px]"
               value={firstName}
               onChange={firstNameChangeHandler}
               onBlur={firstNameMarkAsTouched}
@@ -106,9 +107,10 @@ const Settings = () => {
             {/* Input field for last name */}
             <InputField
               label="Last Name"
+              labelClassName={"text-primary-content"}
               type="text"
               placeholder="Last Name"
-              className="lg:w-1/2 md:w-1/2 sm:w-full"
+              className="lg:w-1/2 md:w-[400px] w-[400px]"
               value={lastName}
               onChange={lastNameChangeHandler}
               onBlur={lastNameMarkAsTouched}
@@ -118,9 +120,10 @@ const Settings = () => {
             {/* Select field for local area */}
             <InputField
               label="Local Area"
+              labelClassName={"text-primary-content"}
               type="select"
               placeholder="Select Your Local Area"
-              className="lg:w-1/2 md:w-1/2 sm:w-full"
+              className="lg:w-1/2 md:w-[400px] w-[400px]"
               value={localArea}
               onChange={(e) => setLocalArea(e.target.value)}
               options={localAreaOptions}
@@ -133,9 +136,10 @@ const Settings = () => {
             {/* Input field for password */}
             <InputField
               label="Reset Password"
+              labelClassName={"text-primary-content"}
               type="password"
               placeholder="Password"
-              className="lg:w-1/2 md:w-1/2 sm:w-full"
+              className="lg:w-1/2 md:w-[400px] w-[400px]"
               value={passwordValue}
               onChange={passwordChangeHandler}
               onBlur={passwordMarkAsTouched}
@@ -179,6 +183,7 @@ const Settings = () => {
             <div className="flex flex-wrap gap-4 text-primary-content">
               <InputField
                 label="First Name"
+                labelClassName={"text-primary-content"}
                 type="text"
                 placeholder="First Name"
                 className="w-[400px]" // Fixed width of 400px
@@ -191,6 +196,7 @@ const Settings = () => {
 
               <InputField
                 label="Last Name"
+                labelClassName={"text-primary-content"}
                 type="text"
                 placeholder="Last Name"
                 className="w-[400px]" // Fixed width of 400px
@@ -206,6 +212,7 @@ const Settings = () => {
             <div className="flex flex-wrap gap-4 text-primary-content">
               <InputField
                 label="Email Address"
+                labelClassName={"text-primary-content"}
                 type="email"
                 placeholder="Email Address"
                 className="w-[400px]"
@@ -218,6 +225,7 @@ const Settings = () => {
 
               <InputField
                 label="Organisation/Company"
+                labelClassName={"text-primary-content"}
                 type="text"
                 placeholder="Organisation"
                 className="w-[400px]"
@@ -230,15 +238,17 @@ const Settings = () => {
             <div className="flex flex-wrap gap-4 text-primary-content">
               <InputField
                 label="Street Address"
+                labelClassName={"text-primary-content"}
                 type="text"
                 placeholder="Street Address"
-                className="w-full"
+                className="w-[400px]"
                 value={streetAddress}
                 onChange={(e) => setStreetAddress(e.target.value)}
               />
               <div className="flex gap-4 w-full sm:w-1/2">
                 <InputField
                   label="City"
+                  labelClassName={"text-primary-content"}
                   type="text"
                   placeholder="City"
                   className="w-full"
@@ -247,6 +257,7 @@ const Settings = () => {
                 />
                 <InputField
                   label="Postcode"
+                  labelClassName={"text-primary-content"}
                   type="text"
                   placeholder="Postcode"
                   className="w-[100px]"
@@ -261,6 +272,7 @@ const Settings = () => {
               <div className="w-full sm:w-1/2">
                 <InputField
                   label="Card Number"
+                  labelClassName={"text-primary-content"}
                   type="text"
                   placeholder="Card Number"
                   className="w-full"
@@ -272,6 +284,7 @@ const Settings = () => {
               <div className="w-full sm:w-1/4">
                 <InputField
                   label="Expiry Date"
+                  labelClassName={"text-primary-content"}
                   type="date"
                   className="w-full"
                   value={expiryDate}
@@ -281,6 +294,7 @@ const Settings = () => {
               <div className="w-full sm:w-1/4">
                 <InputField
                   label="CVV"
+                  labelClassName={"text-primary-content"}
                   type="text"
                   placeholder="CVV"
                   className="w-[100px]"

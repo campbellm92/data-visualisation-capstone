@@ -11,16 +11,17 @@ const InputField = ({
   options,
   onKeyDown,
   className,
+  labelClassName,
 }) => {
   return (
     <div className="form-control">
-      <label className="label">
-        <span className="label-text">{label}</span>
+      <label className={"label"}>
+        <span className={`label-text ${labelClassName}`}>{label}</span>
       </label>
       {/* If type is select, render select field, else render input field */}
       {type === "select" ? (
         <select
-          className={`input input-bordered ${className}`}
+          className={`input input-bordered ${className} text-black`}
           aria-label="Select Local Area"
           value={value}
           onChange={onChange}
@@ -32,7 +33,7 @@ const InputField = ({
           </option>
           {/* Map through options and render each option */}
           {options.map((option, index) => (
-            <option key={index} value={option} aria-label={option}>
+            <option key={index} value={option} aria-label={option} className="text-black">
               {option}
             </option>
           ))}
@@ -41,11 +42,12 @@ const InputField = ({
         <input
           type={type}
           placeholder={placeholder}
-          className={`input input-bordered ${className}`}
+          className={`input input-bordered ${className} text-black`}
           value={value}
           onChange={onChange}
           onBlur={onBlur}
           onKeyDown={onKeyDown}
+          labelClassName={labelClassName}
         />
       )}
       {/* If hasError is true, render error message */}
