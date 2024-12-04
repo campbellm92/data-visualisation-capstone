@@ -1,4 +1,4 @@
-// a more generalist fetch hook
+// a generalist fetch hook for fetching combined localis data (average daily rate, etc)
 
 import { useState, useEffect } from "react";
 import { kAPI_URL, kDEFAULT_ERROR_MSG } from "../utils/constants";

@@ -1,6 +1,6 @@
 import { useEffect, useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
-import { ButtonSmall } from "../ui/Buttons";
+import { ButtonSmallPrimary } from "../ui/Buttons";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import AuthModal from "../User/AuthModal";
 
@@ -25,7 +25,12 @@ export default function Navbar() {
     <div className="navbar bg-base-300">
       <div className="navbar-start">
         <div className="dropdown">
-          <div tabIndex={0} role="button" aria-label="Open menu" className="btn btn-ghost lg:hidden">
+          <div
+            tabIndex={0}
+            role="button"
+            aria-label="Open menu"
+            className="btn btn-ghost lg:hidden"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 text-primary-content"
@@ -113,17 +118,17 @@ export default function Navbar() {
       <div className="navbar-end pr-4">
         {/* If user is not logged in, show login button, else show logout button */}
         {!isLoggedIn ? (
-          <ButtonSmall
+          <ButtonSmallPrimary
             onClick={() => {
               document.getElementById("auth_modal").showModal();
             }}
           >
             Login
-          </ButtonSmall>
+          </ButtonSmallPrimary>
         ) : (
-          <ButtonSmall onClick={handleLogout} disabled={loading}>
+          <ButtonSmallPrimary onClick={handleLogout} disabled={loading}>
             {loading ? <LoadingSpinner /> : "Logout"}
-          </ButtonSmall>
+          </ButtonSmallPrimary>
         )}
       </div>
 

@@ -1,22 +1,23 @@
+/*
+Bar charts are rendered here in a section by themselves on the DashboardHome page/endpoint.
+Contains the chart configuration logic (useChartDataConfig) and state for setting the year, and opening and closing the modal.
+Data and other configuration passed down to AI Analysis modal as props.
+*/
+
 import { useContext, useState } from "react";
 import { useChartDataConfig } from "../../../api/hooks/useChartDataConfig";
 import BarChartHome from "../../../components/charts/Barcharts/BarChartHome";
 import { SelectWithBorderSmall } from "../../../components/ui/Selects";
 import { fields } from "../../../api/utils/constants";
 // import GraphInfoIcon from "../../../components/ui/GraphInfoIcon";
-import LLMResponse from "../../../components/layout/LLMResponse";
-// import Map from "../../../components/ui/Map";
 import LoadingSpinner from "../../../components/ui/LoadingSpinner";
 import { ButtonOpenAIAnalysisModal } from "../../../components/ui/Buttons";
-// import { useFetchLLMResponse } from "../../../api/hooks/useFetchLLMResponse";
-// import { AuthContext } from "../../../context/AuthProvider";
-import { AIAnalysisModal } from "../../../components/layout/AIAnalysisModal";
+import { AIAnalysisModal } from "../../../components/layout/analysis/AIAnalysisModal";
 import { AiAnalysisContext } from "../../../context/AiAnalysisProvider";
 
 export default function DashboardBarChartsSection() {
   const [year, setYear] = useState(2023);
   const { setYear: setAnalysisYear } = useContext(AiAnalysisContext);
-  // const { user } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { loading, data, error, user } = useChartDataConfig({
@@ -26,14 +27,8 @@ export default function DashboardBarChartsSection() {
     chartType: "bar",
   });
 
-  // const { loading, responseFromLLM, error } = useFetchLLMResponse(
-  //   `Please write 100 words describing the rental market in ${user.lga}`,
-  //   []
-  // ); // getLLMResponseFromServer("Why is water wet?", []);
-
   const openModal = () => {
     setIsModalOpen(true);
-    // Open the modal using your preferred method, e.g., setting a ref or using a modal library
   };
 
   const closeModal = () => {
@@ -41,12 +36,18 @@ export default function DashboardBarChartsSection() {
   };
 
   return (
-    <div className="barchart-section mb-5">
+    <div className="mb-5">
+      {error && (
+        <p className="text-error">
+          Graphs could not be displayed. Please try again later.
+        </p>
+      )}
       <div className="pb-5 flex justify-end gap-2 items-center">
         <ButtonOpenAIAnalysisModal onClick={openModal} />
         <SelectWithBorderSmall
           onChange={(e) => {
             const selectedYear = Number(e.target.value);
+            console.log("Year selected:", selectedYear);
             setYear(selectedYear);
             setAnalysisYear(selectedYear);
           }}
@@ -55,7 +56,6 @@ export default function DashboardBarChartsSection() {
           <option value="2024">2024</option>
         </SelectWithBorderSmall>
       </div>
-
       {/* <div className="flex flex-wrap md:flex-nowrap items-center gap-4 mb-10">
         <div className="shadow-md border-1 rounded p-2 w-[430px] h-[325px]">
           <Map location={user.lga}></Map>

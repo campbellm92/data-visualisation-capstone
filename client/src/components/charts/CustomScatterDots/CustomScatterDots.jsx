@@ -1,3 +1,7 @@
+/*
+Configuration for turning regular Recharts scatter dots into letters representing each month
+*/
+
 import { monthColours } from "../../../api/utils/graphColourConfig";
 
 export default function CustomScatterDots({ cx, cy, payload }) {
@@ -8,7 +12,7 @@ export default function CustomScatterDots({ cx, cy, payload }) {
     <text
       x={cx}
       y={cy}
-      dy={4} // Center the letter vertically
+      dy={4}
       textAnchor="middle"
       fontSize={16}
       fill={fillColour}

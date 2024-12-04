@@ -1,3 +1,9 @@
+/*
+Contains graph configuration logic that ties in:
+- fetching logic from useFetchLocalisData
+- filtering logic for filtering data by monthly average
+*/
+
 import { useContext, useMemo } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { useFetchLocalisData } from "./useFetchLocalisData";
@@ -12,8 +18,8 @@ function processBarChartData(data, userLGA, year, dataFields) {
   return getDataMonthlyAverages(filteredData, year, dataFields);
 }
 
-// function for processing X chart data:
-
+// function for processing scatter chart data:
+// note: this is a regular scatter chart, not a quadrant. Quadrant may be implemented at some point
 function processQuadrantScatterChartData(data, userLGA, year, dataFields) {
   const filteredData = data.filter(
     (item) =>
@@ -22,8 +28,7 @@ function processQuadrantScatterChartData(data, userLGA, year, dataFields) {
   return getDataMonthlyAverages(filteredData, year, dataFields);
 }
 
-// hook for chart data config, including fetch call, user state
-
+// hook for configuring chart data for various charts, including fetch call and accessing user state
 export function useChartDataConfig({ endpoint, year, dataFields, chartType }) {
   const { loading: dataLoading, data, error } = useFetchLocalisData(endpoint);
 
@@ -31,11 +36,6 @@ export function useChartDataConfig({ endpoint, year, dataFields, chartType }) {
   const userLoading = !isAuthChecked;
 
   const processedData = useMemo(() => {
-    console.log("userLoading:", userLoading);
-    console.log("dataLoading:", dataLoading);
-    console.log("user:", user);
-    console.log("data:", data);
-
     if (dataLoading || userLoading || !user || !data) {
       console.log("Early return from useMemo due to loading or missing data");
       return null;

@@ -11,10 +11,11 @@ export default {
     themes: [
       {
         publicTheme: {
-          primary: "#925e2a", // Button background color
-          "primary-content": "#ffffff",
+          primary: "#C05621",
           secondary: "#086189",
+          "primary-content": "#ffffff",
           "secondary-content": "#0f172a",
+          "base-100": "#edebe7",
           "base-200": "#374151",
           "base-300": "#1f2937",
           info: "#237496",
@@ -53,7 +54,7 @@ export default {
       },
       {
         goldCoastTheme: {
-          primary: "#8c5d2d",
+          primary: "#C05621",
           "primary-content": "#0f172a",
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",
@@ -67,7 +68,7 @@ export default {
       },
       {
         goldCoastDarkTheme: {
-          primary: "#8c5d2d",
+          primary: "#C05621",
           "primary-content": "#edebe7",
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",
@@ -124,20 +125,6 @@ export default {
       {
         cairnsDarkTheme: {
           primary: "#15803d",
-          "primary-content": "#edebe7",
-          secondary: "#0ea5e9",
-          "secondary-content": "#f1f5f9",
-          "base-200": "#1f2937",
-          "base-300": "#111827",
-          info: "#237496",
-          success: "#289b6f",
-          warning: "#fccd5e",
-          error: "#f87979",
-        },
-      },
-      {
-        darkTheme: {
-          primary: "#925e2a",
           "primary-content": "#edebe7",
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",

@@ -1,3 +1,7 @@
+/*
+Utility functions related to date conversion
+*/
+
 // convert dates in YYYY-MM-DD format to month and year string (e.g. January 2023)
 export function numericDateToString(date) {
   const dateToConvert = new Date(date);
@@ -10,10 +14,9 @@ export function numericDateToString(date) {
 
   return { month, year };
 }
-//output: January 2023
 
 // convert numeric dates to season names (Summer, Autumn, etc)
-// function not in use
+// function not in use / not currently working
 export function convertMonthsToSeasons(month, year) {
   let seasonYear = year;
   switch (month) {

@@ -1,3 +1,8 @@
+/*
+Filter functions for converting data into monthly or season averages.
+Seasonal average function not currently in use / not working
+*/
+
 import { numericDateToString, convertMonthsToSeasons } from "./dateUtils";
 import { kAPI_URL } from "./constants";
 
@@ -44,7 +49,7 @@ export function getDataMonthlyAverages(data, year, dataFields) {
 }
 
 // function for getting averages across seasons
-// function not in use
+// function not in use / not currently working
 export function getDataSeasonalAverage(data, year, dataField) {
   // dataField = average daily rate, etc
   const seasonalData = {};
@@ -115,13 +120,13 @@ export async function getUrlFromServer(url) {
   }
 }
 
-
 // function for retrieving url from server in fetch requests to data endpoint
 export async function getLLMResponseFromServer(prompt, dataSet) {
+  console.log("Sending prompt to backend:", prompt);
 
-  console.log("inside getLLMResponseFromServer");
+  // console.log("inside getLLMResponseFromServer");
   const url = `${kAPI_URL}/ai/query_llm`;
- //const token = localStorage.getItem("token");
+  //const token = localStorage.getItem("token");
 
   const headers = {
     "Content-Type": "application/json",
@@ -132,23 +137,22 @@ export async function getLLMResponseFromServer(prompt, dataSet) {
   // }
 
   try {
-
     console.log("FETCHING " + url);
-    
+
     const res = await fetch(url, {
       method: "POST",
       headers: headers,
       body: JSON.stringify({
         prompt: prompt + " " + JSON.stringify(dataSet),
-      })
+      }),
     });
 
-    
     if (!res.ok) {
       throw new Error("No response from server ");
     }
 
     const data = await res.json();
+    console.log("Raw response from backend:", data);
 
     if (data.error) {
       throw new Error(data.message || "Failed to fetch user data.");

@@ -1,3 +1,7 @@
+/*
+Contains the view logic for rendering scatter charts
+*/
+
 import {
   ScatterChart,
   Scatter,
@@ -12,18 +16,8 @@ import { ThemeContext } from "../../../context/ThemeProvider";
 import { lgaColours } from "../../../api/utils/graphColourConfig";
 import CustomTooltip from "../CustomTooltips/CustomTooltip";
 import CustomScatterDots from "../CustomScatterDots/CustomScatterDots";
-import { useChartDataConfig } from "../../../api/hooks/useChartDataConfig";
 
-export default function QuadrantScatterHome({ year }) {
-  const dataFields = ["average_daily_rate", "average_length_of_stay"];
-
-  const { loading, data, error, user } = useChartDataConfig({
-    endpoint: "/combined_data",
-    year,
-    dataFields,
-    chartType: "quadrantScatter",
-  });
-
+export default function QuadrantScatterHome({ year, data, loading, user }) {
   const { darkMode } = useContext(ThemeContext);
 
   const userLGA = user?.lga || "";
@@ -53,7 +47,7 @@ export default function QuadrantScatterHome({ year }) {
       })
       .filter((item) => item !== null);
 
-    // Calculate x-axis min, max, and ticks
+    // calculate x-axis min, max, and ticks
     const xValues = scatterData.map((point) => point.x);
     const yValues = scatterData.map((point) => point.y);
 
@@ -85,8 +79,6 @@ export default function QuadrantScatterHome({ year }) {
     <div style={{ width: "100%", height: 400 }}>
       {loading ? (
         <p>Loading...</p>
-      ) : error ? (
-        <p>Error loading data</p>
       ) : scatterData.length > 0 ? (
         <ResponsiveContainer>
           <ScatterChart

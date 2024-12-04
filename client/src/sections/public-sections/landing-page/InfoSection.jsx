@@ -3,7 +3,7 @@ import { ButtonMediumWide } from "../../../components/ui/Buttons";
 export default function InfoSection() {
   return (
     <div>
-      <div className="info-part bg-base-100 flex flex-col lg:flex-row-reverse items-center justify-center w-full">
+      <div className="info-part  flex flex-col lg:flex-row-reverse items-center justify-center w-full">
         <div className="hero w-full h-full">
           <div className="hero-content flex-col lg:flex-row-reverse text-center justify-between lg:p-10">
             <img
@@ -33,14 +33,14 @@ export default function InfoSection() {
         </div>
       </div>
 
-      <div className="client-logos-part bg-base-100 flex-grow">
-        <div className="header bg-primary-content text-primary text-2xl font-bold text-center pt-10">
+      {/* <div className="client-logos-part flex-grow">
+        <div className="text-primary text-2xl font-bold text-center pt-10">
           WHO WE'VE HELPED
         </div>
         <div className="banner">
           <img src="/assets/logos/companies-logos.png" alt="Company logos" />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

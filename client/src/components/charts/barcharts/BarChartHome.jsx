@@ -1,4 +1,8 @@
-// this contains the logic for the bar charts that I propose will be placed at the 'home'/'dashboard' endpoint which the user sees once they log in
+/*
+Configuration point for bar charts.
+Takes theme from theme context 
+User prop is passed down from DashboardBarChartsSection
+*/
 
 import { useContext } from "react";
 import {
@@ -13,17 +17,9 @@ import {
 import { ThemeContext } from "../../../context/ThemeProvider";
 import { dataFieldDisplayNames } from "../../../api/utils/constants";
 import { lgaColours } from "../../../api/utils/graphColourConfig";
-import { useChartDataConfig } from "../../../api/hooks/useChartDataConfig";
 import CustomTooltip from "../CustomTooltips/CustomTooltip";
 
 export default function BarChartHome({ year, dataField, data, loading, user }) {
-  // const { loading, data, error, user } = useChartDataConfig({
-  //   endpoint: "/combined_data",
-  //   year,
-  //   dataFields: [dataField],
-  //   chartType: "bar",
-  // });
-
   const { darkMode } = useContext(ThemeContext);
 
   const userLGA = user.lga || "";

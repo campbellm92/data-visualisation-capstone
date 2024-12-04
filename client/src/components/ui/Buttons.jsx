@@ -1,4 +1,15 @@
-export function ButtonSmall({ children, onClick }) {
+export function ButtonSmallPrimary({ children, onClick }) {
+  return (
+    <button
+      className="btn btn-sm btn-primary text-primary-content"
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+}
+
+export function ButtonSmallSecondary({ children, onClick }) {
   return (
     <button
       className="btn btn-sm btn-primary text-secondary-content"
@@ -20,7 +31,7 @@ export function ButtonMedium({ children }) {
 export function ButtonOutline({ children, onClick, id, disabled, className }) {
   return (
     <button
-      className={`btn btn-sm btn-outline border-primary text-primary-content hover:text-secondary-content hover:bg-primary ${className}`}
+      className={`btn btn-sm btn-outline border-primary text-primary-content hover:text-secondary-content hover:bg-primary hover:outline-none active:text-secondary-content ${className}`}
       id={id}
       onClick={onClick}
       disabled={disabled}
