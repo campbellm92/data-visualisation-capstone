@@ -9,10 +9,8 @@ export default function DashboardSidebar({ isCollapsed }) {
 
   const sidebarItems = [
     { href: "/dashboard", label: "Dashboard", icon: <Icons.Home /> },
-    { href: "/LGAPage", label: "January", icon: <Icons.Calender /> },
     { href: "/welcome", label: "Data", icon: <Icons.DataStack /> },
-    { href: "/welcome", label: "Grants", icon: <Icons.Pencil /> },
-    { href: "/welcome", label: "AI", icon: <Icons.CPUChip /> },
+    // { href: "/welcome", label: "Grants", icon: <Icons.Pencil /> },
     { href: "/guide", label: "Guide", icon: <Icons.InfoIcon /> },
   ];
   return (
