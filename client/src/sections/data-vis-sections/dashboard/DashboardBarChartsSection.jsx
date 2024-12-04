@@ -1,3 +1,9 @@
+/*
+Where the bar charts are rendered.
+Contains the chart configuration logic (useChartDataConfig) and state for setting the year, and opening and closing the modal.
+Data and other configuration passed down to AI Analysis modal as props.
+*/
+
 import { useContext, useState } from "react";
 import { useChartDataConfig } from "../../../api/hooks/useChartDataConfig";
 import BarChartHome from "../../../components/charts/Barcharts/BarChartHome";
