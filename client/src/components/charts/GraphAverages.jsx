@@ -213,7 +213,7 @@ export default function GraphAverages({
                   stroke={kGraphColours[LGA]}
                   fill={kGraphColours[LGA]}
                   dot={false}
-                  isAnimationActive={false}
+                  isAnimationActive={true}
                 />
               );
             })}
