@@ -217,16 +217,9 @@ router.get("/api/combined_data/:LGAName", function (req, res, next) {
 });
 
 router.get("/api/spend_data", function (req, res, next) {
-<<<<<<< HEAD
-
-  // console.log("LGA " + req.query.LGAName);
-  // console.log("Start " + req.query.start);
-  // console.log("End " + req.query.end);
-=======
   console.log("LGA " + req.query.LGAName);
   console.log("Start " + req.query.start);
   console.log("End " + req.query.end);
->>>>>>> cca9a081d731965a9797d7bd0ba8b6b057e48b3f
 
   if (getResponseFromCache(req.url) === undefined) {
     //console.log("not hitting cache");
@@ -262,17 +255,7 @@ router.get("/api/spend_data", function (req, res, next) {
         res.json({ Error: true, Message: "Error - " + err.sqlMessage });
       });
   } else {
-<<<<<<< HEAD
-    //console.log("YES hitting cache");
     res.json({ Error: false, Message: "Success", combined_data: getResponseFromCache(req.url) });
-=======
-    console.log("YES hitting cache");
-    res.json({
-      Error: false,
-      Message: "Success3",
-      combined_data: getResponseFromCache(req.url),
-    });
->>>>>>> cca9a081d731965a9797d7bd0ba8b6b057e48b3f
   }
 });
 

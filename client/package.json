@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.1.5",
+    "@use-gesture/react": "^10.3.1",
     "ag-charts-react": "^10.1.0",
     "axios": "^1.7.7",
+    "dayjs": "^1.11.13",
     "dom-to-image": "^2.6.0",
     "html-to-pdfmake": "^2.5.15",
     "html2canvas": "^1.4.1",
@@ -23,6 +25,7 @@
     "react-draggable": "^4.4.6",
     "react-markdown": "^9.0.1",
     "react-router-dom": "^6.27.0",
+    "react-tailwindcss-datepicker": "^1.7.2",
     "recharts": "^2.13.0",
     "remark-gfm": "^4.0.0"
   },
