@@ -58,7 +58,7 @@ export default function DashboardQuadrantScatterSection() {
         />
       </div>
 
-      {isModalOpen && (
+      {isModalOpen && data && (
         <AIAnalysisModal
           closeModal={closeModal}
           data={data}
