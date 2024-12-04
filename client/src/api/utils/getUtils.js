@@ -1,3 +1,8 @@
+/*
+Filter functions for converting data into monthly or season averages.
+Seasonal average function not currently in use / not working
+*/
+
 import { numericDateToString, convertMonthsToSeasons } from "./dateUtils";
 import { kAPI_URL } from "./constants";
 
@@ -44,7 +49,7 @@ export function getDataMonthlyAverages(data, year, dataFields) {
 }
 
 // function for getting averages across seasons
-// function not in use
+// function not in use / not currently working
 export function getDataSeasonalAverage(data, year, dataField) {
   // dataField = average daily rate, etc
   const seasonalData = {};
