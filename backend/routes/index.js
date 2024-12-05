@@ -216,6 +216,30 @@ router.get("/api/combined_data/:LGAName", function (req, res, next) {
     });
 });
 
+router.get("/api/spend_categories", function (req, res, next) {
+  
+  if (getResponseFromCache(req.url) === undefined) {
+    //console.log("not hitting cache");
+    req.db
+      .from("spend_data")
+      .distinct("category")
+      .orderBy("category")
+      .then((rows) => {
+        //console.log(rows);
+        let data = rows.map((cat) => cat.category);
+        putResponseIntoCache(req.url, data);
+        res.json({ Error: false, Message: "Success", data: data });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.json({ Error: true, Message: "Error - " + err.sqlMessage });
+      });
+  } else {
+    res.json({ Error: false, Message: "Success", data: getResponseFromCache(req.url) });
+  }
+});
+
+
 router.get("/api/spend_data", function (req, res, next) {
   console.log("LGA " + req.query.LGAName);
   console.log("Start " + req.query.start);
