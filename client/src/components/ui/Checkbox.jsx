@@ -4,13 +4,13 @@ export default function Checkbox({ label, value, setValue }) {
   };
 
   return (
-    <div className="grid grid-cols-5 m-4">
+    <div className="grid grid-cols-5 mt-2">
       <div className="p-0 col-span-1">
         <input
           id={label}
           type="checkbox"
           checked={value}
-          className="checkbox checkbox-xl checkbox-primary"
+          className="checkbox checkbox-xl checkbox-primary m-0"
           onChange={handleChange}
           aria-label={`Toggle ${value ? "on" : "off"} checkbox`}
         />
