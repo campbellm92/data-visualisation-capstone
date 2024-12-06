@@ -104,7 +104,7 @@ export default function Graphs() {
 
         <h1 className="font-light lg:p-3 text-xl sm:text-2xl lg:text-3xl text-primary-content mb-4 lg:mb-0 pb-4">Data Analyst</h1>
 
-        <div className="grid md:grid-cols-1 gap-0 mb-4 items-start lg:grid-cols-[1fr_1fr_1fr_1fr_1fr_50px]">
+        <div className="grid md:grid-cols-1 opacity-95 gap-0 mb-4 items-start lg:grid-cols-[1fr_1fr_1fr_1fr_1fr_50px]">
           <div className="shadow-md border-1 text-primary-content rounded bg-base-300 m-1 p-3 md:min-w-44 z-20">
 
             <div className="">
@@ -119,11 +119,13 @@ export default function Graphs() {
                   <DatePicker value={selectedDateRange}
                     setSelectedDateRange={setSelectedDateRange} />
                 </div>
+                {width > mdSplit && width < lgSplit ? <div className="h-[450px]"> </div> : null}
+                {width < mdSplit ? <div className="h-[850px]"> </div> : null}
               </details>
             </div>
 
           </div>
-          <div className="shadow-md border-1 rounded bg-base-300 m-1 p-3 md:min-w-44 z-20">
+          <div className="shadow-md opacity-95 border-1 rounded bg-base-300 m-1 p-3 md:min-w-44 z-20">
             <details id="LGASelector" onClick={() => setOpenDetails("LGASelector")}>
               <summary className="text-primary-content">LGAs</summary>
               <Checkbox
@@ -149,7 +151,7 @@ export default function Graphs() {
             </details>
           </div>
 
-          <div className="shadow-md border-1 rounded bg-base-300 m-1 p-3 md:min-w-44 z-20">
+          <div className="shadow-md border-1 opacity-95 rounded bg-base-300 m-1 p-3 md:min-w-44 z-20">
             <details id="MetricSelector" onClick={() => setOpenDetails("MetricSelector")}>
               <summary className="text-primary-content">Metrics</summary>
               <Checkbox
@@ -186,9 +188,9 @@ export default function Graphs() {
                 : null}
             </details></div>
           {spendingDataSelected && !spendCatsLoading && !spendCatsError && spendCats ?
-            <div className="shadow-md border-1 rounded bg-base-300 m-1 p-3 md:min-w-55 z-20">
+            <div className="shadow-md border-1 opacity-95 rounded bg-base-300 m-1 p-3 md:min-w-55 z-20">
               <details id="SpendCatSelector" onClick={() => { setOpenDetails("SpendCatSelector") }}>
-                <summary className="text-primary-content">Spend Categories</summary>
+                <summary className="text-primary-content">Spending</summary>
                 <SpendCats spendCats={spendCats}
                   selectedCats={selectedCats}
                   onChangeCat={toggleCat}
@@ -198,7 +200,7 @@ export default function Graphs() {
             : null}
 
           {!loading && !error && dataSet ? (
-            <div className="shadow-md border-1 rounded m-1 p-3 relative shadow-lg bg-base-300 text-primary-content z-20">
+            <div className="shadow-md border-1 opacity-95 rounded m-1 p-3 relative shadow-lg bg-base-300 text-primary-content z-20">
               <details id="AIWidget" onClick={() => setOpenDetails("AIWidget")}><summary>AI Analysis</summary>
                 <AIAnalysis
                   dataSet={dataSet
@@ -256,7 +258,7 @@ export default function Graphs() {
               >Download Report</ButtonMediumFullWide>}
 
           </div>
-          <div className="lg:col-span-12 xl:col-span-10 lg:h-[70vh] lg:mr-8 lg:overflow-scroll lg:fixed lg:top-56 z-10" /* max-w-[1440px]"*/>
+          <div className="lg:col-span-12 xl:col-span-10 lg:h-[70vh] xl:h-[70vh] lg:mr-8 lg:overflow-scroll lg:fixed lg:top-56 z-10" /* max-w-[1440px]"*/>
             {!loading && !error && dataSet ? (
               <div id="report-container" className="pr-3">
                 {llmResponse !== '' && aiAnalysisSelected ?

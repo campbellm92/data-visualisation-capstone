@@ -241,9 +241,6 @@ router.get("/api/spend_categories", function (req, res, next) {
 
 
 router.get("/api/spend_data", function (req, res, next) {
-  console.log("LGA " + req.query.LGAName);
-  console.log("Start " + req.query.start);
-  console.log("End " + req.query.end);
 
   if (getResponseFromCache(req.url) === undefined) {
     //console.log("not hitting cache");
