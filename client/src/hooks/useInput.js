@@ -24,11 +24,16 @@ export default function useInput(validateValue) {
     setIsTouched(false);
   };
 
+  const setValue = (value) => {
+    setEnteredValue(value);
+  };
+
   return {
     value: enteredValue,
     hasError,
     valueChangeHandler,
     markAsTouched,
     inputReset,
+    setValue,
   };
 }
