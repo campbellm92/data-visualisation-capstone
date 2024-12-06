@@ -25,6 +25,13 @@ router.get("/profile", authorization, async function (req, res, next) {
         firstName: user.FirstName,
         lastName: user.LastName,
         LGAName: user.LGAName,
+        Organisation: user.Organisation,
+        StreetAddress: user.StreetAddress,
+        City: user.City,
+        Postcode: user.Postcode,
+        CardNumber: user.CardNumber,
+        ExpiryDate: user.ExpiryDate,
+        CVV: user.CVV,
       },
     });
   } catch (err) {
@@ -222,6 +229,62 @@ router.post("/register", function (req, res, next) {
         message: "Error registering user ",
       });
     });
+});
+
+router.put("/update", authorization, async function (req, res, next) {
+  try {
+    const { 
+      firstName, 
+      lastName, 
+      email, 
+      LGAName, 
+      password, 
+      Organisation, 
+      StreetAddress, 
+      City, 
+      Postcode, 
+      CardNumber, 
+      ExpiryDate, 
+      CVV 
+    } = req.body;
+    const userEmail = req.user.email;
+
+    // Fetch user from DB
+    const users = await req.db.from("users").select("*").where("email", userEmail);
+
+    if (users.length === 0) {
+      return res.status(404).json({ error: true, message: "User not found" });
+    }
+
+    const user = users[0];
+
+    // Update user details
+    const updatedUser = {
+      firstName: firstName || user.firstName,
+      lastName: lastName || user.lastName,
+      email: email || user.email,
+      LGAName: LGAName || user.LGAName,
+      Organisation: Organisation || user.Organisation,
+      StreetAddress: StreetAddress || user.StreetAddress,
+      City: City || user.City,
+      Postcode: Postcode || user.Postcode,
+      CardNumber: CardNumber || user.CardNumber,
+      ExpiryDate: ExpiryDate || user.ExpiryDate,
+      CVV: CVV || user.CVV,
+    };
+
+    if (password) {
+      const saltRounds = 10;
+      updatedUser.hash = bcrypt.hashSync(password, saltRounds);
+    }
+
+    await req.db.from("users").where("email", userEmail).update(updatedUser);
+
+    res.status(200).json({ success: true, message: "User details updated" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: true, message: "Database error" });
+  }
 });
 
 module.exports = router;
