@@ -37,13 +37,7 @@ export default function Graphs() {
   const { spendingDataLoading, spendingDataSet, spendingDataError } = useLocalisSpendingData(selectedDateRange.startDate, selectedDateRange.endDate);
 
   const { spendCatsLoading, spendCats, spendCatsError } = useLocalisSpendCategories();
-  const [selectedCats, setSelectedCats] = useState(["Food & Grocery", "Restaurants", "Bars/Taverns/Lounges/Discos",
-    "Hotels/Motels & Resorts", //"Fuel", 
-
-    //"Health Care & Drug Store", "Health Care & Drug Store"
-    //"Bars/Taverns/Lounges/Discos", "Airlines/Air Carriers", "Automotive", "Entertainment", "Business To Business", "Discount & Variety Stores", "Duty Free Stores"
-  ]
-  );
+  const [selectedCats, setSelectedCats] = useState(["Airlines/Air Carriers", "Automotive", "Bars/Taverns/Lounges/Discos"]);
 
   const [llmResponse, setllmResponse] = useState('');
 
@@ -155,7 +149,7 @@ export default function Graphs() {
             <details id="MetricSelector" onClick={() => setOpenDetails("MetricSelector")}>
               <summary className="text-primary-content">Metrics</summary>
               <Checkbox
-                label="Spending Data"
+                label="Spending"
                 value={spendingDataSelected}
                 setValue={setSpendingDataSelected}
               />
@@ -277,7 +271,7 @@ export default function Graphs() {
                         <GraphSpendingSet
                           id="spending-graphs"
                           useRechart={useRechart}
-                          title="Spending Data For"
+                          title="Spending For"
                           avgTitle="Category $ comparison"
                           field={"spend"}
                           selectedCats={selectedCats}
