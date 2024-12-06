@@ -6,7 +6,7 @@ export function SelectLLMPrompt({ id, handleSelectChange }) {
       onChange={handleSelectChange}
     >
       <option disabled>Select one of these default prompts</option>
-      <option selected>Please analyse the selected data</option>
+      <option>Please analyse the selected data</option>
       <option>Please compare the different LGAs in this data</option>
       <option>
         Which LGA is the best area for me to buy an investment property in?

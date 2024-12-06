@@ -17,14 +17,14 @@ function handleSelectChange() {
   document.getElementById("prompt").value = "";
 }
 
-const AIAnalysis = ({ dataSet, llmResponse, setllmResponse, setAiAnalysisSelected }) => {
+const AIAnalysis = ({ dataSet, llmResponse, setllmResponse, setAiAnalysisSelected, afterClickAnalyse }) => {
 
   function closeForm() {
     setllmResponse(kDefaultResponse);
     document.getElementById("analyse_modal").close();
   }
 
-  async function doAnalysis(e, setAiAnalysisSelected) {
+  async function doAnalysis(e, setAiAnalysisSelected, afterClickAnalyse) {
     const working = document.getElementById("working");
     const analyseButton = document.getElementById("analyse-button");
     const customPromptField = document.getElementById("prompt");
@@ -68,21 +68,20 @@ const AIAnalysis = ({ dataSet, llmResponse, setllmResponse, setAiAnalysisSelecte
     }
 
     setAiAnalysisSelected(true);
+    afterClickAnalyse();
   }
 
   return (
     <div>
       {/*<dialog id="analyse_modal" className="modal w-full">*/}
 
-      <div className="shadow-md border-1 rounded p-3 relative shadow-lg bg-base-300">
+      <div>
         <form id="prompt-form" method="dialog">
           <label
             id="prompt-label"
             className="form-control text-primary-content"
           >
-            <div className="label">
-              <span className="font-bold text-primary-content">Generate an AI Analysis</span>
-            </div>
+
             <div className="label">
               <span className="text-primary-content">By using a Default Prompt</span>
             </div>
@@ -129,7 +128,7 @@ const AIAnalysis = ({ dataSet, llmResponse, setllmResponse, setAiAnalysisSelecte
         <ButtonMediumFullWide
           id="analyse-button"
           onClick={(e) => {
-            doAnalysis(e, setAiAnalysisSelected);
+            doAnalysis(e, setAiAnalysisSelected, afterClickAnalyse);
             return false;
           }}
           textColor={"text-secondary-content"}

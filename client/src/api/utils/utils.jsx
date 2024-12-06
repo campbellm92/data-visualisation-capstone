@@ -80,7 +80,6 @@ export function getUrlFromCache(cache, url, filter = (element) => true) {
 // Take a url and authenticate boolean. If authenticate is true then the user's JWT is
 // passed in the request header
 export function getUrlFromServer(url, authenticate) {
-  console.log(`api url = ${url}`);
 
   return fetch(url, {
     method: "GET",
@@ -100,9 +99,7 @@ export function getUrlFromServer(url, authenticate) {
       if (data.error) {
         throw data;
       }
-      console.log("Full response data:", data);
-      //console.table(data['combined_data']);
-      return data["combined_data"];
+      return data["data"];
     });
 }
 
@@ -133,6 +130,9 @@ export function convertToLabel(name) {
   return name.replace(' ', '_').toLowerCase();
 }
 
+export function toTitleCase(str) {
+  return str.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+}
 
 export function calculateAreaUnderCurve(dataSet) {
 

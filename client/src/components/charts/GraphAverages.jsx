@@ -176,7 +176,7 @@ export default function GraphAverages({
         : null,
     ];
     return (
-      <div style={{ width: "100%", height: "90%" }}>
+      <div key={field} style={{ width: "100%", height: "90%" }}>
         <ResponsiveContainer>
           <h2
             className="text-primary-content font-light pb-3"
@@ -206,7 +206,7 @@ export default function GraphAverages({
           </Pie>*/}
             {LGAs.map((LGA) => {
               return (
-                <Bar
+                <Bar key={LGA}
                   type="monotone"
                   name={LGA}
                   dataKey={convertToLabel(LGA) + "_average"}

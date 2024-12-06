@@ -48,6 +48,7 @@ export default function GraphDetails({
   startDate,
   setStartDate,
   totalDateRange,
+  setSelectedDateRange,
   windowDays,
   setWindowDays,
   title,
@@ -65,7 +66,7 @@ export default function GraphDetails({
   const bind = useGesture({
     onDrag: ({ delta: [dx, dy] }) => {
 
-      console.log(`startDate=${startDate} totalDateRange.startDate = ${totalDateRange.startDate}`);
+      //console.log(`startDate=${startDate} totalDateRange.startDate = ${totalDateRange.startDate}`);
 
       let nextStartDate = addDaysToDate(startDate, -(dx - prevDragDx));
       let nextWindowDays = windowDays + ((dy - prevDragDy) * kYZoomScale);
@@ -84,6 +85,7 @@ export default function GraphDetails({
       } else {
         setWindowDays(nextWindowDays);
         setStartDate(nextStartDate);
+        setSelectedDateRange({ startDate: nextStartDate, endDate: addDaysToDate(nextStartDate, nextWindowDays)});
         prevDragDx = dx;
         prevDragDy = dy;
   
@@ -108,7 +110,7 @@ export default function GraphDetails({
     // console.table(LGAs);
 
     return (
-      <div {...bind()} style={{ width: "100%", height: "90%", userSelect: 'none', touchAction: 'none', margin: 50 }}>
+      <div key={field} {...bind()} style={{ width: "100%", height: "90%", userSelect: 'none', touchAction: 'none', margin: 50 }}>
         <ResponsiveContainer style={{}}>
           <h2
             className="text-primary-content font-light pb-3"
@@ -132,7 +134,7 @@ export default function GraphDetails({
             <Legend />
             {LGAs.map((LGA) => {
               return (
-                <Line
+                <Line key={LGA}
                   type="monotone"
                   name={LGA}
                   dataKey={LGA}

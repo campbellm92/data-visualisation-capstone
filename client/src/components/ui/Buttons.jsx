@@ -110,6 +110,35 @@ export function ButtonOpenAIAnalysisModal({ onClick }) {
   );
 }
 
+export function ButtonDownloadReport({
+  onClick,
+  id,
+  textColor = "text-primary-content"
+}) {
+  return (
+    <button onClick={onClick}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-8 text-primary-content hover:text-primary cursor-pointer"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3 16.5v1.125C3 18.496 3.504 19 
+    4.125 19h15.75c.621 0 1.125-.504 
+    1.125-1.125V16.5M7.5 10.5l4.5 
+    4.5m0 0l4.5-4.5m-4.5 4.5V3"
+        />
+      </svg>
+    </button>
+  );
+}
+
+
 export function CloseButton({ onClick }) {
   return (
     <button className="" onClick={onClick}>

@@ -11,7 +11,7 @@ import { kAPI_URL, kDEFAULT_ERROR_MSG } from "../utils/constants";
 import { getUrlFromCache, getUrlFromServer } from "../utils/utils";
 
 // Retrieve Ranking data based on year and country from the external API
-export function useLocalisData(startDate, windowDays) {
+export function useLocalisData(startDate, endDate) {
   const [loading, setLoading] = useState(false);
   const [dataSet, setDataSet] = useState();
   const [firstDate, setFirstDate] = useState();
@@ -20,7 +20,7 @@ export function useLocalisData(startDate, windowDays) {
   const [error, setError] = useState(null);
   const [cache, setCache] = useState({});
   const startDateDate = new Date(startDate);
-  const endDateDate = new Date(addDaysToDate(startDate, windowDays));
+  const endDateDate = new Date(endDate);
 
   // console.log(startDateDate);
   // console.log(endDateDate);
@@ -69,7 +69,7 @@ export function useLocalisData(startDate, windowDays) {
           setLoading(false);
         });
     }
-  }, [startDate, windowDays, cache]);
+  }, [startDate, endDate, cache]);
 
   return {
     loading: loading,

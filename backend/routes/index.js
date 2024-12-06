@@ -129,7 +129,7 @@ router.get("/api/combined_data", function (req, res, next) {
       .orderBy("sample_date", "lga_name")
       .then((rows) => {
         putResponseIntoCache(req.url, rows);
-        res.json({ Error: false, Message: "Success", combined_data: rows });
+        res.json({ Error: false, Message: "Success", data: rows });
       })
       .catch((err) => {
         console.log(err);
@@ -139,7 +139,7 @@ router.get("/api/combined_data", function (req, res, next) {
     res.json({
       Error: false,
       Message: "Success",
-      combined_data: getResponseFromCache(req.url),
+      data: getResponseFromCache(req.url),
     });
   }
 });
@@ -208,7 +208,7 @@ router.get("/api/combined_data/:LGAName", function (req, res, next) {
     })
 
     .then((rows) => {
-      res.json({ Error: false, Message: "Success", combined_data: rows });
+      res.json({ Error: false, Message: "Success", data: rows });
     })
     .catch((err) => {
       console.log(err);
@@ -272,14 +272,14 @@ router.get("/api/spend_data", function (req, res, next) {
       .then((rows) => {
         //console.log(rows);
         putResponseIntoCache(req.url, rows);
-        res.json({ Error: false, Message: "Success", combined_data: rows });
+        res.json({ Error: false, Message: "Success", data: rows });
       })
       .catch((err) => {
         console.log(err);
         res.json({ Error: true, Message: "Error - " + err.sqlMessage });
       });
   } else {
-    res.json({ Error: false, Message: "Success", combined_data: getResponseFromCache(req.url) });
+    res.json({ Error: false, Message: "Success", data: getResponseFromCache(req.url) });
   }
 });
 
