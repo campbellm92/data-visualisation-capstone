@@ -28,7 +28,7 @@ const kGraphWidth = "100%";
 
 export default function Graphs() {
   const useRechart = true;
-  const [windowDays, setWindowDays] = useState(365);
+  const [windowDays, setWindowDays] = useState(90);
   // const [dateOffset, setDateOffset] = useState(0);
 
   const [startDate, setStartDate] = useState(kOriginDate);
