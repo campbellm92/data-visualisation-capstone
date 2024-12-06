@@ -14,8 +14,16 @@ export function useFetchUserData(endpoint) {
       setLoading(true);
 
       let url = `http://localhost:3000${endpoint}`;
+      const token = localStorage.getItem("token"); // Retrieve token from localStorage
+
+      if (!token) {
+        setError("No token found. Please log in.");
+        setLoading(false);
+        return;
+      }
 
       const cachedData = getUrlFromCache(cache, url);
+      console.log("Cached Data:", cachedData);
 
       if (cachedData) {
         setLoading(false);
@@ -23,7 +31,19 @@ export function useFetchUserData(endpoint) {
         setError(null);
       } else {
         try {
-          const dataSet = await getUrlFromServer(url, false);
+          const response = await fetch(url, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // Include token in Authorization header
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error(`Error: ${response.status} ${response.statusText}`);
+          }
+
+          const dataSet = await response.json();
           setCache((prevCache) => ({ ...prevCache, [url]: dataSet }));
           setData(dataSet);
           setError(null);
@@ -34,8 +54,9 @@ export function useFetchUserData(endpoint) {
         }
       }
     };
+
     fetchData();
-  }, [endpoint]);
+  }, [endpoint, cache]);
 
   return {
     loading,
