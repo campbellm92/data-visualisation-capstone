@@ -47,11 +47,19 @@ export function ButtonSmallWide({ children }) {
   );
 }
 
-export function ButtonMediumWide({ children, onClick }) {
+export function ButtonMediumWide({ children, onClick, disabled }) {
   return (
     <button
-      className="btn btn-md btn-primary btn-wide text-primary-content"
+      className={`btn btn-md btn-primary btn-wide ${
+        disabled
+          ? "!bg-primary opacity-60 text-primary-content !text-opacity-100 cursor-not-allowed"
+          : "text-primary-content"
+      }`}
       onClick={onClick}
+      disabled={disabled}
+      tabIndex={disabled ? "-1" : "0"}
+      role="button"
+      aria-disabled={disabled}
     >
       {children}
     </button>
