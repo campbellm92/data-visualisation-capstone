@@ -102,7 +102,7 @@ export default function Graphs() {
     <div>
       <div className="mx-auto p-4">
 
-        {/*     <div className="container mx-auto p-4 box-drop-shadow"> */}
+        <h1 className="font-light lg:p-3 text-xl sm:text-2xl lg:text-3xl text-primary-content mb-4 lg:mb-0 pb-4">Data Analyst</h1>
 
         <div className="grid md:grid-cols-1 gap-0 mb-4 items-start lg:grid-cols-[1fr_1fr_1fr_1fr_1fr_50px]">
           <div className="shadow-md border-1 text-primary-content rounded bg-base-300 m-1 p-3 md:min-w-44 z-20">
@@ -115,8 +115,10 @@ export default function Graphs() {
                     setWindowDays={setWindowDays}
                   />*/}
               <details id="DateSelector" onClick={() => { setOpenDetails("DateSelector") }}><summary className="">Date Range</summary>
-                <DatePicker value={selectedDateRange}
-                  setSelectedDateRange={setSelectedDateRange} />
+                <div className="mt-2">
+                  <DatePicker value={selectedDateRange}
+                    setSelectedDateRange={setSelectedDateRange} />
+                </div>
               </details>
             </div>
 
@@ -254,7 +256,7 @@ export default function Graphs() {
               >Download Report</ButtonMediumFullWide>}
 
           </div>
-          <div className="lg:col-span-12 xl:col-span-10 lg:h-[80vh] lg:mr-8 lg:overflow-scroll lg:fixed lg:top-44 z-10" /* max-w-[1440px]"*/>
+          <div className="lg:col-span-12 xl:col-span-10 lg:h-[70vh] lg:mr-8 lg:overflow-scroll lg:fixed lg:top-56 z-10" /* max-w-[1440px]"*/>
             {!loading && !error && dataSet ? (
               <div id="report-container" className="pr-3">
                 {llmResponse !== '' && aiAnalysisSelected ?
@@ -267,6 +269,31 @@ export default function Graphs() {
                     </div>
                   </div>
                   : null}
+                {spendingDataSelected ?
+                  <div>
+                    {!spendingDataLoading && !spendingDataError && spendingDataSet ? (
+                        <GraphSpendingSet
+                          id="spending-graphs"
+                          useRechart={useRechart}
+                          title="Spending Data For"
+                          avgTitle="Category $ comparison"
+                          field={"spend"}
+                          selectedCats={selectedCats}
+                          dataSet={spendingDataSet}
+                          LGAs={LGAs}
+                          scale={1.0}
+                        />
+                    ) : !spendingDataError ? (
+                      <div>
+                        <div
+                          className="box-drop-shadow"
+                          style={{ height: 400, width: kGraphWidth }}
+                        >
+                          <LoadingSpinner />
+                        </div>
+                      </div>
+                    ) : spendingDataError}
+                  </div> : null}
                 {dailyRateSelected ? (
                   <GraphSet
                     id="daily-rate"
@@ -350,33 +377,6 @@ export default function Graphs() {
                 </div>
               </div>
             ) : null}
-            {spendingDataSelected ?
-              <div>
-                {!spendingDataLoading && !spendingDataError && spendingDataSet ? (
-                  <div id="report-container" className="h-[80vh] pr-3">
-                    <GraphSpendingSet
-                      id="spending-graphs"
-                      useRechart={useRechart}
-                      title="Spending Data For"
-                      avgTitle="Category $ comparison"
-                      field={"spend"}
-                      selectedCats={selectedCats}
-                      dataSet={spendingDataSet}
-                      LGAs={LGAs}
-                      scale={1.0}
-                    />
-                  </div>
-                ) : !spendingDataError ? (
-                  <div>
-                    <div
-                      className="box-drop-shadow"
-                      style={{ height: 400, width: kGraphWidth }}
-                    >
-                      <LoadingSpinner />
-                    </div>
-                  </div>
-                ) : spendingDataError}
-              </div> : null}
           </div>
         </div>
       </div>

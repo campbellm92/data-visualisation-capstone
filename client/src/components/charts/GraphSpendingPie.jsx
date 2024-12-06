@@ -67,7 +67,7 @@ export default function GraphSpendingPie({
             <XAxis dataKey="sample_date" />
             <YAxis />*/}
             <Tooltip />
-            {selectedCats.length <= 4 ? <Legend /> : null}
+            {selectedCats.length <= 6 ? <Legend /> : null}
             <Pie data={data} nameKey="category" dataKey="average" >
               {data.map((entry, index) => (
                 entry !== null ?
