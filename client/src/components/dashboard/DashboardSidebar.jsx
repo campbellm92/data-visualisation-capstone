@@ -12,6 +12,7 @@ export default function DashboardSidebar({ isCollapsed }) {
     { href: "/welcome", label: "Data", icon: <Icons.DataStack /> },
     // { href: "/welcome", label: "Grants", icon: <Icons.Pencil /> },
     { href: "/guide", label: "Guide", icon: <Icons.InfoIcon /> },
+    { href: "/settings", label: "Settings", icon: <Icons.SettingsCog /> },
   ];
   return (
     <aside
