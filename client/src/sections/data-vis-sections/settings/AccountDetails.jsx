@@ -49,11 +49,12 @@ const AccountDetails = ({ data }) => {
 
   const [localArea, setLocalArea] = useState("");
   const localAreaOptions = ["Cairns", "Gold Coast", "Noosa", "Whitsunday"];
-
   const [initialData, setInitialData] = useState({});
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
+  // Check if the user data has been fetched
+  // Object.keys(data).length === 0 checks if the object is empty
   useEffect(() => {
     if (data && Object.keys(initialData).length === 0) {
       setFirstName(data.user.firstName || "");
@@ -69,6 +70,7 @@ const AccountDetails = ({ data }) => {
     }
   }, [data, initialData]);
 
+  // Check if the data has changed
   const isChanged =
     firstName !== initialData.firstName ||
     lastName !== initialData.lastName ||
@@ -110,7 +112,6 @@ const AccountDetails = ({ data }) => {
         passwordInputReset(); // Reset password field
       }
     } catch (error) {
-      console.error("Error updating user details:", error);
       alert("Failed to update user details");
     }
   };
@@ -180,11 +181,18 @@ const AccountDetails = ({ data }) => {
         errorMessage="Password must be more than 8 characters long, include an uppercase letter, a number, and a special character."
       />
 
+      {/* Button is disabled if data is not changed and fields have any errors */}
       <div className="form-control mt-6">
         <ButtonMediumWide
           textColor={"text-secondary-content -auto inline-block"}
           className="w-auto inline-block"
-          disabled={!isChanged || firstNameHasError || lastNameHasError || emailHasError || passwordHasError}
+          disabled={
+            !isChanged ||
+            firstNameHasError ||
+            lastNameHasError ||
+            emailHasError ||
+            passwordHasError
+          }
           onClick={handleUpdate}
         >
           Change
