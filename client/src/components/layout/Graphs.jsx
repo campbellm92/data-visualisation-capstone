@@ -9,7 +9,7 @@ import GraphSet from "../charts/GraphSet";
 import GraphSpendingSet from "../charts/GraphSpendingSet";
 import { useLocalisData } from "../../api/hooks/useLocalisData";
 import { useLocalisSpendingData } from "../../api/hooks/useLocalisSpendData.jsx";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Checkbox from "../ui/Checkbox";
 import {CheckboxCustomOnChange} from "../ui/Checkbox.jsx";
 import { kOriginDate, kDefaultResponse } from "../../api/utils/constants";
@@ -24,10 +24,13 @@ import { useLocalisSpendCategories } from "../../api/hooks/useLocalisSpendCatego
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "../../../tailwind.config.js";
 import DatePicker from "../ui/DatePicker.jsx";
+import { ThemeContext } from "../../context/ThemeProvider.jsx";
 
 const kGraphWidth = "100%";
 
 export default function Graphs() {
+
+  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
   const useRechart = true;
   const [windowDays, setWindowDays] = useState(90);
   // const [dateOffset, setDateOffset] = useState(0);
@@ -171,6 +174,7 @@ export default function Graphs() {
                 onChange={() => { 
                   setSpendingDataSelected(!spendingDataSelected); 
                   setTimeout(() => {
+                    if (width >= lgSplit)
                     document.getElementById('spending-graphs')?.scrollIntoView({ behavior: 'smooth' });
                   }, 100);
                 }}
@@ -181,6 +185,7 @@ export default function Graphs() {
                 onChange={() => { 
                   setDailyRateSelected(!dailyRateSelected); 
                   setTimeout(() => {
+                    if (width >= lgSplit)
                     document.getElementById('daily-rate')?.scrollIntoView({ behavior: 'smooth' });
                   }, 100);
                 }}
@@ -191,6 +196,7 @@ export default function Graphs() {
                 onChange={() => { 
                   setOccupancySelected(!occupancySelected); 
                   setTimeout(() => {
+                    if (width >= lgSplit)
                     document.getElementById('average-occupancy')?.scrollIntoView({ behavior: 'smooth' });
                   }, 100);
                 }}
@@ -201,6 +207,7 @@ export default function Graphs() {
                 onChange={() => { 
                   setLengthOfStaySelected(!lengthOfStaySelected); 
                   setTimeout(() => {
+                    if (width >= lgSplit)
                     document.getElementById('length-of-stay')?.scrollIntoView({ behavior: 'smooth' });
                   }, 100);
                 }}
@@ -211,6 +218,7 @@ export default function Graphs() {
                 onChange={() => { 
                   setBookingWindowSelected(!bookingWindowSelected); 
                   setTimeout(() => {
+                    if (width >= lgSplit)
                     document.getElementById('average-booking-window')?.scrollIntoView({ behavior: 'smooth' });
                   }, 100);
                 }}
@@ -222,6 +230,7 @@ export default function Graphs() {
                   onChange={() => { 
                     setAiAnalysisSelected(!aiAnalysisSelected); 
                     setTimeout(() => {
+                      if (width >= lgSplit)
                       document.getElementById('llm-response')?.scrollIntoView({ behavior: 'smooth' });
                     }, 100);
                   }}
@@ -285,18 +294,30 @@ export default function Graphs() {
               <ButtonDownloadReport
                 id="report-button"
                 onClick={(e) => {
+                  let prevDarkMode = darkMode;
+
+                  if (darkMode) toggleDarkMode();
                   generatePDFFrom(['llm-response', 'daily-rate', 'length-of-stay', 'average-occupancy', 'average-booking-window', 'spending-graphs'],
                     'LocalisDataAnalysisReport.pdf',
                     false);
+                    setTimeout(() => {
+                      if (prevDarkMode) toggleDarkMode();
+                    }, 2000);
                   return false;
                 }}
                 disabled={false}
               /> : <ButtonMediumFullWide
                 id="report-button"
                 onClick={(e) => {
+                  if (darkMode) toggleDarkMode();
                   generatePDFFrom(['llm-response', 'daily-rate', 'length-of-stay', 'average-occupancy', 'average-booking-window', 'spending-graphs'],
                     'LocalisDataAnalysisReport.pdf',
                     false);
+
+                    setTimeout(() => {
+                      if (prevDarkMode) toggleDarkMode();
+                    }, 2000);
+                    
                   return false;
                 }}
                 disabled={false}

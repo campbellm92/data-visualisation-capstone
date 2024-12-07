@@ -11,7 +11,7 @@ import { jsPDF } from 'jspdf'
 
 async function captureAsImage (elementId) {
   const element = document.getElementById(elementId);
-  return await domtoimage.toPng(element);
+  return await domtoimage.toJpeg(element, { quality: 1.0 });
 }
 
 export async function generatePDFFrom(htmlElements, outputFilename, display) {
@@ -52,7 +52,7 @@ export async function generatePDFFrom(htmlElements, outputFilename, display) {
 
       }
 
-      pdf.addImage(elementImage, 'PNG', width < height ? (pageWidth - (width * scale)) / 2.0 : xMargin, yOffset, width * scale, height * scale);
+      pdf.addImage(elementImage, 'JPG', width < height ? (pageWidth - (width * scale)) / 2.0 : xMargin, yOffset, width * scale, height * scale);
       yOffset += ((height * scale) + yGap);
       
     }
