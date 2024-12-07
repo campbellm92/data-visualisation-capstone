@@ -42,7 +42,7 @@ const Settings = () => {
         <div
           className={`collapse ${
             openSections.accountDetails ? "collapse-open" : "collapse-close"
-          } bg-base-200 collapse-arrow`}
+          } bg-base-200 collapse-arrow lg:w-[900px] sm:w-full`}
         >
           {/* Title - Toggles the Collapse */}
           <div
@@ -60,7 +60,7 @@ const Settings = () => {
         <div
           className={`collapse ${
             openSections.billingInformation ? "collapse-open" : "collapse-close"
-          } bg-base-200 collapse-arrow`}
+          } bg-base-200 collapse-arrow lg:w-[900px] sm:w-full`}
         >
           <div
             className="collapse-title text-xl font-medium cursor-pointer text-primary-content"

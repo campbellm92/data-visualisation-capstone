@@ -3,6 +3,9 @@ import InputField from "../../../components/User/InputField";
 import {
   useNameValidator,
   useEmailValidator,
+  useCardNumberValidator,
+  useCVVValidator,
+  useExpiryDateValidator,
 } from "../../../hooks/input-sanitizers/useAuthValidators";
 import { ButtonMediumWide } from "../../../components/ui/Buttons";
 import axios from "axios";
@@ -38,13 +41,39 @@ const BillingInformation = ({ data }) => {
     setValue: setEmail,
   } = useEmailValidator();
 
+  const {
+    value: cardNumber,
+    hasError: cardNumberHasError,
+    valueChangeHandler: cardNumberChangeHandler,
+    markAsTouched: cardNumberMarkAsTouched,
+    inputReset: cardNumberInputReset,
+    setValue: setCardNumber,
+  } = useCardNumberValidator();
+
+  const {
+    value: cvv,
+    hasError: cvvHasError,
+    valueChangeHandler: cvvChangeHandler,
+    markAsTouched: cvvMarkAsTouched,
+    inputReset: cvvInputReset,
+    setValue: setCvv,
+  } = useCVVValidator();
+
+  const {
+    value: expiryDate,
+    hasError: expiryDateHasError,
+    valueChangeHandler: expiryDateChangeHandler,
+    markAsTouched: expiryDateMarkAsTouched,
+    inputReset: expiryDateInputReset,
+    setValue: setExpiryDate,
+  } = useExpiryDateValidator();
+
   const [organisation, setOrganisation] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
   const [postcode, setPostcode] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiryDate, setExpiryDate] = useState("");
-  const [cvv, setCvv] = useState("");
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   const [initialData, setInitialData] = useState({});
 
@@ -94,7 +123,13 @@ const BillingInformation = ({ data }) => {
     postcode !== initialData.postcode ||
     cardNumber !== initialData.cardNumber ||
     expiryDate !== initialData.expiryDate ||
-    cvv !== initialData.cvv;
+    cvv !== initialData.cvv ||
+    firstNameHasError ||
+    lastNameHasError ||
+    emailHasError ||
+    cardNumberHasError ||
+    cvvHasError ||
+    expiryDateHasError;
 
   const handleUpdate = async () => {
     try {
@@ -144,17 +179,17 @@ const BillingInformation = ({ data }) => {
   return (
     <div className="collapse-content">
       {/* First Name and Last Name in one line */}
-      <div className="flex flex-wrap gap-4 text-primary-content">
+      <div className="flex flex-wrap gap-4 mb-4 text-primary-content">
         <InputField
           label="First Name"
           labelClassName={"text-primary-content"}
           type="text"
           placeholder="First Name"
-          className="w-[400px]" // Fixed width of 400px
+          className="w-[400px]"
           value={firstName}
           onChange={firstNameChangeHandler}
           onBlur={firstNameMarkAsTouched}
-          error={firstNameHasError}
+          hasError={firstNameHasError}
           errorMessage="Please enter a valid first name"
         />
 
@@ -163,17 +198,17 @@ const BillingInformation = ({ data }) => {
           labelClassName={"text-primary-content"}
           type="text"
           placeholder="Last Name"
-          className="w-[400px]" // Fixed width of 400px
+          className="w-[400px]"
           value={lastName}
           onChange={lastNameChangeHandler}
           onBlur={lastNameMarkAsTouched}
-          error={lastNameHasError}
+          hasError={lastNameHasError}
           errorMessage="Please enter a valid last name"
         />
       </div>
 
       {/* Email and Organisation in one line */}
-      <div className="flex flex-wrap gap-4 text-primary-content">
+      <div className="flex flex-wrap gap-4 mb-4 text-primary-content">
         <InputField
           label="Email Address"
           labelClassName={"text-primary-content"}
@@ -183,7 +218,7 @@ const BillingInformation = ({ data }) => {
           value={emailValue}
           onChange={emailChangeHandler}
           onBlur={emailMarkAsTouched}
-          error={emailHasError}
+          hasError={emailHasError}
           errorMessage="Please enter a valid email address"
         />
 
@@ -199,7 +234,7 @@ const BillingInformation = ({ data }) => {
       </div>
 
       {/* Billing Address - First field full width, other two in one line */}
-      <div className="flex flex-wrap gap-4 text-primary-content">
+      <div className="flex flex-wrap gap-4 mb-4 text-primary-content">
         <InputField
           label="Street Address"
           labelClassName={"text-primary-content"}
@@ -209,50 +244,54 @@ const BillingInformation = ({ data }) => {
           value={streetAddress}
           onChange={(e) => setStreetAddress(e.target.value)}
         />
-        <div className="flex gap-4 w-full sm:w-1/2">
-          <InputField
-            label="City"
-            labelClassName={"text-primary-content"}
-            type="text"
-            placeholder="City"
-            className="w-full"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-          />
-          <InputField
-            label="Postcode"
-            labelClassName={"text-primary-content"}
-            type="text"
-            placeholder="Postcode"
-            className="w-[100px]"
-            value={postcode}
-            onChange={(e) => setPostcode(e.target.value)}
-          />
-        </div>
+
+        <InputField
+          label="City"
+          labelClassName={"text-primary-content"}
+          type="text"
+          placeholder="City"
+          className="w-full"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+        />
+        <InputField
+          label="Postcode"
+          labelClassName={"text-primary-content"}
+          type="text"
+          placeholder="Postcode"
+          className="w-[100px]"
+          value={postcode}
+          onChange={(e) => setPostcode(e.target.value)}
+        />
       </div>
 
       {/* Payment Method - Card Number, Expiry Date, CVV */}
-      <div className="flex flex-wrap gap-4 text-primary-content">
-        <div className="w-full sm:w-1/2">
-          <InputField
-            label="Card Number"
-            labelClassName={"text-primary-content"}
-            type="text"
-            placeholder="XXXX XXXX XXXX XXXX"
-            className="w-full"
-            value={cardNumber}
-            onChange={(e) => setCardNumber(e.target.value)}
-            icon="card-icon"
-          />
-        </div>
-        <div className="w-full sm:w-1/4">
+      <div className="flex flex-wrap gap-4 mb-4 text-primary-content">
+        <InputField
+          label="Card Number"
+          labelClassName={"text-primary-content"}
+          type="text"
+          placeholder="XXXX XXXX XXXX XXXX"
+          className="w-[400px]"
+          value={cardNumber}
+          onChange={cardNumberChangeHandler}
+          onBlur={cardNumberMarkAsTouched}
+          hasError={cardNumberHasError}
+          errorMessage="Please enter a valid card number, Card number should be 16 digits"
+          icon="card-icon"
+        />
+
+        <div className="sm:w-1/4">
           <InputField
             label="Expiry Date"
             labelClassName={"text-primary-content"}
             type="date"
-            className="w-full"
+            className="sm:w-full"
             value={expiryDate}
-            onChange={(e) => setExpiryDate(e.target.value)}
+            onChange={expiryDateChangeHandler}
+            onBlur={expiryDateMarkAsTouched}
+            hasError={expiryDateHasError}
+            errorMessage="Expiry date should be in the future"
           />
         </div>
         <div className="w-full sm:w-1/4">
@@ -263,7 +302,10 @@ const BillingInformation = ({ data }) => {
             placeholder="CVV"
             className="w-[100px]"
             value={cvv}
-            onChange={(e) => setCvv(e.target.value)}
+            onChange={cvvChangeHandler}
+            onBlur={cvvMarkAsTouched}
+            hasError={cvvHasError}
+            errorMessage="Please enter a three-digit CVV"
           />
         </div>
       </div>
@@ -273,12 +315,15 @@ const BillingInformation = ({ data }) => {
         <ButtonMediumWide
           textColor={"text-primary-content -auto inline-block"}
           className="w-auto inline-block"
-          disabled={!isChanged}
+          disabled={!isChanged || firstNameHasError || lastNameHasError || emailHasError || cardNumberHasError || cvvHasError || expiryDateHasError}
           onClick={handleUpdate}
         >
           Change Billing Information
         </ButtonMediumWide>
       </div>
+      {/* Error and success messages */}
+      {error && <div className="pt-3 text-error">{error}</div>}
+            {success && <div className="pt-3 text-success">{success}</div>}
     </div>
   );
 };

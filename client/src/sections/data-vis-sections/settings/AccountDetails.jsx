@@ -51,6 +51,8 @@ const AccountDetails = ({ data }) => {
   const localAreaOptions = ["Cairns", "Gold Coast", "Noosa", "Whitsunday"];
 
   const [initialData, setInitialData] = useState({});
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   useEffect(() => {
     if (data && Object.keys(initialData).length === 0) {
@@ -72,7 +74,11 @@ const AccountDetails = ({ data }) => {
     lastName !== initialData.lastName ||
     emailValue !== initialData.email ||
     localArea !== initialData.localArea ||
-    passwordValue !== "";
+    passwordValue !== "" ||
+    firstNameHasError ||
+    lastNameHasError ||
+    emailHasError ||
+    passwordHasError;
 
   const handleUpdate = async () => {
     try {
@@ -120,8 +126,8 @@ const AccountDetails = ({ data }) => {
         value={firstName}
         onChange={firstNameChangeHandler}
         onBlur={firstNameMarkAsTouched}
-        error={firstNameHasError}
-        errorMessage="Please enter a valid first name"
+        hasError={firstNameHasError}
+        errorMessage="Name can only contain letters, hyphens, apostrophes, periods, and spaces."
       />
 
       <InputField
@@ -146,7 +152,7 @@ const AccountDetails = ({ data }) => {
         value={emailValue}
         onChange={emailChangeHandler}
         onBlur={emailMarkAsTouched}
-        error={emailHasError}
+        hasError={emailHasError}
         errorMessage="Please enter a valid email address"
       />
 
@@ -178,12 +184,15 @@ const AccountDetails = ({ data }) => {
         <ButtonMediumWide
           textColor={"text-secondary-content -auto inline-block"}
           className="w-auto inline-block"
-          disabled={!isChanged}
+          disabled={!isChanged || firstNameHasError || lastNameHasError || emailHasError || passwordHasError}
           onClick={handleUpdate}
         >
           Change
         </ButtonMediumWide>
       </div>
+      {/* Error and success messages */}
+      {error && <div className="pt-3 text-error">{error}</div>}
+      {success && <div className="pt-3 text-success">{success}</div>}
     </div>
   );
 };

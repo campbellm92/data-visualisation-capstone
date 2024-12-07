@@ -11,6 +11,7 @@ export default function useInput(validateValue) {
   //Update enteredValue object with user's input:
   const valueChangeHandler = (e) => {
     setEnteredValue(e.target.value);
+    setIsTouched(true); // Trigger validation on every change
   };
 
   //Set input to 'touched' (interacted with)
