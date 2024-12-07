@@ -110,7 +110,7 @@ export default function GraphDetails({
     // console.table(LGAs);
 
     return (
-      <div key={field} {...bind()} style={{ width: "100%", height: "90%", userSelect: 'none', touchAction: 'none', margin: 50 }}>
+      <div key={field} {...bind()} style={{ width: "100%", height: "90%", userSelect: 'none', touchAction: 'none', margin: 10 }}>
         <ResponsiveContainer style={{}}>
           <h2
             className="text-primary-content font-light pb-3"

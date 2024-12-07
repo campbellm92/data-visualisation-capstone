@@ -25,7 +25,7 @@ export default function Checkbox({ label, value, setValue }) {
 }
 
 
-export function CheckboxInList({ label, value, onChange }) {
+export function CheckboxCustomOnChange({ label, value, onChange }) {
 
   return (
     <div className="grid grid-cols-[25px_1fr] mt-2">

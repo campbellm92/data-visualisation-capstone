@@ -29,11 +29,10 @@ export default function GraphSet({
 
   const { width } = useWindowWidthResize();
 
-  let graphWidth = (width > 1024 ? "100%" : width * (width > 640 ? 0.6 : 0.5));
-  let averagesWidth = (width > 633 ? "100%" : width * 0.8);
+  let graphWidth = (width > 1024 ? "100%" : width * (width > 640 ? 0.7 : 0.75));
+  let averagesWidth = (width > 900 ? "100%" : width * 0.8);
   const kGraphHeight = 350;
   const kGraphBreakPoint = 900;
-
 
   return (
     <div key={field} id={id} className="grid sm:grid-cols-1 md:grid-cols-5 md:gap-4 mb-4 rounded-md md:p-4 bg-base-300 shadow-md">

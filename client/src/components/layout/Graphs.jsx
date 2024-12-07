@@ -11,6 +11,7 @@ import { useLocalisData } from "../../api/hooks/useLocalisData";
 import { useLocalisSpendingData } from "../../api/hooks/useLocalisSpendData.jsx";
 import { useState } from "react";
 import Checkbox from "../ui/Checkbox";
+import {CheckboxCustomOnChange} from "../ui/Checkbox.jsx";
 import { kOriginDate, kDefaultResponse } from "../../api/utils/constants";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import { ButtonMediumFullWide, ButtonDownloadReport, ButtonMedium } from "../ui/Buttons";
@@ -87,17 +88,29 @@ export default function Graphs() {
     });
   }
 
+  function handleClickOutsideDetails(e) {
+     console.log("inside handleClickOutsideDetails");
+
+     if (!e.target.closest("details")) {
+      setOpenDetails("");
+    }
+  }
+
   if (goldCoastSelected) LGAs.push("Gold Coast");
   if (noosaSelected) LGAs.push("Noosa");
   if (whitsundaySelected) LGAs.push("Whitsunday");
   if (cairnsSelected) LGAs.push("Cairns");
+
+
+  document.addEventListener("click", handleClickOutsideDetails);
+  document.addEventListener("touchstart", handleClickOutsideDetails);
 
   return (
     <div>
       <div className="mx-auto p-4">
 
         <h1 className="font-light lg:p-3 text-xl sm:text-2xl lg:text-3xl text-primary-content mb-4 lg:mb-0 pb-4">Data Analyst</h1>
-
+{/*sm {smSplit} / md {mdSplit} / lg {lgSplit} / xl {xlSplit} - {width} */}
         <div className="grid md:grid-cols-1 opacity-95 gap-0 mb-4 items-start lg:grid-cols-[1fr_1fr_1fr_1fr_1fr_50px]">
           <div className="shadow-md border-1 text-primary-content rounded bg-base-300 m-1 p-3 md:min-w-44 z-20">
 
@@ -148,36 +161,66 @@ export default function Graphs() {
           <div className="shadow-md border-1 opacity-95 rounded bg-base-300 m-1 p-3 md:min-w-44 z-20">
             <details id="MetricSelector" onClick={() => setOpenDetails("MetricSelector")}>
               <summary className="text-primary-content">Metrics</summary>
-              <Checkbox
+              <CheckboxCustomOnChange
                 label="Spending"
                 value={spendingDataSelected}
-                setValue={setSpendingDataSelected}
+                onChange={() => { 
+                  setSpendingDataSelected(!spendingDataSelected); 
+                  setTimeout(() => {
+                    document.getElementById('spending-graphs')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }}
               />
-              <Checkbox
+              <CheckboxCustomOnChange
                 label="Daily Rate"
                 value={dailyRateSelected}
-                setValue={setDailyRateSelected}
+                onChange={() => { 
+                  setDailyRateSelected(!dailyRateSelected); 
+                  setTimeout(() => {
+                    document.getElementById('daily-rate')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }}
               />
-              <Checkbox
+              <CheckboxCustomOnChange
                 label="Occupancy"
                 value={occupancySelected}
-                setValue={setOccupancySelected}
+                onChange={() => { 
+                  setOccupancySelected(!occupancySelected); 
+                  setTimeout(() => {
+                    document.getElementById('average-occupancy')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }}
               />
-              <Checkbox
+              <CheckboxCustomOnChange
                 label="Length of Stay"
                 value={lengthOfStaySelected}
-                setValue={setLengthOfStaySelected}
+                onChange={() => { 
+                  setLengthOfStaySelected(!lengthOfStaySelected); 
+                  setTimeout(() => {
+                    document.getElementById('length-of-stay')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }}
               />
-              <Checkbox
+              <CheckboxCustomOnChange
                 label="Booking Window"
                 value={bookingWindowSelected}
-                setValue={setBookingWindowSelected}
+                onChange={() => { 
+                  setBookingWindowSelected(!bookingWindowSelected); 
+                  setTimeout(() => {
+                    document.getElementById('average-booking-window')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }}
               />
               {llmResponse !== '' ?
-                <Checkbox
+                <CheckboxCustomOnChange
                   label="AI Analysis"
                   value={aiAnalysisSelected}
-                  setValue={setAiAnalysisSelected}
+                  onChange={() => { 
+                    setAiAnalysisSelected(!aiAnalysisSelected); 
+                    setTimeout(() => {
+                      document.getElementById('llm-response')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  }}
                 />
                 : null}
             </details></div>
@@ -222,7 +265,12 @@ export default function Graphs() {
                   llmResponse={llmResponse}
                   setllmResponse={setllmResponse}
                   setAiAnalysisSelected={setAiAnalysisSelected}
-                  afterClickAnalyse={() => setOpenDetails("none")}
+                  afterClickAnalyse={() => {
+                    setOpenDetails("none");
+                    setTimeout(() => {
+                      document.getElementById('llm-response')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  }}
                 />
               </details>
             </div>

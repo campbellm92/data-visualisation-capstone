@@ -1,4 +1,4 @@
-import { CheckboxInList } from "../ui/Checkbox";
+import { CheckboxCustomOnChange } from "../ui/Checkbox";
 import { toTitleCase, convertToLabel } from "../../api/utils/utils";
 
 export default function SpendCats({ id, spendCats, selectedCats, onChangeCat, onClickFn }) {
@@ -22,7 +22,7 @@ export default function SpendCats({ id, spendCats, selectedCats, onChangeCat, on
     return (
         <div className="max-h-[70vh] overflow-scroll">
             {spendCats.map(cat =>
-                <CheckboxInList key={convertToLabel(cat)}
+                <CheckboxCustomOnChange key={convertToLabel(cat)}
                     label={toTitleCase(cat)}
                     value={selectedCats.includes(toTitleCase(cat))}
                     onChange={() => onChangeCat(toTitleCase(cat))}

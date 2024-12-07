@@ -83,7 +83,7 @@ const AIAnalysis = ({ dataSet, llmResponse, setllmResponse, setAiAnalysisSelecte
           >
 
             <div className="label">
-              <span className="text-primary-content">By using a Default Prompt</span>
+              <span className="text-primary-content">Using a default prompt:</span>
             </div>
             <SelectLLMPrompt
               id="defaultLLMPrompt"
@@ -96,7 +96,7 @@ const AIAnalysis = ({ dataSet, llmResponse, setllmResponse, setAiAnalysisSelecte
           >
             <div className="label">
               <span className="text-primary-content">
-                Or Write a Custom Prompt
+                Write a custom prompt:
               </span>
             </div>
             <textarea
