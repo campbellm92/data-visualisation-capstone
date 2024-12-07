@@ -105,7 +105,7 @@ export default function Graphs() {
   document.addEventListener("click", handleClickOutsideDetails);
   document.addEventListener("touchstart", handleClickOutsideDetails);
   
-  const showBreaks = true;
+  const showBreaks = false;
 
   return (
     <div>
