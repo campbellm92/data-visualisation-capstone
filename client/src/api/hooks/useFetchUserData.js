@@ -23,7 +23,6 @@ export function useFetchUserData(endpoint) {
       }
 
       const cachedData = getUrlFromCache(cache, url);
-      console.log("Cached Data:", cachedData);
 
       if (cachedData) {
         setLoading(false);
