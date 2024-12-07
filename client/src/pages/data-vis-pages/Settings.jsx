@@ -25,7 +25,6 @@ const Settings = () => {
     loading,
     error: fetchError,
   } = useFetchUserData("/users/profile");
-  console.log("Data:", data);
 
   if (loading) {
     return <div>Loading...</div>;
