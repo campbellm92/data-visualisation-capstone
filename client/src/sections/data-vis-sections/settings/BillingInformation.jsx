@@ -77,8 +77,6 @@ const BillingInformation = ({ data }) => {
 
   const [initialData, setInitialData] = useState({});
 
-  console.log("Billing Data:", data);
-
   // Check if data is available and initialData is empty
   useEffect(() => {
     if (data && Object.keys(initialData).length === 0) {
@@ -311,11 +309,20 @@ const BillingInformation = ({ data }) => {
       </div>
 
       {/* Button to change billing information */}
+      {/* Button is disabled if data is not changed and fields have any errors */}
       <div className="form-control mt-6">
         <ButtonMediumWide
           textColor={"text-primary-content -auto inline-block"}
           className="w-auto inline-block"
-          disabled={!isChanged || firstNameHasError || lastNameHasError || emailHasError || cardNumberHasError || cvvHasError || expiryDateHasError}
+          disabled={
+            !isChanged ||
+            firstNameHasError ||
+            lastNameHasError ||
+            emailHasError ||
+            cardNumberHasError ||
+            cvvHasError ||
+            expiryDateHasError
+          }
           onClick={handleUpdate}
         >
           Change Billing Information
@@ -323,7 +330,7 @@ const BillingInformation = ({ data }) => {
       </div>
       {/* Error and success messages */}
       {error && <div className="pt-3 text-error">{error}</div>}
-            {success && <div className="pt-3 text-success">{success}</div>}
+      {success && <div className="pt-3 text-success">{success}</div>}
     </div>
   );
 };
