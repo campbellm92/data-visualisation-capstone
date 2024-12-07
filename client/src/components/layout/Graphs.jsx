@@ -104,13 +104,17 @@ export default function Graphs() {
 
   document.addEventListener("click", handleClickOutsideDetails);
   document.addEventListener("touchstart", handleClickOutsideDetails);
+  
+  const showBreaks = true;
 
   return (
     <div>
       <div className="mx-auto p-4">
 
         <h1 className="font-light lg:p-3 text-xl sm:text-2xl lg:text-3xl text-primary-content mb-4 lg:mb-0 pb-4">Data Analyst</h1>
-{/*sm {smSplit} / md {mdSplit} / lg {lgSplit} / xl {xlSplit} - {width} */}
+
+{showBreaks ? <span>{smSplit} / md {mdSplit} / lg {lgSplit} / xl {xlSplit} - {width}</span>: null}
+
         <div className="grid md:grid-cols-1 opacity-95 gap-0 mb-4 items-start lg:grid-cols-[1fr_1fr_1fr_1fr_1fr_50px]">
           <div className="shadow-md border-1 text-primary-content rounded bg-base-300 m-1 p-3 md:min-w-44 z-20">
 

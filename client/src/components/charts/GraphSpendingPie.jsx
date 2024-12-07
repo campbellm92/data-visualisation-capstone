@@ -8,6 +8,7 @@
 import { AgCharts } from "ag-charts-react";
 import { kGraphLineStyle, kGraphColours, kGraphSpendColours } from "../../api/utils/constants";
 import { average, convertToLabel, toTitleCase } from "../../api/utils/utils";
+import { useWindowWidthResize } from "../../api/hooks/useWindowWidthResize";
 import {
   /*BarChart,
   Bar,
@@ -30,6 +31,8 @@ export default function GraphSpendingPie({
   useRechart,
   LGAs,
 }) {
+
+  const { width } = useWindowWidthResize();
   
   if (useRechart) {
     const data = selectedCats.map((cat) => {return (   
@@ -67,7 +70,7 @@ export default function GraphSpendingPie({
             <XAxis dataKey="sample_date" />
             <YAxis />*/}
             <Tooltip />
-            {selectedCats.length <= 6 ? <Legend wrapperStyle={{ fontSize:10, paddingBottom:20 }} /> : null}
+            {selectedCats.length <= (width < 2040 ? 6 : 15) ? <Legend wrapperStyle={{ fontSize:10, paddingBottom:10 }} /> : null}
             <Pie data={data} nameKey="category" dataKey="average" >
               {data.map((entry, index) => (
                 entry !== null ?
