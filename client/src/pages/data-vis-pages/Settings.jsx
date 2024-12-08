@@ -68,7 +68,7 @@ const Settings = () => {
             onClick={() => toggleSection("billingInformation")}
           >
             Billing Information
-            <div className="bg-black h-[1.5px] mt-2 mb-0 bg-primary-content"></div>
+            <div className="bg-black h-[1px] mt-2 mb-0 bg-primary-content"></div>
           </div>
 
           <BillingInformation data={data} />
@@ -87,7 +87,10 @@ const Settings = () => {
             Delete Account
             <div className="bg-black h-[1.5px] mt-2 mb-0 bg-primary-content"></div>
           </div>
-          <DeleteAccount />
+
+          <div className="collapse-content">
+            <DeleteAccount />
+          </div>
         </div>
       </div>
     </>
