@@ -233,24 +233,27 @@ router.post("/register", function (req, res, next) {
 
 router.put("/update", authorization, async function (req, res, next) {
   try {
-    const { 
-      firstName, 
-      lastName, 
-      email, 
-      LGAName, 
-      password, 
-      Organisation, 
-      StreetAddress, 
-      City, 
-      Postcode, 
-      CardNumber, 
-      ExpiryDate, 
-      CVV 
+    const {
+      firstName,
+      lastName,
+      email,
+      LGAName,
+      password,
+      Organisation,
+      StreetAddress,
+      City,
+      Postcode,
+      CardNumber,
+      ExpiryDate,
+      CVV,
     } = req.body;
     const userEmail = req.user.email;
 
     // Fetch user from DB
-    const users = await req.db.from("users").select("*").where("email", userEmail);
+    const users = await req.db
+      .from("users")
+      .select("*")
+      .where("email", userEmail);
 
     if (users.length === 0) {
       return res.status(404).json({ error: true, message: "User not found" });
@@ -281,6 +284,30 @@ router.put("/update", authorization, async function (req, res, next) {
     await req.db.from("users").where("email", userEmail).update(updatedUser);
 
     res.status(200).json({ success: true, message: "User details updated" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: true, message: "Database error" });
+  }
+});
+
+router.delete("/delete", authorization, async function (req, res, next) {
+  try {
+    const userEmail = req.user.email;
+
+    // Fetch user from DB
+    const users = await req.db
+      .from("users")
+      .select("*")
+      .where("email", userEmail);
+
+    if (users.length === 0) {
+      return res.status(404).json({ error: true, message: "User not found" });
+    }
+
+    // Delete user from DB
+    await req.db.from("users").where("email", userEmail).del();
+
+    res.status(200).json({ success: true, message: "User account deleted" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: true, message: "Database error" });
