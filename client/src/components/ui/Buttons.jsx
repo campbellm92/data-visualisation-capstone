@@ -66,6 +66,18 @@ export function ButtonMediumWide({ children, onClick, disabled }) {
   );
 }
 
+export function DeleteButton({ onClick, children }) {
+  return (
+    <button
+      className="btn btn-wide bg-red-500 hover:bg-red-800 text-primary-content"
+      onClick={onClick}
+      aria-label="Delete"
+    >
+      {children}
+    </button>
+  );
+}
+
 export function ButtonMediumFullWide({
   children,
   onClick,
@@ -121,7 +133,7 @@ export function ButtonOpenAIAnalysisModal({ onClick }) {
 export function ButtonDownloadReport({
   onClick,
   id,
-  textColor = "text-primary-content"
+  textColor = "text-primary-content",
 }) {
   return (
     <button onClick={onClick}>
@@ -145,7 +157,6 @@ export function ButtonDownloadReport({
     </button>
   );
 }
-
 
 export function CloseButton({ onClick }) {
   return (
