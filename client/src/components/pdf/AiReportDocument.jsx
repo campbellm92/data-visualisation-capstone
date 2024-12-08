@@ -6,6 +6,10 @@ import {
   StyleSheet,
   Font,
 } from "@react-pdf/renderer";
+import Html from 'react-pdf-html';
+import LLMResponse from "../layout/LLMResponse";
+import ReactDOMServer from 'react-dom/server';
+import BarChartHome from '../../components/charts/barcharts/BarChartHome';
 
 const styles = StyleSheet.create({
   page: {
@@ -63,9 +67,35 @@ export default function AiReportDocument({
           ))}
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.reportText}>{responseContent}</Text>
+        {/*<View style={styles.chartContainer}>
+          <View style={{ marginBottom: 10 }}>
+            <View style={styles.section}>
+              <Html>
+                {ReactDOMServer.renderToStaticMarkup(
+                  <BarChartHome
+                    year={year}
+                    dataField={'average_length_of_stay'}
+                    data={data}
+                    loading={false}
+                    user={user}
+                  />)}</Html>
+            </View>
+          </View>
+        </View>*/}
+
+        <View style={styles.chartContainer}>
+          <View style={{ marginBottom: 10 }}>
+            <View style={styles.section}>
+              <Html>
+                {ReactDOMServer.renderToStaticMarkup(
+                  <LLMResponse content={responseContent} ></LLMResponse>)}</Html>
+            </View>
+          </View>
         </View>
+
+        {/* <View style={styles.section}>
+          <Text style={styles.reportText}>{responseContent}</Text>
+        </View>*/}
       </Page>
     </Document>
   );
