@@ -36,7 +36,7 @@ const DeleteAccount = () => {
   };
 
   return (
-    <div className="form-control mt-6 ml-4">
+    <div className="form-control mt-3">
       <DeleteButton
         textColor={"text-primary-content -auto inline-block"}
         onClick={handleDelete}
