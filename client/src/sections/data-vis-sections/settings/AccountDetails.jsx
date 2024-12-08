@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import InputField from "../../../components/User/InputField";
 import {
   useNameValidator,
@@ -7,11 +7,14 @@ import {
 } from "../../../hooks/input-sanitizers/useAuthValidators";
 import { ButtonMediumWide } from "../../../components/ui/Buttons";
 import axios from "axios";
+import { AuthContext } from "../../../context/AuthProvider";
 
 // Set the base URL for Axios
 axios.defaults.baseURL = "http://localhost:3000";
 
 const AccountDetails = ({ data }) => {
+  const { fetchUserData } = useContext(AuthContext);
+
   const {
     value: firstName,
     hasError: firstNameHasError,
@@ -110,6 +113,18 @@ const AccountDetails = ({ data }) => {
           localArea,
         });
         passwordInputReset(); // Reset password field
+
+        // Update cached user data in local storage
+        const updatedUserData = {
+          email: emailValue,
+          firstName,
+          lastName,
+          lga: localArea,
+        };
+        localStorage.setItem("userData", JSON.stringify(updatedUserData));
+
+        // Refresh user data in the context
+        fetchUserData();
       }
     } catch (error) {
       alert("Failed to update user details");
