@@ -115,7 +115,7 @@ export default {
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",
           "base-200": "#f3f4f6",
-          "base-300": "#f9fafb",
+          "base-300": "#ffffff", // "#f9fafb",
           info: "#237496",
           success: "#289b6f",
           warning: "#fccd5e",

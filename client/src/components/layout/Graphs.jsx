@@ -75,6 +75,10 @@ export default function Graphs() {
         ? prevSelectedCats.filter((c) => c !== cat)
         : [...prevSelectedCats, cat];
     });
+    setTimeout(() => {
+      if (width >= lgSplit)
+      document.getElementById('spending-graphs')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   };
 
   function setOpenDetails(idToOpen) {
@@ -243,7 +247,10 @@ export default function Graphs() {
                 <summary className="text-primary-content">Spending</summary>
                 <SpendCats spendCats={spendCats}
                   selectedCats={selectedCats}
+                  setSelectedCats={setSelectedCats}
                   onChangeCat={toggleCat}
+                  autoScroll={width > lgSplit}
+                  viewId="spending-graphs"
                 />
               </details>
             </div>

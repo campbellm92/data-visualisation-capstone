@@ -22,7 +22,7 @@ export default function DashboardNav({ toggleSidebar }) {
   };
 
   return (
-    <header className="w-full bg-base-300 p-4 top-0 z-10 border-b-2 border-base-200 z-50">
+    <header className="w-full bg-base-300 p-4 top-0 border-b-2 border-base-200 z-50">
       <nav className="flex justify-between items-center ">
         <div>
           <button onClick={toggleSidebar}>

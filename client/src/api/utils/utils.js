@@ -9,7 +9,7 @@ import domtoimage from 'dom-to-image';
 import { jsPDF } from 'jspdf'
 
 
-async function captureAsImage (elementId) {
+export async function captureAsImage (elementId) {
   const element = document.getElementById(elementId);
   return await domtoimage.toJpeg(element, { quality: 1.0 });
 }
