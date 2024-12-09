@@ -283,6 +283,7 @@ const BillingInformation = ({ data }) => {
           <InputField
             label="Expiry Date"
             labelClassName={"text-primary-content"}
+            ariaLabel={"Expiry Date"}
             type="date"
             className="sm:w-full"
             value={expiryDate}
