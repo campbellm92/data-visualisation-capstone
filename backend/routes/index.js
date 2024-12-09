@@ -33,7 +33,6 @@ async function queryLLM(url, llm, prompt) {
   };
 
   if (getResponseFromCache(prompt) === undefined) {
-    console.log("getting LLM response from server");
 
     return await fetch(url, {
       method: "POST",
@@ -47,11 +46,11 @@ async function queryLLM(url, llm, prompt) {
       .then((result) => {
         try {
           if (result.choices) {
-            console.table(result.choices); //result.choices[0].message.content);
-            console.table(result.choices[0].message); //result.choices[0].message.content);
-            console.table(result.choices[0].message.content); //result.choices[0].message.content);
+            // console.table(result.choices); //result.choices[0].message.content);
+            // console.table(result.choices[0].message); //result.choices[0].message.content);
+            // console.table(result.choices[0].message.content); //result.choices[0].message.content);
           } else {
-            console.table(result);
+            // console.table(result);
 
             if (result.error.code === "invalid_api_key") {
               throw Error(
@@ -62,7 +61,7 @@ async function queryLLM(url, llm, prompt) {
             }
           }
         } catch (error) {
-          console.table(result);
+          // console.table(result);
           console.log(`${error.message}`);
           return error.message;
         }
@@ -75,8 +74,6 @@ async function queryLLM(url, llm, prompt) {
         throw error;
       });
   } else {
-    console.log("getting LLM response from cache");
-
     return getResponseFromCache(prompt);
   }
 }

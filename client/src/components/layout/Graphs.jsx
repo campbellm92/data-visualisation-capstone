@@ -316,6 +316,8 @@ export default function Graphs() {
               /> : <ButtonMediumFullWide
                 id="report-button"
                 onClick={(e) => {
+                  let prevDarkMode = darkMode;
+                  
                   if (darkMode) toggleDarkMode();
                   generatePDFFrom(['llm-response', 'daily-rate', 'length-of-stay', 'average-occupancy', 'average-booking-window', 'spending-graphs'],
                     'LocalisDataAnalysisReport.pdf',
