@@ -12,6 +12,7 @@ const InputField = ({
   onKeyDown,
   className,
   labelClassName,
+  ariaLabel,
 }) => {
   return (
     <div className="form-control">
@@ -48,6 +49,7 @@ const InputField = ({
           onBlur={onBlur}
           onKeyDown={onKeyDown}
           labelClassName={labelClassName}
+          aria-label={ariaLabel}
         />
       )}
       {/* If hasError is true, render error message */}
