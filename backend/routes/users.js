@@ -281,6 +281,11 @@ router.put("/update", authorization, async function (req, res, next) {
       updatedUser.hash = bcrypt.hashSync(password, saltRounds);
     }
 
+    if (CardNumber) {
+      const saltRounds = 10;
+      updatedUser.CardNumber = bcrypt.hashSync(CardNumber, saltRounds);
+    }
+
     await req.db.from("users").where("email", userEmail).update(updatedUser);
 
     res.status(200).json({ success: true, message: "User details updated" });
