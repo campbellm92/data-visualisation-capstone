@@ -50,13 +50,7 @@ export function ThemeProvider({ children }) {
       default:
         return darkMode ? "darkTheme" : "publicTheme";
     }
-  }, [
-    darkMode,
-    user?.lga,
-    isLoggedIn,
-    isAuthChecked,
-    location.pathname, // Include pathname as a dependency
-  ]);
+  }, [darkMode, user?.lga, isLoggedIn, isAuthChecked, location.pathname]);
 
   // Update the data-theme attribute when the theme changes
   useEffect(() => {
