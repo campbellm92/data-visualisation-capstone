@@ -46,10 +46,13 @@ export function AIAnalysisModal({
       <Draggable>
         <dialog
           id="analyse_modal"
-          className="modal w-full max-w-4xl mx-auto p-4 fixed bottom-1/2 right-1/8 transform -translate-x-1/2 -translate-y-1/2"
+          className="modal w-full max-w-6xl mx-auto p-4 fixed bottom-1/2 right-1/8 transform -translate-x-1/2 -translate-y-1/2"
           open
         >
           <div className="shadow-md border-1 rounded p-6 relative shadow-lg bg-base-300 bg-opacity-95">
+            <div className="flex justify-end">
+              <CloseButton onClick={closeModal} />
+            </div>
             {!responseContent && (
               <form
                 id="prompt-form"
@@ -64,9 +67,6 @@ export function AIAnalysisModal({
                     <span className="font-bold text-primary-content pb-4 underline decoration-primary">
                       Instant AI data report
                     </span>
-                    <div className="flex justify-end">
-                      <CloseButton onClick={closeModal} />
-                    </div>
                   </div>
                   <div className="label">
                     <span className="text-primary-content pb-2">
@@ -120,15 +120,12 @@ export function AIAnalysisModal({
             )}
 
             {responseContent && (
-              <div className="mb-5">
-                <div className="flex justify-end">
-                  <CloseButton onClick={closeModal} />
-                </div>
+              <div className="mb-5 h-full w-full">
                 <div className="text-primary font-semibold mb-4 p-2 overflow-scroll">
                   AI-Generated Report:
                 </div>
 
-                <div className="overflow-scroll max-h-80">
+                <div className="overflow-auto max-h-[80vh]">
                   {chartType === "scatter" ? (
                     <div className>
                       <ChartRenderer
@@ -178,7 +175,7 @@ export function AIAnalysisModal({
                         />
                       }
                       fileName={`AI_Report_${year}.pdf`}
-                      className="btn btn-primary"
+                      className="btn btn-secondary btn-sm text-secondary-content"
                     >
                       {({ loading }) =>
                         loading ? "Preparing Document..." : "Download Report"

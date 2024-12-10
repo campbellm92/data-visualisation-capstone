@@ -14,16 +14,11 @@ export function AiAnalysisProvider({ children }) {
   async function doAnalysis(e, data, user, year) {
     e.preventDefault();
     e.stopPropagation();
-    console.log("Data passed to doAnalysis:", data);
-    console.log("User passed to doAnalysis:", user);
-    console.log("Year passed to doAnalysis:", year);
     setIsLoading(true);
     setIsButtonDisabled(true);
 
     const promptField =
       (customPrompt || defaultPrompt) + `\n\nData: ${JSON.stringify(data)}`;
-
-    console.log("Prompt sent to server:", promptField);
 
     if (!promptField) {
       console.error("No prompt provided.");

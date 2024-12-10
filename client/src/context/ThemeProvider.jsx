@@ -7,12 +7,11 @@ import {
   useCallback,
 } from "react";
 import { AuthContext } from "./AuthProvider";
-import { useLocation } from "react-router-dom"; // Import useLocation
-
+import { useLocation } from "react-router-dom";
 export const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const location = useLocation(); // Get the current pathname
+  const location = useLocation();
   const { user, isLoggedIn, isAuthChecked } = useContext(AuthContext);
 
   // State for dark mode
@@ -51,13 +50,7 @@ export function ThemeProvider({ children }) {
       default:
         return darkMode ? "darkTheme" : "publicTheme";
     }
-  }, [
-    darkMode,
-    user?.lga,
-    isLoggedIn,
-    isAuthChecked,
-    location.pathname, // Include pathname as a dependency
-  ]);
+  }, [darkMode, user?.lga, isLoggedIn, isAuthChecked, location.pathname]);
 
   // Update the data-theme attribute when the theme changes
   useEffect(() => {
