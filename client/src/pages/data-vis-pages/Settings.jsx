@@ -39,7 +39,9 @@ const Settings = () => {
   return (
     <>
       <div className="ml-10">
-        <h1 className="text-3xl font-bold text-primary-content">Settings</h1>
+        <h1 className="text-3xl font-bold text-primary-content pl-4 pb-4">
+          Settings
+        </h1>
         <div
           className={`collapse ${
             openSections.accountDetails ? "collapse-open" : "collapse-close"
