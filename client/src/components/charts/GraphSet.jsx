@@ -29,8 +29,9 @@ export default function GraphSet({
 
   const { width } = useWindowWidthResize();
 
-  let graphWidth = (width > 1024 ? /*"100%"*/ width * 0.6 : width * (width > 640 ? 0.65 : 0.65));
-  let averagesWidth = (width > 900 ? width * 0.15 /*"100%"*/ : width * 0.8);
+  let graphWidth = (width > 1024 ? "100%" : width * (width > 640 ? 0.65 : 0.75));
+  let averagesWidth = (width > 900 ? "100%" : width * 0.8);
+ 
   const kGraphHeight = 350;
   const kGraphBreakPoint = 900;
 

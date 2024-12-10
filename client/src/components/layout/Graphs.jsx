@@ -122,7 +122,7 @@ export default function Graphs() {
 
 {showBreaks ? <span>{smSplit} / md {mdSplit} / lg {lgSplit} / xl {xlSplit} - {width}</span>: null}
 
-        <div className={"grid md:grid-cols-1 opacity-95 gap-0 mb-4 items-start lg:grid-cols-[1fr_.2fr_.4fr_1.8fr_1.9fr_50px]"}>
+        <div className={"grid md:grid-cols-1 gap-0 mb-4 items-start lg:grid-cols-[1fr_.2fr_.4fr_1.8fr_1.9fr_50px]"}>
           <div className="shadow-md border-1 text-primary-content rounded bg-base-300 m-1 p-3 md:min-w-44 z-20">
 
             <div className="">
@@ -336,7 +336,7 @@ export default function Graphs() {
               >Download Report</ButtonMediumFullWide>}
 
           </div>
-          <div className="lg:col-span-12 xl:col-span-10 lg:h-[70vh] xl:h-[70vh] lg:mr-8 lg:overflow-scroll lg:fixed lg:top-56 z-10" /* max-w-[1440px]"*/>
+          <div className={`lg:h-[70vh] xl:h-[70vh] lg:mr-8 lg:overflow-y-scroll lg:overflow-x-hidden lg:fixed lg:top-56 z-10 md:w-full ${width > 3200 ? 'lg:w-11/12' : width > 1684 ? 'lg:w-10/12' : 'lg:w-9/12'}`}>
             {!loading && !error && dataSet ? (
               <div id="report-container" className="pr-3">
                 {llmResponse !== '' && aiAnalysisSelected ?

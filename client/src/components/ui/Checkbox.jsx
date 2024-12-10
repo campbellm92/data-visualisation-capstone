@@ -11,7 +11,7 @@ export default function Checkbox({ label, value, setValue }) {
           type="checkbox"
           checked={value}
           // className="checkbox checkbox-xl checkbox-primary m-0"
-          className="appearance-none h-6 w-6 border border-primary rounded-md checked:before:content-['✓'] checked:bg-primary checked:text-secondary-content checked:flex checked:items-center checked:justify-center"
+          className="appearance-none h-6 w-6 border border-primary rounded-md checked:before:content-['✓'] checked:bg-primary checked:text-secondary-content flex checked:items-center checked:justify-center"
           onChange={handleChange}
           aria-label={`Toggle ${value ? "on" : "off"} checkbox`}
         />
@@ -34,7 +34,7 @@ export function CheckboxCustomOnChange({ label, value, onChange }) {
           type="checkbox"
           checked={value}
           // className="checkbox checkbox-xl checkbox-primary m-0"
-          className="appearance-none h-6 w-6 border border-primary rounded-md checked:before:content-['✓'] checked:bg-primary checked:text-secondary-content checked:flex checked:items-center checked:justify-center"
+          className="appearance-none h-6 w-6 border border-primary rounded-md checked:before:content-['✓'] checked:bg-primary checked:text-secondary-content flex checked:items-center checked:justify-center"
           onChange={onChange}
           aria-label={`Toggle ${value ? "on" : "off"} checkbox`}
         />
