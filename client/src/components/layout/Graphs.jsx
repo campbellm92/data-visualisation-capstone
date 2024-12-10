@@ -122,7 +122,7 @@ export default function Graphs() {
 
 {showBreaks ? <span>{smSplit} / md {mdSplit} / lg {lgSplit} / xl {xlSplit} - {width}</span>: null}
 
-        <div className="grid md:grid-cols-1 opacity-95 gap-0 mb-4 items-start lg:grid-cols-[1fr_1fr_1fr_1fr_1fr_50px]">
+        <div className={"grid md:grid-cols-1 opacity-95 gap-0 mb-4 items-start lg:grid-cols-[1fr_.2fr_.4fr_1.8fr_1.9fr_50px]"}>
           <div className="shadow-md border-1 text-primary-content rounded bg-base-300 m-1 p-3 md:min-w-44 z-20">
 
             <div className="">
@@ -241,10 +241,12 @@ export default function Graphs() {
                 />
                 : null}
             </details></div>
-          {spendingDataSelected && !spendCatsLoading && !spendCatsError && spendCats ?
+          {!spendCatsLoading && !spendCatsError && spendCats ?
             <div className="shadow-md border-1 opacity-95 rounded bg-base-300 m-1 p-3 md:min-w-55 z-20">
-              <details id="SpendCatSelector" onClick={() => { setOpenDetails("SpendCatSelector") }}>
-                <summary className="text-primary-content">Spending</summary>
+              <details id="SpendCatSelector" 
+              onClick={() => { setOpenDetails("SpendCatSelector") }} 
+             >
+                <summary className={spendingDataSelected?"text-primary-content":"text-secondary-content"} style={!spendingDataSelected ? {pointerEvents:"none", color:"#888888"} : null}>Spending</summary>
                 <SpendCats spendCats={spendCats}
                   selectedCats={selectedCats}
                   setSelectedCats={setSelectedCats}
