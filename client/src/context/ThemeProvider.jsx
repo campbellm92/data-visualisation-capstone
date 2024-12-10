@@ -7,12 +7,11 @@ import {
   useCallback,
 } from "react";
 import { AuthContext } from "./AuthProvider";
-import { useLocation } from "react-router-dom"; // Import useLocation
-
+import { useLocation } from "react-router-dom";
 export const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const location = useLocation(); // Get the current pathname
+  const location = useLocation();
   const { user, isLoggedIn, isAuthChecked } = useContext(AuthContext);
 
   // State for dark mode
