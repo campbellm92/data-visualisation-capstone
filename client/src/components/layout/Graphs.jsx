@@ -51,7 +51,7 @@ export default function Graphs() {
   const [lengthOfStaySelected, setLengthOfStaySelected] = useState(false);
   const [occupancySelected, setOccupancySelected] = useState(false);
   const [bookingWindowSelected, setBookingWindowSelected] = useState(false);
-  const [spendingDataSelected, setSpendingDataSelected] = useState(false);
+  const [spendingDataSelected, setSpendingDataSelected] = useState(true);
   const [aiAnalysisSelected, setAiAnalysisSelected] = useState(false);
 
   // width of browser window
