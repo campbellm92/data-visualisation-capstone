@@ -74,7 +74,7 @@ const Login = ({ toggle }) => {
         setIsLoading(false);
         setTimeout(() => {
           document.getElementById("auth_modal").close();
-          navigate("/welcome");
+          navigate("/dashboard");
           setSuccess(null);
           setIsLoading(false);
         }, 2000);
