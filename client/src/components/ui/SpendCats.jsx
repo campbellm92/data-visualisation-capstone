@@ -15,7 +15,7 @@ export default function SpendCats({ id, spendCats, selectedCats, setSelectedCats
                           }, 100);
                     }}
                 />
-                <hr></hr>
+                <hr className="m-3"></hr>
             {spendCats.map(cat =>
                 <CheckboxCustomOnChange key={convertToLabel(cat)}
                     label={toTitleCase(cat)}
