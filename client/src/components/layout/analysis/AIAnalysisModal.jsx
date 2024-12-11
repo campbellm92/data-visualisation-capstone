@@ -50,9 +50,6 @@ export function AIAnalysisModal({
           open
         >
           <div className="shadow-md border-1 rounded p-6 relative shadow-lg bg-base-300 bg-opacity-95">
-            <div className="flex justify-end">
-              <CloseButton onClick={closeModal} />
-            </div>
             {!responseContent && (
               <form
                 id="prompt-form"
@@ -120,8 +117,11 @@ export function AIAnalysisModal({
             )}
 
             {responseContent && (
-              <div className="mb-5 h-full w-full">
-                <div className="text-primary font-semibold mb-4 p-2 overflow-scroll">
+              <div className="mb-5">
+                <div className="flex justify-end">
+                  <CloseButton onClick={closeModal} />
+                </div>
+                <div className="text-primary font-semibold mb-4 p-2">
                   AI-Generated Report:
                 </div>
 

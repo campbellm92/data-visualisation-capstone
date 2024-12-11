@@ -187,6 +187,7 @@ const Icons = {
       strokeWidth={1.5}
       stroke="currentColor"
       className="size-6 text-primary-content"
+      aria-label="Localis Data Dashboard Guide"
     >
       <path
         strokeLinecap="round"
