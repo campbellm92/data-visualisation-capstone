@@ -36,7 +36,7 @@ export default function GraphSet({
   const kGraphBreakPoint = 900;
 
   return (
-    <div key={field} id={id} className="grid sm:grid-cols-1 md:grid-cols-5 md:gap-4 mb-4 rounded-md md:p-4 bg-base-300 shadow-md">
+    <div key={field} id={id} className="grid sm:grid-cols-1 md:grid-cols-5 md:gap-4 mb-4 md:p-4 bg-base-300 shadow-md">
       <div className="sm:col-span-1 md:col-span-4">
         <div className="" style={{ height: kGraphHeight, width: graphWidth }}>
           <GraphDetails

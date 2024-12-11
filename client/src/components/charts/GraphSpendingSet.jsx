@@ -29,7 +29,7 @@ export default function GraphSpendingSet({
   const { width } = useWindowWidthResize();
 
   return (
-    <div key={id} id={id} className="grid sm:grid-cols-1 md:grid-cols-4 gap-4 mb-4 rounded-md p-4 bg-base-300 shadow-md">
+    <div key={id} id={id} className="grid sm:grid-cols-1 md:grid-cols-4 gap-4 mb-4 p-4 bg-base-300 shadow-md">
       {LGAs.includes('Gold Coast') ?
         <div key={"Gold Coast"} className="sm:col-span-1">
           <div className="" style={{ height: kGraphHeight, width: kGraphWidth }}>

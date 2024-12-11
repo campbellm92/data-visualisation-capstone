@@ -344,7 +344,7 @@ export default function Graphs() {
                     {/*<div className="h-[325px] shadow-md border-1 rounded mb-3 p-1 bg-base-300">
                     <LLMResponse content={llmResponse} ></LLMResponse>
                   </div>*/}
-                    <div id="llm-response" className="shadow-md border-1 rounded mb-3 p-1 bg-base-300">
+                    <div id="llm-response" className="shadow-md border-1 mb-3 p-1 bg-base-300">
                       <LLMResponse content={llmResponse} ></LLMResponse>
                     </div>
                   </div>
