@@ -1,7 +1,7 @@
 //
 //  IFQ717 Web Development Capstone
 //
-//  Graphs.jsx - Sample display of current graphing modules by Gary Cazzulino
+//  Graphs.jsx - Main layout component for the Data Analyst page by Gary Cazzulino
 //
 //
 
@@ -11,7 +11,7 @@ import { useLocalisData } from "../../api/hooks/useLocalisData";
 import { useLocalisSpendingData } from "../../api/hooks/useLocalisSpendData.jsx";
 import { useState, useContext } from "react";
 import Checkbox from "../ui/Checkbox";
-import {CheckboxCustomOnChange} from "../ui/Checkbox.jsx";
+import { CheckboxCustomOnChange } from "../ui/Checkbox.jsx";
 import { kOriginDate, kDefaultResponse } from "../../api/utils/constants";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import { ButtonMediumFullWide, ButtonDownloadReport, ButtonMedium } from "../ui/Buttons";
@@ -30,88 +30,92 @@ const kGraphWidth = "100%";
 
 export default function Graphs() {
 
+  // all the decls
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
   const useRechart = true;
   const [windowDays, setWindowDays] = useState(90);
-  // const [dateOffset, setDateOffset] = useState(0);
-
   const [startDate, setStartDate] = useState(kOriginDate);
   const [selectedDateRange, setSelectedDateRange] = useState({ startDate: startDate, endDate: addDaysToDate(startDate, windowDays) });
   const { loading, dataSet, error, totalDateRange } = useLocalisData(selectedDateRange.startDate, selectedDateRange.endDate);
   const { spendingDataLoading, spendingDataSet, spendingDataError } = useLocalisSpendingData(selectedDateRange.startDate, selectedDateRange.endDate);
-
   const { spendCatsLoading, spendCats, spendCatsError } = useLocalisSpendCategories();
   const [selectedCats, setSelectedCats] = useState(["Airlines/Air Carriers", "Automotive", "Bars/Taverns/Lounges/Discos"]);
-
   const [llmResponse, setllmResponse] = useState('');
 
+  // various checkbox state variable
   const [goldCoastSelected, setGoldCoastSelected] = useState(true);
   const [noosaSelected, setNoosaSelected] = useState(true);
   const [whitsundaySelected, setWhitsundaySelected] = useState(true);
   const [cairnsSelected, setCairnsSelected] = useState(true);
-
   const [dailyRateSelected, setDailyRateSelected] = useState(true);
   const [lengthOfStaySelected, setLengthOfStaySelected] = useState(false);
   const [occupancySelected, setOccupancySelected] = useState(false);
   const [bookingWindowSelected, setBookingWindowSelected] = useState(false);
-  const [spendingDataSelected, setSpendingDataSelected] = useState(true);
+  const [spendingDataSelected, setSpendingDataSelected] = useState(false);
   const [aiAnalysisSelected, setAiAnalysisSelected] = useState(false);
 
+  // width of browser window
   const { width } = useWindowWidthResize();
 
+  // array of currently selected LGAs
   const LGAs = new Array();
 
+  // tailwind constants for responsiveness debugging and operation
   const fullConfig = resolveConfig(tailwindConfig);
-
   const smSplit = parseInt(fullConfig.theme.screens.sm, 10);
   const mdSplit = parseInt(fullConfig.theme.screens.md, 10);
   const lgSplit = parseInt(fullConfig.theme.screens.lg, 10);
   const xlSplit = parseInt(fullConfig.theme.screens.xl, 10);
 
+  // called when someone clicks a spending category
   function toggleCat(cat) {
-    //console.table(cat);
     setSelectedCats((prevSelectedCats) => {
       return prevSelectedCats.includes(cat)
         ? prevSelectedCats.filter((c) => c !== cat)
         : [...prevSelectedCats, cat];
     });
     setTimeout(() => {
+      // if on a larger device scroll the spending graph into view
       if (width >= lgSplit)
-      document.getElementById('spending-graphs')?.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('spending-graphs')?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   };
 
+  // someone has clicked to open a dropdown
   function setOpenDetails(idToOpen) {
-    console.log(idToOpen);
+
     const detailsElements = document.querySelectorAll("details");
 
+    // close all other dropdowns
     detailsElements.forEach((details) => {
       console.log(details.id);
       if (details.id === idToOpen) {
-        //details.open = true;
+        //details.open = true; // don't perform the default functionality or it occurs twice and closes the dropdown
       } else {
         details.open = false;
       }
     });
   }
 
+  // someone has clicked outside a dropdown so close them all
   function handleClickOutsideDetails(e) {
-     console.log("inside handleClickOutsideDetails");
 
-     if (!e.target.closest("details")) {
+    if (!e.target.closest("details")) {
       setOpenDetails("");
     }
   }
 
+  // add selected LGAs to LGA array
   if (goldCoastSelected) LGAs.push("Gold Coast");
   if (noosaSelected) LGAs.push("Noosa");
   if (whitsundaySelected) LGAs.push("Whitsunday");
   if (cairnsSelected) LGAs.push("Cairns");
 
-
+  // add listeners to close dropdowns on click outside
   document.addEventListener("click", handleClickOutsideDetails);
   document.addEventListener("touchstart", handleClickOutsideDetails);
-  
+
+  // debug boolean for testing responsive layout
   const showBreaks = false;
 
   return (
@@ -120,13 +124,13 @@ export default function Graphs() {
 
         <h1 className="font-light lg:p-3 text-xl sm:text-2xl lg:text-3xl text-primary-content mb-4 lg:mb-0 pb-4">Data Analyst</h1>
 
-{showBreaks ? <span>{smSplit} / md {mdSplit} / lg {lgSplit} / xl {xlSplit} - {width}</span>: null}
+        {showBreaks ? <span>{smSplit} / md {mdSplit} / lg {lgSplit} / xl {xlSplit} - {width}</span> : null}
 
         <div className={"grid md:grid-cols-1 gap-0 mb-4 items-start lg:grid-cols-[1fr_.2fr_.4fr_1.8fr_1.9fr_50px]"}>
           <div className="shadow-md border-1 text-primary-content rounded bg-base-300 m-1 p-3 md:min-w-44 z-20">
-
+            {/* Date Range dropdown */}
             <div className="">
-              {/*<DateScroller
+              {/* no longer used (experimental) <DateScroller
                     startDate={startDate}
                     setStartDate={setStartDate}
                     windowDays={windowDays}
@@ -144,6 +148,7 @@ export default function Graphs() {
 
           </div>
           <div className="shadow-md opacity-95 border-1 rounded bg-base-300 m-1 p-3 md:min-w-44 z-20">
+            {/* LGA dropdown */}
             <details id="LGASelector" onClick={() => setOpenDetails("LGASelector")}>
               <summary className="text-primary-content">LGAs</summary>
               <Checkbox
@@ -170,60 +175,61 @@ export default function Graphs() {
           </div>
 
           <div className="shadow-md border-1 opacity-95 rounded bg-base-300 m-1 p-3 md:min-w-44 z-20">
+            {/* Metrics dropdown */}
             <details id="MetricSelector" onClick={() => setOpenDetails("MetricSelector")}>
               <summary className="text-primary-content">Metrics</summary>
               <CheckboxCustomOnChange
                 label="Spending"
                 value={spendingDataSelected}
-                onChange={() => { 
-                  setSpendingDataSelected(!spendingDataSelected); 
+                onChange={() => {
+                  setSpendingDataSelected(!spendingDataSelected);
                   setTimeout(() => {
                     if (width >= lgSplit)
-                    document.getElementById('spending-graphs')?.scrollIntoView({ behavior: 'smooth' });
+                      document.getElementById('spending-graphs')?.scrollIntoView({ behavior: 'smooth' });
                   }, 100);
                 }}
               />
               <CheckboxCustomOnChange
                 label="Daily Rate"
                 value={dailyRateSelected}
-                onChange={() => { 
-                  setDailyRateSelected(!dailyRateSelected); 
+                onChange={() => {
+                  setDailyRateSelected(!dailyRateSelected);
                   setTimeout(() => {
                     if (width >= lgSplit)
-                    document.getElementById('daily-rate')?.scrollIntoView({ behavior: 'smooth' });
+                      document.getElementById('daily-rate')?.scrollIntoView({ behavior: 'smooth' });
                   }, 100);
                 }}
               />
               <CheckboxCustomOnChange
                 label="Occupancy"
                 value={occupancySelected}
-                onChange={() => { 
-                  setOccupancySelected(!occupancySelected); 
+                onChange={() => {
+                  setOccupancySelected(!occupancySelected);
                   setTimeout(() => {
                     if (width >= lgSplit)
-                    document.getElementById('average-occupancy')?.scrollIntoView({ behavior: 'smooth' });
+                      document.getElementById('average-occupancy')?.scrollIntoView({ behavior: 'smooth' });
                   }, 100);
                 }}
               />
               <CheckboxCustomOnChange
                 label="Length of Stay"
                 value={lengthOfStaySelected}
-                onChange={() => { 
-                  setLengthOfStaySelected(!lengthOfStaySelected); 
+                onChange={() => {
+                  setLengthOfStaySelected(!lengthOfStaySelected);
                   setTimeout(() => {
                     if (width >= lgSplit)
-                    document.getElementById('length-of-stay')?.scrollIntoView({ behavior: 'smooth' });
+                      document.getElementById('length-of-stay')?.scrollIntoView({ behavior: 'smooth' });
                   }, 100);
                 }}
               />
               <CheckboxCustomOnChange
                 label="Booking Window"
                 value={bookingWindowSelected}
-                onChange={() => { 
-                  setBookingWindowSelected(!bookingWindowSelected); 
+                onChange={() => {
+                  setBookingWindowSelected(!bookingWindowSelected);
                   setTimeout(() => {
                     if (width >= lgSplit)
-                    document.getElementById('average-booking-window')?.scrollIntoView({ behavior: 'smooth' });
+                      document.getElementById('average-booking-window')?.scrollIntoView({ behavior: 'smooth' });
                   }, 100);
                 }}
               />
@@ -231,22 +237,24 @@ export default function Graphs() {
                 <CheckboxCustomOnChange
                   label="AI Analysis"
                   value={aiAnalysisSelected}
-                  onChange={() => { 
-                    setAiAnalysisSelected(!aiAnalysisSelected); 
+                  onChange={() => {
+                    setAiAnalysisSelected(!aiAnalysisSelected);
                     setTimeout(() => {
                       if (width >= lgSplit)
-                      document.getElementById('llm-response')?.scrollIntoView({ behavior: 'smooth' });
+                        document.getElementById('llm-response')?.scrollIntoView({ behavior: 'smooth' });
                     }, 100);
                   }}
                 />
                 : null}
             </details></div>
+
           {!spendCatsLoading && !spendCatsError && spendCats ?
             <div className="shadow-md border-1 opacity-95 rounded bg-base-300 m-1 p-3 md:min-w-55 z-20">
-              <details id="SpendCatSelector" 
-              onClick={() => { setOpenDetails("SpendCatSelector") }} 
-             >
-                <summary className={spendingDataSelected?"text-primary-content":"text-secondary-content"} style={!spendingDataSelected ? {pointerEvents:"none", color:"#888888"} : null}>Spending</summary>
+              {/* Spending Categories dropdown */}
+              <details id="SpendCatSelector"
+                onClick={() => { setOpenDetails("SpendCatSelector") }}
+              >
+                <summary className={spendingDataSelected ? "text-primary-content" : "text-secondary-content"} style={!spendingDataSelected ? { pointerEvents: "none", color: "#888888" } : null}>Spending</summary>
                 <SpendCats spendCats={spendCats}
                   selectedCats={selectedCats}
                   setSelectedCats={setSelectedCats}
@@ -260,6 +268,7 @@ export default function Graphs() {
 
           {!loading && !error && dataSet ? (
             <div className="shadow-md border-1 opacity-95 rounded m-1 p-3 relative shadow-lg bg-base-300 text-primary-content z-20">
+              {/* AI Analysis dropdown */}
               <details id="AIWidget" onClick={() => setOpenDetails("AIWidget")}><summary>AI Analysis</summary>
                 <AIAnalysis
                   dataSet={dataSet
@@ -299,6 +308,7 @@ export default function Graphs() {
           ) : null}
 
           <div className="col-span-1 m-0 p-3 relative text-primary-content z-20">
+            {/* Download button rendered differently based on screen width */}
             {width >= lgSplit ?
               <ButtonDownloadReport
                 id="report-button"
@@ -309,9 +319,9 @@ export default function Graphs() {
                   generatePDFFrom(['llm-response', 'daily-rate', 'length-of-stay', 'average-occupancy', 'average-booking-window', 'spending-graphs'],
                     'LocalisDataAnalysisReport.pdf',
                     false);
-                    setTimeout(() => {
-                      if (prevDarkMode) toggleDarkMode();
-                    }, 2000);
+                  setTimeout(() => {
+                    if (prevDarkMode) toggleDarkMode();
+                  }, 2000);
                   return false;
                 }}
                 disabled={false}
@@ -319,16 +329,16 @@ export default function Graphs() {
                 id="report-button"
                 onClick={(e) => {
                   let prevDarkMode = darkMode;
-                  
+
                   if (darkMode) toggleDarkMode();
                   generatePDFFrom(['llm-response', 'daily-rate', 'length-of-stay', 'average-occupancy', 'average-booking-window', 'spending-graphs'],
                     'LocalisDataAnalysisReport.pdf',
                     false);
 
-                    setTimeout(() => {
-                      if (prevDarkMode) toggleDarkMode();
-                    }, 2000);
-                    
+                  setTimeout(() => {
+                    if (prevDarkMode) toggleDarkMode();
+                  }, 2000);
+
                   return false;
                 }}
                 disabled={false}
@@ -339,9 +349,10 @@ export default function Graphs() {
           <div className={`lg:h-[70vh] xl:h-[70vh] lg:mr-8 lg:overflow-y-scroll lg:overflow-x-hidden lg:fixed lg:top-56 z-10 md:w-full ${width > 3200 ? 'lg:w-11/12' : width > 1684 ? 'lg:w-10/12' : 'lg:w-9/12'}`}>
             {!loading && !error && dataSet ? (
               <div id="report-container" className="pr-3">
+                {/* Main graphing / analysis area */}
                 {llmResponse !== '' && aiAnalysisSelected ?
                   <div>
-                    {/*<div className="h-[325px] shadow-md border-1 rounded mb-3 p-1 bg-base-300">
+                    {/* left in in case I go back to making it a scrollable div <div className="h-[325px] overflow-scroll shadow-md border-1 rounded mb-3 p-1 bg-base-300">
                     <LLMResponse content={llmResponse} ></LLMResponse>
                   </div>*/}
                     <div id="llm-response" className="shadow-md border-1 mb-3 p-1 bg-base-300">
@@ -351,18 +362,19 @@ export default function Graphs() {
                   : null}
                 {spendingDataSelected ?
                   <div>
+                    {/* Spending Charts */}
                     {!spendingDataLoading && !spendingDataError && spendingDataSet ? (
-                        <GraphSpendingSet
-                          id="spending-graphs"
-                          useRechart={useRechart}
-                          title="Spending For"
-                          avgTitle="Category $ comparison"
-                          field={"spend"}
-                          selectedCats={selectedCats}
-                          dataSet={spendingDataSet}
-                          LGAs={LGAs}
-                          scale={1.0}
-                        />
+                      <GraphSpendingSet
+                        id="spending-graphs"
+                        useRechart={useRechart}
+                        title="Spending For"
+                        avgTitle="Category $ comparison"
+                        field={"spend"}
+                        selectedCats={selectedCats}
+                        dataSet={spendingDataSet}
+                        LGAs={LGAs}
+                        scale={1.0}
+                      />
                     ) : !spendingDataError ? (
                       <div>
                         <div
@@ -374,6 +386,7 @@ export default function Graphs() {
                       </div>
                     ) : spendingDataError}
                   </div> : null}
+                {/* Daily Rate Chart */}
                 {dailyRateSelected ? (
                   <GraphSet
                     id="daily-rate"
@@ -392,6 +405,7 @@ export default function Graphs() {
                     scale={1.0}
                   />
                 ) : null}
+                {/* Length of Stay Chart */}
                 {lengthOfStaySelected ? (
                   <GraphSet
                     id="length-of-stay"
@@ -410,6 +424,7 @@ export default function Graphs() {
                     scale={1.0}
                   />
                 ) : null}
+                {/* Occupancy Chart */}
                 {occupancySelected ? (
                   <GraphSet
                     id="average-occupancy"
@@ -428,6 +443,7 @@ export default function Graphs() {
                     scale={100.0}
                   />
                 ) : null}
+                {/* Booking Window Chart */}
                 {bookingWindowSelected ? (
                   <GraphSet
                     id="average-booking-window"
@@ -453,6 +469,7 @@ export default function Graphs() {
                   className="box-drop-shadow"
                   style={{ height: 400, width: kGraphWidth }}
                 >
+                  {/* Spinner for when it's busy */}
                   <LoadingSpinner />
                 </div>
               </div>

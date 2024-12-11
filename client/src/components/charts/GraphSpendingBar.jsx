@@ -1,7 +1,9 @@
 //
 //  IFQ717 Web Development Capstone
 //
-//  GraphSpendPie.js - Graphs selected spend data for an single LGA by Gary Cazzulino
+//  GraphSpendPie.js - Graphs selected spend data for an single LGA as a bar chart by Gary Cazzulino
+//
+//                     NOTE: Not fully implemented as pie chart is the current preferred option
 //
 //
 
@@ -31,6 +33,7 @@ export default function GraphSpendingBar({
   LGAs,
 }) {
 
+  // implement Rechart option
   if (useRechart) {
     const data = selectedCats.map((cat) => {
       return (
@@ -55,8 +58,6 @@ export default function GraphSpendingBar({
           >
             {title}
           </h2>
-          {/*<PieChart width={730} height={250}>*/}
-
           <BarChart
             data={data}
             margin={{
@@ -88,6 +89,8 @@ export default function GraphSpendingBar({
       </div>
     );
   } else {
+
+    // implement AG Chart option
     return <AgCharts options={options} />;
   }
 }

@@ -10,8 +10,8 @@ import { addDaysToDate } from "../utils/utils";
 import { kAPI_URL, kDEFAULT_ERROR_MSG } from "../utils/constants";
 import { getUrlFromCache, getUrlFromServer } from "../utils/utils";
 
-// Retrieve Ranking data based on year and country from the external API
-export function useLocalisSpendCategories(startDate, windowDays) {
+// Retrieve unique list of spending categories
+export function useLocalisSpendCategories() {
   const [spendCatsLoading, setSpendCatsLoading] = useState(false);
   const [spendCats, setSpendCats] = useState();
   const [spendCatsError, setSpendCatsError] = useState(null);
@@ -20,12 +20,15 @@ export function useLocalisSpendCategories(startDate, windowDays) {
   useEffect(() => {
     let url = `${kAPI_URL}/spend_categories`;
 
+    // see if data is already in the cache
     if (getUrlFromCache(cache, url)) {
       setSpendCatsLoading(false);
       setSpendCats(getUrlFromCache(cache, url));
       setSpendCatsError(null);
     } else {
       setSpendCatsLoading(true);
+
+      // otherwise get it from the server
       getUrlFromServer(url, false)
         .then((returnedDataSet) => {
           setCache((prevCache) => ({ ...prevCache, [url]: returnedDataSet }));

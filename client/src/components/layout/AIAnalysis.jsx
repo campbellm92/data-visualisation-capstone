@@ -1,30 +1,32 @@
 //
 //  IFQ717 Web Development Capstone
 //
-//  AnalyseModal.jsx - Popup modal dialog for LLM analysis of selected data by Gary Cazzulino
+//  AnalyseModal.jsx - dialog widget for LLM analysis of selected data by Gary Cazzulino
 //
 //
 
-import { useState } from "react";
 import { ButtonMediumFullWide } from "../ui/Buttons";
-import { kAPI_URL } from "../../api/utils/constants";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import LLMResponse from "./LLMResponse";
 import { SelectLLMPrompt } from "../ui/Select";
 import { getLLMResponseFromServer } from "../../api/utils/getUtils";
 
+// clear custom prompt if a default is selected
 function handleSelectChange() {
   document.getElementById("prompt").value = "";
 }
 
 const AIAnalysis = ({ dataSet, llmResponse, setllmResponse, setAiAnalysisSelected, afterClickAnalyse }) => {
 
+  // left over from when this was a modal popup still may be usefull
   function closeForm() {
     setllmResponse(kDefaultResponse);
     document.getElementById("analyse_modal").close();
   }
 
+  // make the API call to do the analysis
   async function doAnalysis(e, setAiAnalysisSelected, afterClickAnalyse) {
+    // get required fields
     const working = document.getElementById("working");
     const analyseButton = document.getElementById("analyse-button");
     const customPromptField = document.getElementById("prompt");
@@ -42,24 +44,16 @@ const AIAnalysis = ({ dataSet, llmResponse, setllmResponse, setAiAnalysisSelecte
 
     try {
       
+      // call our backend server for the analysis
       const response = await getLLMResponseFromServer(promptField.value, dataSet);
-      
-      // if (!response.ok) {
-      //   throw new Error("Network response was not ok");
-      // }
-
-      // const data = await response.json();
-
-      // if (response.error) {
-      //   alert(response.message);
-      // } else {
-      //   console.log("Success:", data);
-      // }
 
       setllmResponse(response);
       working.style = "display:none";
       analyseButton.disabled = false;
+
     } catch (error) {
+      // currently amount of data that can be passed is limited
+      // need to implement this in a different way in the backend
       setllmResponse(
         "Too much data selected. Please select less data and try again. Version 2 will fix this issue."
       );
@@ -73,8 +67,6 @@ const AIAnalysis = ({ dataSet, llmResponse, setllmResponse, setAiAnalysisSelecte
 
   return (
     <div>
-      {/*<dialog id="analyse_modal" className="modal w-full">*/}
-
       <div>
         <form id="prompt-form" method="dialog">
           <label
@@ -136,7 +128,6 @@ const AIAnalysis = ({ dataSet, llmResponse, setllmResponse, setAiAnalysisSelecte
           Analyse
         </ButtonMediumFullWide>
       </div>
-      {/*</dialog>*/}
     </div>
   );
 };

@@ -2,7 +2,7 @@
 //  IFQ717 Web Development Capstone
 //
 //  GraphAverages.js - Graphs selected average for selected LGAs by Gary Cazzulino
-//
+//                     Code support either using AGCharts or Rechart for graphing
 //
 
 import { AgCharts } from "ag-charts-react";
@@ -26,11 +26,13 @@ export default function GraphAverages({
   useRechart,
   LGAs,
 }) {
+
+  // initialize AGChart options
   let options = {
     title: {
       text: title,
     },
-    // Data: Data to be displayed in the chart
+    // Data to be displayed in the chart
     data: [
       {
         noosa_lga: "Noosa",
@@ -67,6 +69,7 @@ export default function GraphAverages({
         ),
       },
     ],
+
     // Series: Defines which chart type and data to use
     series: [
       LGAs.find((LGA) => LGA === "Noosa")
@@ -124,6 +127,7 @@ export default function GraphAverages({
     ],
   };
 
+  // implement Rechart option
   if (useRechart) {
     const data = [
       LGAs.find((LGA) => LGA === "Noosa")
@@ -197,13 +201,6 @@ export default function GraphAverages({
             <XAxis dataKey="sample_date" />
             <YAxis />
             <Tooltip />
-            {/*<Legend />*/}
-            {/*<Pie data={data} nameKey="lga" dataKey="average" >
-            {data.map((entry, index) => (
-              entry !== null ?
-              <Cell key={`cell-${entry.lga}`} fill={kGraphColours[entry.lga]} /> : null
-            ))}
-          </Pie>*/}
             {LGAs.map((LGA) => {
               return (
                 <Bar key={LGA}
@@ -221,7 +218,9 @@ export default function GraphAverages({
         </ResponsiveContainer>
       </div>
     );
+    
   } else {
+    // implement AG Charts option
     return <AgCharts options={options} />;
   }
 }

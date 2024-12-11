@@ -8,14 +8,16 @@
 import domtoimage from 'dom-to-image';
 import { jsPDF } from 'jspdf'
 
-
+// captures a div element as a jpg at highest quality
 export async function captureAsImage (elementId) {
   const element = document.getElementById(elementId);
   return await domtoimage.toJpeg(element, { quality: 1.0 });
 }
 
+// generic function to generate a PDF based on an array of htmls element ID passed in
 export async function generatePDFFrom(htmlElements, outputFilename, display) {
 
+  // define the PDF
   const pdf = new jsPDF({
     orientation: 'p',
     unit: 'px',
@@ -31,6 +33,7 @@ export async function generatePDFFrom(htmlElements, outputFilename, display) {
   let scale = 1.0;
   let yOffset = yMargin;
 
+  // generate a scaled image for each supplied html element
   for ( let i = 0; i < htmlElements.length; i++) {
 
     let scalingForHeight = false;
@@ -41,6 +44,7 @@ export async function generatePDFFrom(htmlElements, outputFilename, display) {
       const elementImage = await captureAsImage(element);
       let { width, height } = document.getElementById(element).getBoundingClientRect();
 
+      // sacle the image and consider page control once page is full
       scale = Math.min(
               (pageWidth - (xMargin * 2)) / width,
               (pageHeight - (yMargin * 2)) / height);
@@ -52,6 +56,7 @@ export async function generatePDFFrom(htmlElements, outputFilename, display) {
 
       }
 
+      // add the appropriately scaled image to the PDF
       pdf.addImage(elementImage, 'JPG', width < height ? (pageWidth - (width * scale)) / 2.0 : xMargin, yOffset, width * scale, height * scale);
       yOffset += ((height * scale) + yGap);
       
@@ -66,14 +71,15 @@ export async function generatePDFFrom(htmlElements, outputFilename, display) {
 
 }
 
+// calculate the mathematic average from an array
 export function average(arr) {
   return Math.trunc((arr.reduce((p, c) => p + c, 0) / arr.length) * 10.0) / 10.0;
 }
 
 // Given a cache array and a specific URL string, getUrlFromCache will return the previous
-// API response for that URL if it exists in the cache, filtered by an optionally provided filter
-export function getUrlFromCache(cache, url, filter = (element) => true) {
-  return cache[url]; // ? cache[url].filter(filter) : cache[url];
+// API response for that URL if it exists in the cache
+export function getUrlFromCache(cache, url) {
+  return cache[url]; 
 }
 
 // A helper function to consistently perform server API calls, handling errors as appropriate
@@ -103,7 +109,9 @@ export function getUrlFromServer(url, authenticate) {
     });
 }
 
+// add a number of days to a date
 export function addDaysToDate(dateString, daysToAdd) {
+
   const date = new Date(dateString);
 
   date.setDate(date.getDate() + daysToAdd);
@@ -117,6 +125,7 @@ export function addDaysToDate(dateString, daysToAdd) {
   return newDateString;
 }
 
+// calculate the number of days between 2 dates
 export function daysBetweenDates(startDate, endDate) {
   const startDateDate = new Date(startDate);
   const endDateDate = new Date(endDate);
@@ -126,14 +135,18 @@ export function daysBetweenDates(startDate, endDate) {
   return Math.floor(dayDifference);
 }
 
+// convert a string to be a suitable label for graphing data etc
 export function convertToLabel(name) {
   return name.replace(' ', '_').toLowerCase();
 }
 
+// convert a string to title case - used for displaying spending categories
 export function toTitleCase(str) {
   return str.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
 }
 
+// experimental approach of using area under the curve instead of averages in graphing
+// gives identical visual results however in a funky type of unit - so idea was dropped
 export function calculateAreaUnderCurve(dataSet) {
 
   let areaUnderCurve = 0;

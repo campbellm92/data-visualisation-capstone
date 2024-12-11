@@ -1,7 +1,7 @@
 //
 //  IFQ717 Web Development Capstone
 //
-//  GraphSet.jsx - Container for a comb ined detail and average graph by Gary Cazzulino
+//  GraphSet.jsx - Container for a combined detail and average graph by Gary Cazzulino
 //
 //
 
@@ -29,6 +29,8 @@ export default function GraphSet({
 
   const { width } = useWindowWidthResize();
 
+  // calculate the sizes of the graphs - complicated cause of some higher level container styling issues
+  // and the need for it to be responsive even needing non-standard break points
   let graphWidth = (width > 1024 ? "100%" : width * (width > 640 ? 0.65 : 0.75));
   let averagesWidth = (width > 900 ? "100%" : width * 0.8);
  
@@ -41,8 +43,8 @@ export default function GraphSet({
         <div className="" style={{ height: kGraphHeight, width: graphWidth }}>
           <GraphDetails
             useRechart={useRechart}
-            title={title /*"Average Historical Occupancy (%)"*/}
-            field={field /*"average_historical_occupancy"*/}
+            title={title}
+            field={field}
             scale={scale}
             dataSet={dataSet}
             startDate={startDate}
@@ -60,9 +62,9 @@ export default function GraphSet({
           {/*GraphAreaUnderCurve*/}
           <GraphAverages
             useRechart={useRechart}
-            title={avgTitle /*"Average % Occupancy"*/}
+            title={avgTitle }
             scale={scale}
-            field={field /*"average_historical_occupancy"*/}
+            field={field}
             dataSet={dataSet}
             LGAs={LGAs}
           />
@@ -74,9 +76,9 @@ export default function GraphSet({
           {/*GraphAreaUnderCurve*/}
           <GraphAverages
             useRechart={useRechart}
-            title={avgTitle /*"Average % Occupancy"*/}
+            title={avgTitle}
             scale={scale}
-            field={field /*"average_historical_occupancy"*/}
+            field={field}
             dataSet={dataSet}
             LGAs={LGAs}
           />

@@ -10,7 +10,7 @@ import { addDaysToDate } from "../utils/utils";
 import { kAPI_URL, kDEFAULT_ERROR_MSG } from "../utils/constants";
 import { getUrlFromCache, getUrlFromServer } from "../utils/utils";
 
-// Retrieve Ranking data based on year and country from the external API
+// Retrieve all weekly spending date for the same date range as accommodation data
 export function useLocalisSpendingData(startDate, endDate) {
   const [spendingDataLoading, setSpendingDataLoading] = useState(false);
   const [spendingDataSet, setSpendingDataSet] = useState();
@@ -20,12 +20,11 @@ export function useLocalisSpendingData(startDate, endDate) {
   const endDateDate = new Date(endDate);
 
 
-  // console.log(startDateDate);
-  // console.log(endDateDate);
-
+  // extract all data and client-side filter it by date
   useEffect(() => {
     let url = `${kAPI_URL}/spend_data`; //?start=${startDate}&end=${addDaysToDate(startDate, windowDays)}`;
 
+    // check if the data is in the client cache
     if (getUrlFromCache(cache, url)) {
       setSpendingDataLoading(false);
       setSpendingDataSet(
@@ -40,6 +39,8 @@ export function useLocalisSpendingData(startDate, endDate) {
       setSpendingDataError(null);
     } else {
       setSpendingDataLoading(true);
+
+      // data is not in the cache so fetch it from the server
       getUrlFromServer(url, false)
         .then((returnedDataSet) => {
           setCache((prevCache) => ({ ...prevCache, [url]: returnedDataSet }));
@@ -52,7 +53,7 @@ export function useLocalisSpendingData(startDate, endDate) {
               );
             })
           );
-          //setSpendingDataSet(spendingDataSet);
+          
         })
         .catch((error) => {
           setSpendingDataError(error.message ?? kDEFAULT_ERROR_MSG);
@@ -63,8 +64,6 @@ export function useLocalisSpendingData(startDate, endDate) {
     }
   }, [startDate, endDate, cache]);
 
-  // console.log(`All spend data = ${JSON.stringify(spendingDataSet)}`);
-  // console.table(spendingDataSet);
   return {
     spendingDataLoading: spendingDataLoading,
     spendingDataSet: spendingDataSet,

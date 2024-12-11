@@ -1,7 +1,7 @@
 //
 //  IFQ717 Web Development Capstone
 //
-//  GraphSpendPie.js - Graphs selected spend data for an single LGA by Gary Cazzulino
+//  GraphSpendPie.js - Graphs selected spend data for an single LGA as a pie chart by Gary Cazzulino
 //
 //
 
@@ -10,10 +10,6 @@ import { kGraphLineStyle, kGraphColours, kGraphSpendColours } from "../../api/ut
 import { average, convertToLabel, toTitleCase } from "../../api/utils/utils";
 import { useWindowWidthResize } from "../../api/hooks/useWindowWidthResize";
 import {
-  /*BarChart,
-  Bar,
-  XAxis,
-  YAxis,*/
   PieChart,
   Pie,
   Cell,
@@ -33,7 +29,8 @@ export default function GraphSpendingPie({
 }) {
 
   const { width } = useWindowWidthResize();
-  
+
+  // implement the Rechart option
   if (useRechart) {
     const data = selectedCats.map((cat) => {return (   
       {
@@ -57,18 +54,6 @@ export default function GraphSpendingPie({
             {title}
           </h2>
           <PieChart width={730} height={250}>
-            {/*}
-          <BarChart
-            data={options.data}
-            margin={{
-              top: 10,
-              right: 30,
-              left: 0,
-              bottom: 0,
-            }}
-          >
-            <XAxis dataKey="sample_date" />
-            <YAxis />*/}
             <Tooltip />
             {selectedCats.length <= (width < 2040 ? 6 : 15) ? <Legend wrapperStyle={{ fontSize:10, paddingBottom:10 }} /> : null}
             <Pie data={data} nameKey="category" dataKey="average" >
@@ -78,24 +63,11 @@ export default function GraphSpendingPie({
               ))}
             </Pie>
           </PieChart>
-          {/*LGAs.map((LGA) => {
-              return (
-                <Bar
-                  type="monotone"
-                  name={LGA}
-                  dataKey={convertToLabel(LGA) + "_average"}
-                  stroke={kGraphColours[LGA]}
-                  fill={kGraphColours[LGA]}
-                  dot={false}
-                  isAnimationActive={false}
-                />
-              );
-            })}
-          </BarChart></div>*/}
         </ResponsiveContainer>
       </div>
     );
   } else {
-    return <AgCharts options={options} />;
+    // implement the AG Chart option
+    return "Unimplemented in AG Charts ATM"; //<AgCharts options={options} />;
   }
 }

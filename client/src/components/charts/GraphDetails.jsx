@@ -2,6 +2,7 @@
 //  IFQ717 Web Development Capstone
 //
 //  GraphDetails.jsx - Graphs selected details for selected LGAs by Gary Cazzulino
+//                     Code support either using AGCharts or Rechart for graphing
 //
 //
 
@@ -21,6 +22,7 @@ import { useGesture } from '@use-gesture/react';
 import { useState } from 'react';
 import { addDaysToDate } from "../../api/utils/utils";
 
+// reorganize data for Rechart option
 function denormalizeDataSet(dataSet, field, scale) {
   let prevSampleDate = "";
   let retArray = new Array();
@@ -63,14 +65,15 @@ export default function GraphDetails({
 
   const kYZoomScale = 1.5;
 
+  // code to implment on drag scaling of graph
   const bind = useGesture({
     onDrag: ({ delta: [dx, dy] }) => {
 
-      //console.log(`startDate=${startDate} totalDateRange.startDate = ${totalDateRange.startDate}`);
-
+      // calculate the potential new start date and day window size
       let nextStartDate = addDaysToDate(startDate, -(dx - prevDragDx));
       let nextWindowDays = windowDays + ((dy - prevDragDy) * kYZoomScale);
 
+      // now adjust these to be realistic
       if (nextWindowDays < 7) nextWindowDays = 7;
 
       else if (nextWindowDays > 365) nextWindowDays = 365;
@@ -83,9 +86,13 @@ export default function GraphDetails({
         nextStartDate = addDaysToDate(totalDateRange.lastDate, /*-14*/-windowDays);
 
       } else {
+
+        // set them if they are realistic
         setWindowDays(nextWindowDays);
         setStartDate(nextStartDate);
         setSelectedDateRange({ startDate: nextStartDate, endDate: addDaysToDate(nextStartDate, nextWindowDays)});
+
+        // record previous values to determine the delta for next time
         prevDragDx = dx;
         prevDragDy = dy;
   
@@ -93,21 +100,9 @@ export default function GraphDetails({
     },
   });
 
+  // implement Rechart option
   if (useRechart) {
     const data = denormalizeDataSet(dataSet, field, scale);
-
-
-    // dataSet/*.filter(sample => sample.lga_name === 'Gold Coast')*/.map(sample => {
-    //     return {
-    //       "sample_date": sample.sample_date.substring(0, 10),
-    //       "Noosa": sample.lga_name == 'Noosa' ? parseFloat(sample[field]) * scale : null,
-    //       "Gold Coast": sample.lga_name == 'Gold Coast' ? parseFloat(sample[field]) * scale : null,
-    //       "Whitsunday": sample.lga_name == 'Whitsunday' ? parseFloat(sample[field]) * scale : null,
-    //       "Cairns": sample.lga_name == 'Cairns' ? parseFloat(sample[field]) * scale : null
-    //     }
-    //   });
-
-    // console.table(LGAs);
 
     return (
       <div key={field} {...bind()} style={{ width: "100%", height: "90%", userSelect: 'none', touchAction: 'none', margin: 10 }}>
@@ -148,12 +143,15 @@ export default function GraphDetails({
         </ResponsiveContainer>
       </div>
     );
+  
+  // implement AGChart option
   } else {
+
     let options = {
       title: {
         text: title,
       },
-      // Data: Data to be displayed in the chart
+      // Data to be displayed in the chart
       data: dataSet.map((sample) => {
         return {
           sample_date: sample.sample_date.substring(0, 10),
@@ -194,7 +192,7 @@ export default function GraphDetails({
               : null,
         };
       }),
-      // Series: Defines which chart type and data to use
+      // Defines which chart type and data to use
       series: [
         LGAs.find((LGA) => LGA === "Noosa")
           ? {
@@ -264,6 +262,7 @@ export default function GraphDetails({
       ],
     };
 
+    // implement the AG Chart option
     return <AgCharts options={options} />;
   }
 }

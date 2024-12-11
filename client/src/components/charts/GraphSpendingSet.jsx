@@ -1,15 +1,12 @@
 //
 //  IFQ717 Web Development Capstone
 //
-//  GraphSet.jsx - Container for a comb ined detail and average graph by Gary Cazzulino
+//  GraphSet.jsx - Container for a combined spending chart for each selected LGA by Gary Cazzulino
 //
 //
 
-import GraphDetails from "./GraphDetails";
-import GraphAverages from "./GraphAverages";
 import GraphSpendingPie from "./GraphSpendingPie";
 import GraphSpendingBar from "./GraphSpendingBar";
-import GraphAreaUnderCurve from "./GraphAreaUnderCurve";
 import { useWindowWidthResize } from "../../api/hooks/useWindowWidthResize";
 const kGraphWidth = "100%";
 const kGraphHeight = 350;
@@ -19,7 +16,6 @@ export default function GraphSpendingSet({
   useRechart,
   title,
   selectedCats,
-  avgTitle,
   field,
   dataSet,
   LGAs,
@@ -28,6 +24,7 @@ export default function GraphSpendingSet({
 
   const { width } = useWindowWidthResize();
 
+  // produce 1 per LGA specified in the LGAs array
   return (
     <div key={id} id={id} className="grid sm:grid-cols-1 md:grid-cols-4 gap-4 mb-4 p-4 bg-base-300 shadow-md">
       {LGAs.includes('Gold Coast') ?
