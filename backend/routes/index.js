@@ -1,22 +1,32 @@
+//
+//  IFQ717 Web Development Capstone
+//
+//  index.js - expose most API endpoints
+//
+//
+
 require("dotenv").config();
 var express = require("express");
 var router = express.Router();
 const authorization = require("../middleware/authorization");
 
-const llm = "o1-mini"; // 'o1-preview'; //'gpt-4o-mini';  //'o1-mini';// 'gpt-4o-mini'; //'gpt-4-turbo'; //'gpt-4o-mini'; //'o1-preview';
+const llm = "o1-mini";
 const llmUrl = "https://api.openai.com/v1/chat/completions";
 const apiKey = process.env.LLM_API_KEY;
 
 const gResponseCache = new Array();
 
+// Generic get cache function
 function getResponseFromCache(url) {
   return gResponseCache[url];
 }
 
+// Generic put cache function
 function putResponseIntoCache(url, value) {
   gResponseCache[url] = value;
 }
 
+// Async function to call open AI LLM
 async function queryLLM(url, llm, prompt) {
   const body = {
     model: llm,
@@ -32,8 +42,10 @@ async function queryLLM(url, llm, prompt) {
     ],
   };
 
+  // Generic get cache function
   if (getResponseFromCache(prompt) === undefined) {
 
+    // otherwise hit openAI's server
     return await fetch(url, {
       method: "POST",
       headers: {
@@ -66,6 +78,7 @@ async function queryLLM(url, llm, prompt) {
           return error.message;
         }
 
+        // store and return response
         putResponseIntoCache(prompt, result.choices[0].message.content);
         return result.choices[0].message.content;
       })
@@ -74,17 +87,16 @@ async function queryLLM(url, llm, prompt) {
         throw error;
       });
   } else {
+    // Return the response from the cache
     return getResponseFromCache(prompt);
   }
 }
 
-// router.get("/", function (req, res, next) {
-//   res.send("respond with a resource");
-// });
-
+// AI Analysis endpoint
 router.post("/api/ai/query_llm", function (req, res, next) {
   const prompt = req.body.prompt + " " + req.body.data;
 
+  // Query the LLM
   queryLLM(llmUrl, llm, prompt)
     .then((response) => {
       res.json({ Error: false, Message: "Success", response: response });
@@ -95,11 +107,7 @@ router.post("/api/ai/query_llm", function (req, res, next) {
     });
 });
 
-/* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
-});
-
+// Main Localis data endpoint
 router.get("/api/combined_data", function (req, res, next) {
   if (getResponseFromCache(req.url) === undefined) {
     req.db
@@ -141,6 +149,7 @@ router.get("/api/combined_data", function (req, res, next) {
   }
 });
 
+// length of stay only endpoint
 router.get("/api/length_of_stay", function (req, res, next) {
   req.db
     .from("length_of_stay")
@@ -159,6 +168,7 @@ router.get("/api/length_of_stay", function (req, res, next) {
     });
 });
 
+// occupancy and daily rate endpoint
 router.get("/api/occupancy_daily_rate", function (req, res, next) {
   req.db
     .from("occupancy_daily_rate")
@@ -181,6 +191,7 @@ router.get("/api/occupancy_daily_rate", function (req, res, next) {
     });
 });
 
+// Combined data for a specific LGA
 router.get("/api/combined_data/:LGAName", function (req, res, next) {
   console.log(`start[${req.query.start}] end[${req.query.end}]`);
 
@@ -213,6 +224,7 @@ router.get("/api/combined_data/:LGAName", function (req, res, next) {
     });
 });
 
+// Get a unique list of spending categories
 router.get("/api/spend_categories", function (req, res, next) {
   
   if (getResponseFromCache(req.url) === undefined) {
@@ -236,7 +248,7 @@ router.get("/api/spend_categories", function (req, res, next) {
   }
 });
 
-
+// Get the spending data
 router.get("/api/spend_data", function (req, res, next) {
 
   if (getResponseFromCache(req.url) === undefined) {
@@ -276,25 +288,5 @@ router.get("/api/spend_data", function (req, res, next) {
     res.json({ Error: false, Message: "Success", data: getResponseFromCache(req.url) });
   }
 });
-
-/* original module examples below
-
-router.post('/api/update', authorization, (req, res) => {
-  if (!req.body.City || !req.body.CountryCode || !req.body.Pop) {
-    res.status(400).json({ message: `Error updating population` });
-    console.log(`Error on request body:`, JSON.stringify(req.body));
-
-  } else { 
-    let filter = { "Name": req.body.City, "CountryCode": req.body.CountryCode };
-    req.db('city').where(filter).update( { Population: req.body.Pop })
-      .then(_ => {
-       res.status(201).json({ message: `Successful update ${req.body.City}`});
-       console.log(`successful population update:`, JSON.stringify(filter));
-    }).catch(error => {
-       res.status(500).json({ message: 'Database error - not updated' });
-    })
-  } 
-});
-*/
 
 module.exports = router;
