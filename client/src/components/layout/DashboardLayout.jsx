@@ -32,7 +32,7 @@ export default function DashboardLayout({ children }) {
       <DashboardSidebar isCollapsed={isCollapsed} />
       <div className="flex flex-col flex-1">
         <DashboardNav toggleSidebar={toggleSidebar} />
-        <main className="flex-1 overflow-auto p-4 bg-base-200">{children}</main>
+        <div className="flex-1 overflow-auto p-4 bg-base-200">{children}</div>
       </div>
     </div>
   );

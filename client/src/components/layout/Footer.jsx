@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <>
-      <footer className="footer bg-base-100 text-secondary-content p-20">
+      <footer className="footer bg-base-100 text-black p-20">
           <p>
             <span className="text-xl">
               Localis

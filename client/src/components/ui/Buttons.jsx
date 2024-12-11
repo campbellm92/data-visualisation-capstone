@@ -160,7 +160,7 @@ export function ButtonDownloadReport({
 
 export function CloseButton({ onClick }) {
   return (
-    <button className="" onClick={onClick}>
+    <button className="" onClick={onClick} aria-label="Close Popup AI modal">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
