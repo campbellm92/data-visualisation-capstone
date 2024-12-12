@@ -1,6 +1,6 @@
 import Graphs from "../../components/layout/Graphs";
 
-const Welcome = () => {
+const DataAnalyst = () => {
   return (
     <div>
       <Graphs />
@@ -8,4 +8,4 @@ const Welcome = () => {
   );
 };
 
-export default Welcome;
+export default DataAnalyst;

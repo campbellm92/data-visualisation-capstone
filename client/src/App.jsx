@@ -15,7 +15,7 @@ import DashboardLayout from "./components/layout/DashboardLayout";
 import LandingPage from "./pages/public-pages/LandingPage";
 // private (dashboard) page imports:
 import DashboardHome from "./pages/data-vis-pages/DashboardHome";
-import Welcome from "./pages/data-vis-pages/Welcome";
+import DataAnalyst from "./pages/data-vis-pages/DataAnalyst";
 import LGAPage from "./pages/data-vis-pages/LGAPage";
 import Guide from "./pages/data-vis-pages/Guide";
 import Settings from "./pages/data-vis-pages/Settings";
@@ -35,11 +35,11 @@ function App() {
           />
 
           <Route
-            path="/welcome"
+            path="/dataanalyst"
             element={
               <ProtectedRoute>
                 <DashboardLayout>
-                  <Welcome />
+                  <DataAnalyst />
                 </DashboardLayout>
               </ProtectedRoute>
             }

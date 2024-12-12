@@ -9,7 +9,7 @@ export default function DashboardSidebar({ isCollapsed }) {
 
   const sidebarItems = [
     { href: "/dashboard", label: "Dashboard", icon: <Icons.Home /> },
-    { href: "/welcome", label: "Data Analyst", icon: <Icons.DataStack /> },
+    { href: "/dataanalyst", label: "Data Analyst", icon: <Icons.DataStack /> },
     // { href: "/welcome", label: "Grants", icon: <Icons.Pencil /> },
     { href: "/guide", label: "Guide", icon: <Icons.InfoIcon /> },
     { href: "/settings", label: "Settings", icon: <Icons.SettingsCog /> },
