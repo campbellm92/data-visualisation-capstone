@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios"; // consider refactoring to use fetch api in line w/other code + can uninstall dependency
 import InputField from "../InputField";
 import { ButtonMediumFullWide } from "../../ui/Buttons";
 import LoadingSpinner from "../../ui/LoadingSpinner";
