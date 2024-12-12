@@ -1,9 +1,4 @@
-import React from "react";
-import { ButtonMediumWide, DeleteButton } from "../../../components/ui/Buttons";
-import axios from "axios";
-
-// Set the base URL for Axios
-axios.defaults.baseURL = "http://localhost:3000";
+import { DeleteButton } from "../../../components/ui/Buttons";
 
 const DeleteAccount = () => {
   const handleDelete = async () => {
@@ -13,12 +8,19 @@ const DeleteAccount = () => {
     if (confirmed) {
       try {
         const token = localStorage.getItem("token"); // Retrieve token from localStorage
-        const response = await axios.delete("/users/delete", {
+        const response = await fetch("http://localhost:3000/users/delete", {
+          method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        if (response.data.success) {
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || "Failed to delete your account.");
+        }
+
+        if (data.success) {
           alert("Your account has been deleted successfully.");
           localStorage.removeItem("token"); // Remove token from localStorage
           // Redirect the user to landing page
