@@ -51,7 +51,7 @@ export const lgaColours = {
   },
   "Gold Coast": {
     light: {
-      primary: "#d97706",
+      primary: "#C05621",
       "primary-content": "#0f172a",
       secondary: "#0ea5e9",
       "secondary-content": "#f1f5f9",

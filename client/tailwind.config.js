@@ -2,7 +2,10 @@ import daisyui from "daisyui";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}","./node_modules/react-tailwindcss-datepicker/dist/index.esm.{js,ts}"
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/react-tailwindcss-datepicker/dist/index.esm.{js,ts}",
   ],
   theme: {
     extend: {},
@@ -68,7 +71,7 @@ export default {
       },
       {
         goldCoastDarkTheme: {
-          primary: "#C05621",
+          primary: "#f59e0b",
           "primary-content": "#edebe7",
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",
@@ -124,7 +127,7 @@ export default {
       },
       {
         cairnsDarkTheme: {
-          primary: "#15803d",
+          primary: "#16a34a",
           "primary-content": "#edebe7",
           secondary: "#0ea5e9",
           "secondary-content": "#f1f5f9",
