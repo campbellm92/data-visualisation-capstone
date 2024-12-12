@@ -16,7 +16,6 @@ import LandingPage from "./pages/public-pages/LandingPage";
 // private (dashboard) page imports:
 import DashboardHome from "./pages/data-vis-pages/DashboardHome";
 import DataAnalyst from "./pages/data-vis-pages/DataAnalyst";
-import LGAPage from "./pages/data-vis-pages/LGAPage";
 import Guide from "./pages/data-vis-pages/Guide";
 import Settings from "./pages/data-vis-pages/Settings";
 
@@ -40,16 +39,6 @@ function App() {
               <ProtectedRoute>
                 <DashboardLayout>
                   <DataAnalyst />
-                </DashboardLayout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/lgapage"
-            element={
-              <ProtectedRoute>
-                <DashboardLayout>
-                  <LGAPage />
                 </DashboardLayout>
               </ProtectedRoute>
             }
