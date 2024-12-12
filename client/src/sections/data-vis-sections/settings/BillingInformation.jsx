@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import InputField from "../../../components/User/InputField";
 import {
   useNameValidator,
@@ -8,10 +8,6 @@ import {
   useExpiryDateValidator,
 } from "../../../hooks/input-sanitizers/useAuthValidators";
 import { ButtonMediumWide } from "../../../components/ui/Buttons";
-import axios from "axios";
-
-// Set the base URL for Axios
-axios.defaults.baseURL = "http://localhost:3000";
 
 const BillingInformation = ({ data }) => {
   const {
@@ -132,9 +128,13 @@ const BillingInformation = ({ data }) => {
   const handleUpdate = async () => {
     try {
       const token = localStorage.getItem("token"); // Retrieve token from localStorage
-      const response = await axios.put(
-        "/users/update",
-        {
+      const response = await fetch("http://localhost:3000/users/update", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
           firstName,
           lastName,
           email: emailValue,
@@ -145,15 +145,17 @@ const BillingInformation = ({ data }) => {
           CardNumber: cardNumber,
           ExpiryDate: expiryDate,
           CVV: cvv,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.data.success) {
-        alert("User details updated successfully");
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to update billing information");
+      }
+
+      if (data.success) {
+        alert("Billing details updated successfully");
         // Optionally, reset the initial data to the updated values
         setInitialData({
           firstName,

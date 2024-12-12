@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import InputField from "../../../components/User/InputField";
 import {
   useNameValidator,
@@ -6,11 +6,7 @@ import {
   usePasswordValidator,
 } from "../../../hooks/input-sanitizers/useAuthValidators";
 import { ButtonMediumWide } from "../../../components/ui/Buttons";
-import axios from "axios";
 import { AuthContext } from "../../../context/AuthProvider";
-
-// Set the base URL for Axios
-axios.defaults.baseURL = "http://localhost:3000";
 
 const AccountDetails = ({ data }) => {
   const { fetchUserData } = useContext(AuthContext);
@@ -88,22 +84,27 @@ const AccountDetails = ({ data }) => {
   const handleUpdate = async () => {
     try {
       const token = localStorage.getItem("token"); // Retrieve token from localStorage
-      const response = await axios.put(
-        "/users/update",
-        {
+      const response = await fetch("http://localhost:3000/users/update", {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
           firstName,
           lastName,
           email: emailValue,
           LGAName: localArea,
           password: passwordValue,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.data.success) {
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to update user details");
+      }
+
+      if (data.success) {
         alert("User details updated successfully");
         // Optionally, reset the initial data to the updated values
         setInitialData({
