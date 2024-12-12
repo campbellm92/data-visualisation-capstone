@@ -2,6 +2,7 @@
 Configuration point for bar charts.
 Takes theme from theme context 
 User prop is passed down from DashboardBarChartsSection
+by Matthew Campbell
 */
 
 import { useContext } from "react";

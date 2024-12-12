@@ -1,3 +1,8 @@
+/*
+Context provider for AI analysis state 
+by Matthew Campbell
+*/
+
 import { createContext, useState } from "react";
 import { getLLMResponseFromServer } from "../api/utils/getUtils";
 

@@ -1,5 +1,6 @@
 /*
 Configuration for turning regular Recharts scatter dots into letters representing each month
+by Matthew Campbell
 */
 
 import { monthColours } from "../../../api/utils/graphColourConfig";

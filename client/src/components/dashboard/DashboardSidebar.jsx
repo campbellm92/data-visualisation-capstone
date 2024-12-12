@@ -1,3 +1,8 @@
+/*
+Sidebar for Dashboard component
+by Matthew Campbell
+*/
+
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeProvider";
 import SidebarItem from "./SidebarItem";

@@ -1,3 +1,8 @@
+/*
+Sidebar items for Dashboard component
+by Matthew Campbell
+*/
+
 import { Link, useLocation } from "react-router-dom";
 
 export default function SidebarItem({ href, label, isCollapsed, icon }) {

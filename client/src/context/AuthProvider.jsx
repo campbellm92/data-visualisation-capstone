@@ -1,20 +1,16 @@
+/*
+Context provider for authentication
+by Matthew Campbell
+*/
+
 import { createContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext();
 
-// consider changing imports and provider usage in components (navs)
-// hook for using the context:
-// export const useAuth = () => {
-//   return useContext(AuthContext);
-// };
-
 export function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // below logic allows access to token for other pages
   const [isAuthChecked, setIsAuthChecked] = useState(false);
-  // state for showing logout Toast component
   const [showLogoutToast, setShowLogoutToast] = useState(false);
-  // state for loading
   const [loading, setLoading] = useState(false);
 
   const [user, setUser] = useState(null);
@@ -70,7 +66,6 @@ export function AuthProvider({ children }) {
     fetchUserData();
   }, []);
 
-  // function for handling logout and showing the toast
   const handleLogout = () => {
     setLoading(true);
     setTimeout(() => {
@@ -83,7 +78,7 @@ export function AuthProvider({ children }) {
       console.log("Token removed");
       console.log("Logged out");
       setTimeout(() => {
-        setShowLogoutToast(false); // hide toast after 3 seconds
+        setShowLogoutToast(false);
       }, 3000);
     }, 1500);
   };

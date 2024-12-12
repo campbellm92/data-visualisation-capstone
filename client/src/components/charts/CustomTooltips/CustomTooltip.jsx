@@ -1,5 +1,6 @@
 /* 
 Custom tooltips for graphs. Can be further added to in the return statement with the chartType prop
+by Matthew Campbell
 */
 
 import { lgaColours } from "../../../api/utils/graphColourConfig";

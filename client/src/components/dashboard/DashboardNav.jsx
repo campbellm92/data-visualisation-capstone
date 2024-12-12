@@ -1,3 +1,8 @@
+/*
+Navbar for Dashboard component
+by Matthew Campbell
+*/
+
 import { useRef, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import useClickOutside from "../../hooks/useClickOutside";

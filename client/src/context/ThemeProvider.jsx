@@ -1,3 +1,8 @@
+/*
+Context provider for theme switching
+by Matthew Campbell
+*/
+
 import {
   createContext,
   useState,
@@ -19,24 +24,19 @@ export function ThemeProvider({ children }) {
     () => localStorage.getItem("darkMode") === "true"
   );
 
-  // Memoize the theme computation
   const theme = useMemo(() => {
     if (location.pathname === "/") {
-      // Always use "publicTheme" on the landing page
       return "publicTheme";
     }
 
     if (!isAuthChecked) {
-      // While auth is not checked, keep the theme as "publicTheme"
       return "publicTheme";
     }
 
     if (!isLoggedIn || !user?.lga) {
-      // Use "darkTheme" or "publicTheme" based on dark mode when not logged in
       return darkMode ? "darkTheme" : "publicTheme";
     }
 
-    // Apply user's LGA theme
     const lga = user.lga.toLowerCase().replace(/\s+/g, "");
     switch (lga) {
       case "noosa":
@@ -52,12 +52,10 @@ export function ThemeProvider({ children }) {
     }
   }, [darkMode, user?.lga, isLoggedIn, isAuthChecked, location.pathname]);
 
-  // Update the data-theme attribute when the theme changes
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
-  // Memoize the toggleDarkMode function
   const toggleDarkMode = useCallback(() => {
     setDarkMode((prevMode) => {
       const newMode = !prevMode;
@@ -66,7 +64,6 @@ export function ThemeProvider({ children }) {
     });
   }, []);
 
-  // Memoize the context value
   const contextValue = useMemo(
     () => ({ theme, darkMode, toggleDarkMode }),
     [theme, darkMode, toggleDarkMode]

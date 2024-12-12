@@ -1,5 +1,6 @@
 /*
 Contains the view logic for rendering scatter charts
+by Matthew Campbell
 */
 
 import {
