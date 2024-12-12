@@ -1,16 +1,14 @@
 import { useContext } from "react";
-import { useLocation } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeProvider";
 import SidebarItem from "./SidebarItem";
 import Icons from "./DashboardIcons";
 
 export default function DashboardSidebar({ isCollapsed }) {
-  const { darkMode } = useContext(ThemeContext); // Access dark mode state
+  const { darkMode } = useContext(ThemeContext);
 
   const sidebarItems = [
     { href: "/dashboard", label: "Dashboard", icon: <Icons.Home /> },
     { href: "/dataanalyst", label: "Data Analyst", icon: <Icons.DataStack /> },
-    // { href: "/welcome", label: "Grants", icon: <Icons.Pencil /> },
     { href: "/guide", label: "Guide", icon: <Icons.InfoIcon /> },
     { href: "/settings", label: "Settings", icon: <Icons.SettingsCog /> },
   ];
