@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import InputField from "../InputField";
 import { ButtonMediumFullWide } from "../../ui/Buttons";
 import LoadingSpinner from "../../ui/LoadingSpinner";
@@ -96,41 +95,43 @@ function Register({ toggle }) {
 
     try {
       // Send a POST request to register endpoint with email, password and local area
-      const res = await axios.post("http://localhost:3000/users/register", {
-        firstName: firstName,
-        lastName: lastName,
-        email: emailValue,
-        password: passwordValue,
-        LGAName: localArea,
+      const res = await fetch("http://localhost:3000/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          email: emailValue,
+          password: passwordValue,
+          LGAName: localArea,
+        }),
       });
 
-      // Check if the response is successful
-      if (res.data.success) {
-        firstNameInputReset();
-        lastNameInputReset();
-        emailInputReset();
-        passwordInputReset();
-        setLocalArea("");
-        // Reset error and set success message
-        setError(null);
-        setSuccess("Registration successful!");
-        setIsLoading(true);
-        setTimeout(() => {
-          document.getElementById("auth_modal").close();
-          setSuccess(null);
-          setIsLoading(false);
-        }, 3000);
-      } else {
-        // If the response is not successful, set error message
-        setError(res.data.message || "An error occurred during registration.");
-        setSuccess(null);
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Register failed.");
       }
+
+      firstNameInputReset();
+      lastNameInputReset();
+      emailInputReset();
+      passwordInputReset();
+      setLocalArea("");
+      // Reset error and set success message
+      setError(null);
+      setSuccess("Registration successful!");
+      setIsLoading(true);
+      setTimeout(() => {
+        document.getElementById("auth_modal").close();
+        setSuccess(null);
+        setIsLoading(false);
+      }, 3000);
     } catch (err) {
-      setError(
-        // If an error occurs, set error
-        err.response?.data?.message ||
-          "Server error. Could not complete registration."
-      );
+      // If the response is not successful, set error message
+      setError(err.message || "An error occurred during registration.");
       setSuccess(null);
     }
   };

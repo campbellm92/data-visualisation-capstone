@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // consider refactoring to use fetch api in line w/other code + can uninstall dependency
+// import axios from "axios"; // consider refactoring to use fetch api in line w/other code + can uninstall dependency
 import InputField from "../InputField";
 import { ButtonMediumFullWide } from "../../ui/Buttons";
 import LoadingSpinner from "../../ui/LoadingSpinner";
@@ -57,38 +57,40 @@ const Login = ({ toggle }) => {
 
     try {
       // Send a POST request to login endpoint with email and password
-      const res = await axios.post("http://localhost:3000/users/login", {
-        email: trimmedEmail,
-        password: passwordValue,
+      const res = await fetch("http://localhost:3000/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: trimmedEmail,
+          password: passwordValue,
+        }),
       });
 
-      // Check if the response is successful
-      if (res.data.success) {
-        localStorage.setItem("token", res.data.token);
-        setIsLoggedIn(true);
-        await fetchUserData();
-        setError(null);
-        emailInputReset();
-        passwordInputReset();
-        setSuccess("Login successful!");
-        setIsLoading(false);
-        setTimeout(() => {
-          document.getElementById("auth_modal").close();
-          navigate("/dashboard");
-          setSuccess(null);
-          setIsLoading(false);
-        }, 2000);
-      } else {
-        // If the response is not successful, set error message
-        setError(res.data.message || "User or Password is incorrect.");
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Login failed.");
+      }
+
+      localStorage.setItem("token", data.token);
+      setIsLoggedIn(true);
+      await fetchUserData();
+      setError(null);
+      emailInputReset();
+      passwordInputReset();
+      setSuccess("Login successful!");
+      setIsLoading(false);
+      setTimeout(() => {
+        document.getElementById("auth_modal").close();
+        navigate("/dashboard");
         setSuccess(null);
         setIsLoading(false);
-      }
+      }, 2000);
     } catch (err) {
-      // If an error occurs, set error
-      setError(
-        err.response?.data?.message || "Server error. Could not complete login."
-      );
+      // If the response is not successful, set error message
+      setError(err.message || "User or Password is incorrect.");
       setSuccess(null);
       setIsLoading(false);
     }
