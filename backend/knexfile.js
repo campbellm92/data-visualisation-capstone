@@ -1,28 +1,19 @@
-const fs = require('fs');
+require("dotenv").config(); // Load environment variables from .env
+const fs = require("fs");
 
-/*
 module.exports = {
- client: 'mysql2',
- connection: {
- host: '127.0.0.1',
- database: 'localis_data',
- user: 'root',
- password: 'password'
- }
-}
-*/
-module.exports = {
- client: 'mysql2',
- connection: {
- host: 'mysql-26d78fec-locali.l.aivencloud.com',
- port: 25406,
- database: 'localis_data',
- user: 'avnadmin',
- password: 'AVNS_PncBGCNh1FNyrTEOKhG',
-ssl: {
-      // Enforce SSL and verify the server's certificate against the provided CA
-      rejectUnauthorized: true,
-      ca: fs.readFileSync('./ca.pem').toString(),
-    },
+  client: "mysql2",
+  connection: {
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    ssl: process.env.DB_CA
+      ? {
+          rejectUnauthorized: true,
+          ca: fs.readFileSync(process.env.DB_CA).toString(),
+        }
+      : false,
   },
 };
