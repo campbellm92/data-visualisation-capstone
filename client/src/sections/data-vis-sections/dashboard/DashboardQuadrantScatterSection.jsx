@@ -6,7 +6,7 @@ Data and other configuration passed down to AI Analysis modal as props.
 
 import { useState } from "react";
 import { useChartDataConfig } from "../../../api/hooks/useChartDataConfig";
-import QuadrantScatterHome from "../../../components/charts/Scattercharts/QuadrantScatterHome";
+import QuadrantScatterHome from "../../../components/charts/scattercharts/QuadrantScatterHome";
 import { SelectWithBorderSmall } from "../../../components/ui/Selects";
 import { AIAnalysisModal } from "../../../components/layout/analysis/AIAnalysisModal";
 import { ButtonOpenAIAnalysisModal } from "../../../components/ui/Buttons";

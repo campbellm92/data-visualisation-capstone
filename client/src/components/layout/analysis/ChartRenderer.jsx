@@ -1,5 +1,5 @@
-import BarChartHome from "../../../components/charts/Barcharts/BarChartHome";
-import QuadrantScatterHome from "../../../components/charts/Scattercharts/QuadrantScatterHome";
+import BarChartHome from "../../../components/charts/barcharts/BarChartHome";
+import QuadrantScatterHome from "../../charts/scattercharts/QuadrantScatterHome";
 
 const ChartRenderer = ({ chartType, ...props }) => {
   switch (chartType) {

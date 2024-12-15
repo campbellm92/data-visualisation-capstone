@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import AccountDetails from "../../sections/data-vis-sections/settings/AccountDetails";
 import BillingInformation from "../../sections/data-vis-sections/settings/BillingInformation";
 import { useFetchUserData } from "../../../src/api/hooks/useFetchUserData";
-import DeleteAccount from "../../sections/data-vis-sections/DeleteAccount/DeleteAccount";
+import DeleteAccount from "../../sections/data-vis-sections/delete-account/DeleteAccount";
 
 const Settings = () => {
   // Object to keep track of open sections

@@ -6,7 +6,7 @@ Data and other configuration passed down to AI Analysis modal as props.
 
 import { useContext, useState } from "react";
 import { useChartDataConfig } from "../../../api/hooks/useChartDataConfig";
-import BarChartHome from "../../../components/charts/Barcharts/BarChartHome";
+import BarChartHome from "../../../components/charts/barcharts/BarChartHome";
 import { SelectWithBorderSmall } from "../../../components/ui/Selects";
 import { fields } from "../../../api/utils/constants";
 import { ButtonOpenAIAnalysisModal } from "../../../components/ui/Buttons";

@@ -15,8 +15,8 @@ import {
 import { useContext } from "react";
 import { ThemeContext } from "../../../context/ThemeProvider";
 import { lgaColours } from "../../../api/utils/graphColourConfig";
-import CustomTooltip from "../CustomTooltips/CustomTooltip";
-import CustomScatterDots from "../CustomScatterDots/CustomScatterDots";
+import CustomTooltip from "../custom-tooltip/CustomTooltip";
+import CustomScatterDots from "../custom-scatter-dots/CustomScatterDots";
 
 export default function QuadrantScatterHome({ year, data, loading, user }) {
   const { darkMode } = useContext(ThemeContext);
