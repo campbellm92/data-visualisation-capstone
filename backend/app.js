@@ -7,26 +7,26 @@
 //  End points exposed are -
 //
 //    User Related
-//    
+//
 //    GET		  /profile
 //    POST		/login
 //    POST 		/register
 //    PUT		  /update
 //    DELETE	/delete
-//    
+//
 //    Data Related
-//    
+//
 //    GET 		/api/combined_data
 //    GET 		/api/length_of_stay
 //    GET 		/api/occupancy_daily_rate
 //    GET 		/api/combined_data/:LGAName
 //    GET 		/api/spend_categories
 //    GET 		/api/spend_data
-//    
+//
 //    AI Related
-//    
+//
 //    POST 		/api/ai/query_llm
-//    
+//
 
 // var createError = require("http-errors");
 var express = require("express");
@@ -71,7 +71,6 @@ logger.token("res", (req, res) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, "public"))); < don't need to serve files from public dir
 app.use(cors(corsOptions));
 
 // include Knex to request for DB access
@@ -114,7 +113,7 @@ app.use(function (err, req, res, next) {
 });
 
 // pre-cache commonly requested end points on server startup
-fetch('http://localhost:3000/api/combined_data');
-fetch('http://localhost:3000/api/spend_data');
+fetch("http://localhost:3000/api/combined_data");
+fetch("http://localhost:3000/api/spend_data");
 
 module.exports = app;
