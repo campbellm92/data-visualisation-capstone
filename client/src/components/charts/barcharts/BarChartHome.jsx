@@ -18,7 +18,7 @@ import {
 import { ThemeContext } from "../../../context/ThemeProvider";
 import { dataFieldDisplayNames } from "../../../api/utils/constants";
 import { lgaColours } from "../../../api/utils/graphColourConfig";
-import CustomTooltip from "../CustomTooltips/CustomTooltip";
+import CustomTooltip from "../custom-tooltip/CustomTooltip";
 
 export default function BarChartHome({ year, dataField, data, loading, user }) {
   const { darkMode } = useContext(ThemeContext);
