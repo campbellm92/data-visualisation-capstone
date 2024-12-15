@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Login from "./login/Login";
-import Register from "./register/Register";
+import Login from "./Login/Login";
+import Register from "./Register/Register";
 
 const AuthModal = ({ setIsLoggedIn }) => {
   const [isLogin, setIsLogin] = useState(true); // State to toggle between login and register
