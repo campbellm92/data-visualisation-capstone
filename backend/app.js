@@ -84,6 +84,14 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
+// serve react
+app.use(express.static(path.join(__dirname, "client/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/dist", "index.html"));
+});
+
+module.exports = app;
+
 /* default knex endpoint for debugging  
 app.get("/knex", function (req, res, next) {
   req.db
