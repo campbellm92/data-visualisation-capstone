@@ -9,8 +9,6 @@ import { useChartDataConfig } from "../../../api/hooks/useChartDataConfig";
 import BarChartHome from "../../../components/charts/Barcharts/BarChartHome";
 import { SelectWithBorderSmall } from "../../../components/ui/Selects";
 import { fields } from "../../../api/utils/constants";
-// import GraphInfoIcon from "../../../components/ui/GraphInfoIcon";
-import LoadingSpinner from "../../../components/ui/LoadingSpinner";
 import { ButtonOpenAIAnalysisModal } from "../../../components/ui/Buttons";
 import { AIAnalysisModal } from "../../../components/layout/analysis/AIAnalysisModal";
 import { AiAnalysisContext } from "../../../context/AiAnalysisProvider";
