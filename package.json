@@ -1,5 +1,8 @@
 {
   "name": "capstone",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "client": "npm run dev --prefix client",
     "backend": "npm start --prefix backend",
