@@ -11,6 +11,8 @@ import { AuthContext } from "../../../context/AuthProvider"; // Import AuthConte
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
+console.log(BASE_URL);
+
 const Login = ({ toggle }) => {
   const {
     value: emailValue,
