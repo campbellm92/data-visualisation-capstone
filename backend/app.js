@@ -36,7 +36,7 @@ var logger = require("morgan");
 const swaggerUI = require("swagger-ui-express");
 const swaggerDocument = require("./docs/openapi.json");
 require("dotenv").config();
-const helmetConfig = require("./middleware/helmetConfig");
+const helmetConfig = require("./config/helmetConfig.js");
 
 const options = require("./knexfile.js");
 const knex = require("knex")(options);
