@@ -7,6 +7,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/react-tailwindcss-datepicker/dist/index.esm.{js,ts}",
   ],
+  safelist: [
+    {
+      pattern: /^(w-14|w-64)$/,
+    },
+  ],
   theme: {
     extend: {},
   },
