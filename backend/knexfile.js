@@ -12,7 +12,7 @@ module.exports = {
     ssl: process.env.DB_CA
       ? {
           rejectUnauthorized: true,
-          ca: fs.readFileSync(process.env.DB_CA).toString(),
+          ca: process.env.DB_CA.replace(/\\n/g, "\n"),
         }
       : false,
   },
