@@ -121,7 +121,9 @@ app.use(function (err, req, res, next) {
 });
 
 // pre-cache commonly requested end points on server startup
-fetch("http://localhost:3000/api/combined_data");
-fetch("http://localhost:3000/api/spend_data");
+const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
+
+fetch(`${BASE_URL}/api/combined_data`);
+fetch(`${BASE_URL}/api/spend_data`);
 
 module.exports = app;
