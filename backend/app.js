@@ -85,9 +85,9 @@ app.use("/users", usersRouter);
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // serve react
-app.use(express.static(path.join(__dirname, "client/dist")));
+app.use(express.static(path.join(__dirname, "../client/dist")));
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/dist", "index.html"));
+  res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
 });
 
 module.exports = app;
