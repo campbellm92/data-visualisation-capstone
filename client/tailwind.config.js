@@ -8,9 +8,8 @@ export default {
     "./node_modules/react-tailwindcss-datepicker/dist/index.esm.{js,ts}",
   ],
   safelist: [
-    {
-      pattern: /^(w-14|w-64)$/,
-    },
+    { pattern: /^w-(14|64|32|48|80)$/ },
+    { pattern: /^h-(screen|full)$/ },
   ],
   theme: {
     extend: {},
