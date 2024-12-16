@@ -1,5 +1,7 @@
 import { DeleteButton } from "../../../components/ui/Buttons";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const DeleteAccount = () => {
   const handleDelete = async () => {
     const confirmed = window.confirm(
@@ -8,7 +10,7 @@ const DeleteAccount = () => {
     if (confirmed) {
       try {
         const token = localStorage.getItem("token"); // Retrieve token from localStorage
-        const response = await fetch("http://localhost:3000/users/delete", {
+        const response = await fetch(`${BASE_URL}/users/delete`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`,
