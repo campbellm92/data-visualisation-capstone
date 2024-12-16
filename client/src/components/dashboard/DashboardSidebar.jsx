@@ -11,6 +11,12 @@ import Icons from "./DashboardIcons";
 export default function DashboardSidebar({ isCollapsed }) {
   const { darkMode } = useContext(ThemeContext);
 
+  // try storing styles in variable to fix resizing issue
+  const sidebarStyles = [
+    isCollapsed ? "w-14" : "w-64",
+    "h-full bg-base-300 transition-all duration-300 border-e-2 border-base-200",
+  ].join(" ");
+
   const sidebarItems = [
     { href: "/dashboard", label: "Dashboard", icon: <Icons.Home /> },
     { href: "/dataanalyst", label: "Data Analyst", icon: <Icons.DataStack /> },
@@ -18,11 +24,7 @@ export default function DashboardSidebar({ isCollapsed }) {
     { href: "/settings", label: "Settings", icon: <Icons.SettingsCog /> },
   ];
   return (
-    <aside
-      className={`${
-        isCollapsed ? "w-14" : "w-64"
-      } h-full bg-base-300 transition-all duration-300 border-e-2 border-base-200`}
-    >
+    <aside className={sidebarStyles}>
       <div className="p-5">
         <div
           className={`text-xl font-bold relative -top-1 ${
