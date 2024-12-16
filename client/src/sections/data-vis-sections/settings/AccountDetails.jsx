@@ -8,6 +8,8 @@ import {
 import { ButtonMediumWide } from "../../../components/ui/Buttons";
 import { AuthContext } from "../../../context/AuthProvider";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const AccountDetails = ({ data }) => {
   const { fetchUserData } = useContext(AuthContext);
 
@@ -84,7 +86,7 @@ const AccountDetails = ({ data }) => {
   const handleUpdate = async () => {
     try {
       const token = localStorage.getItem("token"); // Retrieve token from localStorage
-      const response = await fetch("http://localhost:3000/users/update", {
+      const response = await fetch(`${BASE_URL}/users/update`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,

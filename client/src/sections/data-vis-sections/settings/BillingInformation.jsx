@@ -9,6 +9,8 @@ import {
 } from "../../../hooks/input-sanitizers/useAuthValidators";
 import { ButtonMediumWide } from "../../../components/ui/Buttons";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const BillingInformation = ({ data }) => {
   const {
     value: firstName,
@@ -128,7 +130,7 @@ const BillingInformation = ({ data }) => {
   const handleUpdate = async () => {
     try {
       const token = localStorage.getItem("token"); // Retrieve token from localStorage
-      const response = await fetch("http://localhost:3000/users/update", {
+      const response = await fetch(`${BASE_URL}/users/update`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
