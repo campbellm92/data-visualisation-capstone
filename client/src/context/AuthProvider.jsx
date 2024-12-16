@@ -5,6 +5,8 @@ by Matthew Campbell
 
 import { createContext, useState, useEffect } from "react";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
@@ -28,7 +30,7 @@ export function AuthProvider({ children }) {
       }
 
       try {
-        const res = await fetch("http://localhost:3000/users/profile", {
+        const res = await fetch(`${BASE_URL}/users/profile`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

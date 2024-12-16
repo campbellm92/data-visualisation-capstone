@@ -5,6 +5,8 @@
 //
 //
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 import { useState, useEffect } from "react";
 import { addDaysToDate } from "../utils/utils";
 import { kAPI_URL, kDEFAULT_ERROR_MSG } from "../utils/constants";
@@ -21,7 +23,6 @@ export function useLocalisData(startDate, endDate) {
   const [cache, setCache] = useState({});
   const startDateDate = new Date(startDate);
   const endDateDate = new Date(endDate);
-
 
   useEffect(() => {
     // get all data and then filter on date below for efficiency
@@ -54,7 +55,7 @@ export function useLocalisData(startDate, endDate) {
           setFirstDate(dataSet[0].sample_date);
           setLastDate(dataSet[dataSet.length - 1].sample_date);
           setCache((prevCache) => ({ ...prevCache, [url]: dataSet }));
-          
+
           setDataSet(
             getUrlFromCache(cache, url).filter((sample) => {
               const sampleDateDate = new Date(sample.sample_date);
@@ -64,7 +65,6 @@ export function useLocalisData(startDate, endDate) {
               );
             })
           );
-          
         })
         .catch((error) => {
           setError(error.message ?? kDEFAULT_ERROR_MSG);
@@ -79,6 +79,6 @@ export function useLocalisData(startDate, endDate) {
     loading: loading,
     dataSet: dataSet,
     error: error,
-    totalDateRange: { firstDate, lastDate }
+    totalDateRange: { firstDate, lastDate },
   };
 }

@@ -8,6 +8,8 @@ import {
   useNameValidator,
 } from "../../../hooks/input-sanitizers/useAuthValidators";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 function Register({ toggle }) {
   const {
     value: firstName,
@@ -95,7 +97,7 @@ function Register({ toggle }) {
 
     try {
       // Send a POST request to register endpoint with email, password and local area
-      const res = await fetch("http://localhost:3000/users/register", {
+      const res = await fetch(`${BASE_URL}/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

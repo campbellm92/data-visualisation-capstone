@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { getUrlFromCache, getUrlFromServer } from "../utils/utils";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 export function useFetchUserData(endpoint) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
@@ -13,7 +15,7 @@ export function useFetchUserData(endpoint) {
     const fetchData = async () => {
       setLoading(true);
 
-      let url = `http://localhost:3000${endpoint}`;
+      let url = `${BASE_URL}${endpoint}`;
       const token = localStorage.getItem("token"); // Retrieve token from localStorage
 
       if (!token) {

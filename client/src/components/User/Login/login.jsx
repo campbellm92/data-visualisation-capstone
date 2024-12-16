@@ -9,6 +9,8 @@ import {
 } from "../../../hooks/input-sanitizers/useAuthValidators";
 import { AuthContext } from "../../../context/AuthProvider"; // Import AuthContext
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const Login = ({ toggle }) => {
   const {
     value: emailValue,
@@ -56,7 +58,7 @@ const Login = ({ toggle }) => {
 
     try {
       // Send a POST request to login endpoint with email and password
-      const res = await fetch("http://localhost:3000/users/login", {
+      const res = await fetch(`${BASE_URL}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
