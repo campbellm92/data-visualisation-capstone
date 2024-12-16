@@ -55,7 +55,10 @@ app.use(helmet());
 
 // set a cors header
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: [
+    "http://localhost:5173",
+    "https://localis-capstone-f7a22eb1b92e.herokuapp.com",
+  ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "x-api-key"],
 };
