@@ -36,7 +36,7 @@ var logger = require("morgan");
 const swaggerUI = require("swagger-ui-express");
 const swaggerDocument = require("./docs/openapi.json");
 require("dotenv").config();
-const helmet = require("helmet");
+const helmetConfig = require("./middleware/helmetConfig");
 
 const options = require("./knexfile.js");
 const knex = require("knex")(options);
@@ -51,7 +51,7 @@ var app = express();
 app.use(require("./middleware/logOriginalUrl"));
 // put this in for more intense logging
 //app.use(logger("dev"));
-app.use(helmet());
+app.use(helmetConfig);
 
 // set a cors header
 const corsOptions = {
