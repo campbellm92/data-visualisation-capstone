@@ -9,7 +9,7 @@
     "backend": "npm start --prefix backend",
     "dev": "concurrently \"npm run client\" \"npm run backend\"",
     "start": "npm start --prefix backend",
-    "heroku-postbuild": "npm install --prefix backend && npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "npm install --prefix backend && NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "devDependencies": {
     "concurrently": "^9.0.1"
