@@ -18,7 +18,11 @@ const helmetConfig = helmet({
       ],
       imgSrc: ["'self'", "data:", "https://maps.gstatic.com"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      frameSrc: ["'self", "https://www.google.com"],
+      frameSrc: [
+        "'self'",
+        "https://www.google.com",
+        "https://maps.googleapis.com",
+      ],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
     },
   },
