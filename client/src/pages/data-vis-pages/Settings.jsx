@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import AccountDetails from "../../sections/data-vis-sections/settings/AccountDetails";
-import BillingInformation from "../../sections/data-vis-sections/settings/BillingInformation";
+// import BillingInformation from "../../sections/data-vis-sections/settings/BillingInformation";
 import { useFetchUserData } from "../../../src/api/hooks/useFetchUserData";
 import DeleteAccount from "../../sections/data-vis-sections/delete-account/DeleteAccount";
 
@@ -9,7 +9,7 @@ const Settings = () => {
   // Object to keep track of open sections
   const [openSections, setOpenSections] = useState({
     accountDetails: true,
-    billingInformation: true,
+    // billingInformation: true,
     deleteAccount: true,
   });
 
@@ -59,7 +59,7 @@ const Settings = () => {
           <AccountDetails data={data} />
         </div>
       </div>
-      <div className="ml-10">
+      {/* <div className="ml-10">
         <div
           className={`collapse ${
             openSections.billingInformation ? "collapse-open" : "collapse-close"
@@ -75,7 +75,7 @@ const Settings = () => {
 
           <BillingInformation data={data} />
         </div>
-      </div>
+      </div> */}
       <div className="ml-10">
         <div
           className={`collapse ${
