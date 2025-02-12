@@ -2,46 +2,34 @@
 
 *by Matthew Campbell, Gary Cazzulino & Amrit Maharjan*
 
-This is a Queensland University of Technology capstone project completed in conjunction with [Localis](https://www.localis.co/), a 
-data localisation company based in Brisbane, Australia.
+This is a Queensland University of Technology capstone project completed in conjunction with [Localis](https://www.localis.co/), a data localisation company based in Brisbane, Australia.
 
-The application comprises a data visualisation dashboard with custom frontend and 
-backend solutions developed for local governments and businesses interested in data for the tourism industry in Queensland, Australia. 
+The application comprises a data visualisation dashboard with custom frontend and backend solutions developed for local governments and businesses interested in data for the tourism industry in Queensland, Australia. 
 
+The app's features include rich data visualisations of key tourism metrics in the form of bar charts, scatter plots and pie graphs, as well as the ability to generate large language model analyses of the data which can also be downloaded as PDF reports.   
 
-
-
-### Our stack consists of:
+#### Our stack consists of:
 
 - React and Tailwind CSS for UI components created for the dashboard
 - Recharts for graphing
 - Node.js/Express for backend APIs 
 - A MySQL database
+- OpenAI API for large language model data analysis
 
-### Technical enhancements include:
+#### Technical enhancements include:
 
 - Authentication and authorisation with JWT
 - Deployment with Heroku
 - State management using React Context API
 - Security considerations including hashing
 
-### Known issues:
+#### Known issues:
 
 - Sidebar not resizing properly at the /dashboard endpoint in the deployed version of the app
+- No completely robust solution developed to date for downloading PDF AI reports of data
 
 The project is live and can be viewed [here](https://localis-capstone-f7a22eb1b92e.herokuapp.com/). 
 
+To view the dashboard you will need to create an account, but feel free to just use a fake email address. 
 
-
-
-
-
- 
-How to get this project running:
-
-1. Run npm install at the project root as well as in the backend and client folders.
-2. Go back to the root of the project (capstone-project).
-3. Run npm run dev.
-4. Visit the localhost server that comes up in the console.
-5. Register an account with a fake email address.
-6. Login once registration successful.
+Questions or feedback can be directed here: info@mattdev.it
